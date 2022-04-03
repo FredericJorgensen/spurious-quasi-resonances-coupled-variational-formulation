@@ -5,7 +5,7 @@ Created on Sun Apr  3 16:52:26 2022
 
 @author: fredericjoergensen
 """
-from coupledUnregularisedMatrices import getA_Tilde
+from coupledUnregularisedMatrices import getA_Tilde, getF_Tilde
 from numpy import *
 import matplotlib.pyplot as plt
 
@@ -26,6 +26,14 @@ def getMinimumSingularValue(kappa, c_i, N):
         minSigma = min(minSigma, s.min())
     return minSigma
 
+def getMaximumSingularValueOfComposition(kappa, c_i, N):
+    maxSigma = 1000
+    for n in range(-N, N + 1):
+        matrixComposition= linalg.inv(getA_Tilde(kappa, c_i, n)) @ getF_Tilde(kappa, n)
+        u, s, vh = linalg.svd(matrixComposition)
+        maxSigma = min(maxSigma, s.min())
+    return maxSigma
+
 
 def plot(x, y, xLabelName, yLabelName):
     plt.figure()
@@ -42,5 +50,5 @@ if __name__ == "__main__":
     kVals = linspace(2.0, 10.0, 100)
     operatorNorms = zeros_like(kVals)
     for (index, kappa) in enumerate(kVals):
-        operatorNorms[index] = getMinimumSingularValue(kappa, c_i, N)
+        operatorNorms[index] = getMaximumSingularValueOfComposition(kappa, c_i, N)
     plot(kVals, operatorNorms, r"$\kappa$", r"$\sigma_{max}$")
