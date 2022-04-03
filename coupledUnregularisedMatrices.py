@@ -16,12 +16,11 @@ def alpha(kappa, c_i, n):
 
 
 
-def getATilde(kappa, c_i, n):
+def getA_Tilde(kappa, c_i, n):
     a_11 = 2 * pi * (alpha(kappa, c_i, n) + lambdaW(n, kappa))
     a_12 = - 2 * pi * (0.5 - lambdaK__adjoint(n, kappa))
     a_21 = 2 * pi * (0.5 - conj(lambdaK(n, kappa)))
     a_22 = 2 * pi * (conj(lambdaV(n, kappa)))
-    return 2 * pi * array([[a_11, a_12],
-                           [a_21, a_22]])
-
-
+    return array([[a_11, a_12],
+                  [a_21, a_22]])
+ 
