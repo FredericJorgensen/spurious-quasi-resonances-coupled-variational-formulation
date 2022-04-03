@@ -31,7 +31,7 @@ def getMaximumSingularValueOfComposition(kappa, c_i, N):
     for n in range(-N, N + 1):
         matrixComposition= linalg.inv(getA_Tilde(kappa, c_i, n)) @ getF_Tilde(kappa, n)
         u, s, vh = linalg.svd(matrixComposition)
-        maxSigma = min(maxSigma, s.min())
+        maxSigma = max(maxSigma, s.max())
     return maxSigma
 
 
@@ -50,5 +50,5 @@ if __name__ == "__main__":
     kVals = linspace(2.0, 10.0, 100)
     operatorNorms = zeros_like(kVals)
     for (index, kappa) in enumerate(kVals):
-        operatorNorms[index] = getMaximumSingularValueOfComposition(kappa, c_i, N)
+        operatorNorms[index] = getMaximumSingularValue(kappa, c_i, N)
     plot(kVals, operatorNorms, r"$\kappa$", r"$\sigma_{max}$")
