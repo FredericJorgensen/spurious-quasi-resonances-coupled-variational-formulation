@@ -10,4 +10,4 @@ If the first part of the name is *getMinimumSingularValue / getMaximumSingularVa
 Here *N* is defined after *N_*.
 
 ### Other
-The number after *c_i_* correspond to the optical index used.
+The number after *c_i_* corresponds to the optical index used.
