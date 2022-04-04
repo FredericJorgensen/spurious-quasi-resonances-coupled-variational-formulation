@@ -64,7 +64,7 @@ def simulate(scenarioName, scenarioMethod, c_i,  n = None, N = None, index = Non
         elif(n):
             sVals[i] = scenarioMethod(kappa, c_i, n, index)
 
-    plot(kappaVals, sVals, r"$\kappa$", r"$\sigma_{max}$", plotName)
+    plot(kappaVals, sVals, r"$\kappa$", r"$\sigma$", plotName)
 
 if __name__ == "__main__":
 
