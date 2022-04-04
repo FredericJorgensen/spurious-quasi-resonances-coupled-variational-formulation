@@ -20,7 +20,8 @@ def getSingularValueOfBlock(kappa, c_i, n, index = None):
 
 
 def getMaximumSingularValue(kappa, c_i, N):
-    #returns maximum singular value of matrices A_Tilde_n with n in [-N, N]
+    #
+    
     maxSigma = 0
     for n in range(-N, N + 1):
         s = getSingularValueOfBlock(kappa, c_i, n)
