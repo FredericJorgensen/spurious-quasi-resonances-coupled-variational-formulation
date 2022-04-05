@@ -97,7 +97,7 @@ def plotScenario(scenarioName, scenarioMethod, c_i,  n = None, N = None,
 
     kappaVals, sVals = simulate(scenarioMethod, c_i, n, N, index, plotRange)
 
-    plot(kappaVals, sVals, r"$\kappa$", r"$\sigma$", plotName)
+    plot(kappaVals, sVals, r"$\kappa$", yLabelName, plotName)
     if(plotBesselRoots):
         if(N == None):
             raise Exception("N needs to be defined to plot bessel roots")
@@ -118,7 +118,7 @@ if __name__ == "__main__":
 
     plotScenario("ratioMaximumMinimumSingularValue", ratioMaximumMinimumSingularValue,
                  3.0, N = 200, plotRange = [6.0, 8.0], plotBesselRoots= True,
-                 yLabelName = r"$\sigma_max / \sigma_min$")
+                 yLabelName = r"$\sigma_{max} / \sigma_{min}$")
 
     plotScenario("getMaximumSingularValue", getMaximumSingularValue, 3.0, N = 100)
 
