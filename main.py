@@ -58,8 +58,6 @@ def plot(x, y, xLabelName, yLabelName, plotName):
     plt.xlabel(xLabelName)
     plt.ylabel(yLabelName)
 
-    plt.savefig("./figures/" + plotName + ".pdf")
-
 
 def getPlotName(scenarioName, c_i, n = None, N = None, index = None,
                 plotBesselRoots = False, plotRange = [2.0, 10.0]):
@@ -92,7 +90,8 @@ def simulate(scenarioMethod, c_i,  n = None, N = None,
 
 
 def plotScenario(scenarioName, scenarioMethod, c_i,  n = None, N = None,
-                 index = None, plotBesselRoots = False, plotRange = [2.0, 10.0]):
+                 index = None, plotBesselRoots = False, plotRange = [2.0, 10.0],
+                 yLabelName = r"$\sigma$"):
 
     plotName = getPlotName(scenarioName, c_i, n, N, index, plotBesselRoots, plotRange)
 
@@ -107,6 +106,7 @@ def plotScenario(scenarioName, scenarioMethod, c_i,  n = None, N = None,
         maxVal = sVals.max()
         plt.vlines(besselRoots / sqrt(c_i), zeros_like(besselRoots),
                    maxVal * ones_like(besselRoots), linestyles='dashed')
+    plt.savefig("./figures/" + plotName + ".pdf")
 
 
 
@@ -117,8 +117,9 @@ def plotScenario(scenarioName, scenarioMethod, c_i,  n = None, N = None,
 if __name__ == "__main__":
 
     plotScenario("ratioMaximumMinimumSingularValue", ratioMaximumMinimumSingularValue,
-                 3.0, N = 200, plotRange = [6.0, 8.0], plotBesselRoots= True )
-    
+                 3.0, N = 200, plotRange = [6.0, 8.0], plotBesselRoots= True,
+                 yLabelName = r"$\sigma_max / \sigma_min$")
+
     plotScenario("getMaximumSingularValue", getMaximumSingularValue, 3.0, N = 100)
 
     plotScenario("getMinimumSingularValue", getMinimumSingularValue, 3.0, N = 100)
@@ -128,7 +129,5 @@ if __name__ == "__main__":
 
     plotScenario("getSingularValueOfBlock", getSingularValueOfBlock, 1.0, n = 5, index = 0)
     plotScenario("getSingularValueOfBlock", getSingularValueOfBlock, 1.0, n = 5, index = 1)
-
-    plotScenario("ratioMaximumMinimumSingularValue", ratioMaximumMinimumSingularValue, 3.0, N = 100)
 
 
