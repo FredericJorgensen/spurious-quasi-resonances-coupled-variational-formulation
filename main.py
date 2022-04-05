@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 """
 Created on Sun Apr  3 16:52:26 2022
 
@@ -8,6 +9,7 @@ Created on Sun Apr  3 16:52:26 2022
 from coupledUnregularisedMatrices import getA_Tilde, getF_Tilde
 from numpy import *
 import matplotlib.pyplot as plt
+from scipy.special import jn_zeros
 
 
 def getSingularValueOfBlock(kappa, c_i, n, index = None):
@@ -21,7 +23,7 @@ def getSingularValueOfBlock(kappa, c_i, n, index = None):
 
 def getMaximumSingularValue(kappa, c_i, N):
     #
-    
+
     maxSigma = 0
     for n in range(-N, N + 1):
         s = getSingularValueOfBlock(kappa, c_i, n)
@@ -36,18 +38,31 @@ def getMinimumSingularValue(kappa, c_i, N):
         minSigma = min(minSigma, s.min())
     return minSigma
 
+def ratioMaximumMinimumSingularValue(kappa, c_i, N):
+    return getMaximumSingularValue(kappa, c_i, N) / getMinimumSingularValue(kappa, c_i, N)
+
+
+def getBesselRootsFromInterval(a, b, N):
+    roots = array([])
+    for i in range(0,5):
+        rootsTemp = array([])
+        y = a
+        rootsTemp = jn_zeros(i, 10)
+        roots = concatenate((roots, rootsTemp))
+    return roots[logical_and(roots < b, roots > a)]
 
 
 def plot(x, y, xLabelName, yLabelName, plotName):
     plt.figure()
-    plt.plot(x,y)
+    plt.plot(x,y, 'r')
     plt.xlabel(xLabelName)
     plt.ylabel(yLabelName)
+
     plt.savefig("./figures/" + plotName + ".pdf")
 
 
-
-def simulate(scenarioName, scenarioMethod, c_i,  n = None, N = None, index = None):
+def getPlotName(scenarioName, c_i, n = None, N = None, index = None,
+                plotBesselRoots = False, plotRange = [2.0, 10.0]):
     plotName = scenarioName + "c_i" + str(c_i)
     if(n):
         plotName += "n_" + str(n)
@@ -55,8 +70,17 @@ def simulate(scenarioName, scenarioMethod, c_i,  n = None, N = None, index = Non
         plotName += "N_" + str(N)
     if(index):
         plotName += "index_" + str(index)
+    if(plotBesselRoots):
+        plotName += "plotBesselRoots_" + "true"
+    if(plotRange[0] != 2.0 or plotRange[1] != 10.0):
+        plotName += "plotRangeStart_" + str(plotRange[0]) + "plotRangeEnd_" + str(plotRange[1])
+    return plotName
 
-    kappaVals = linspace(2.0, 10.0, 100)
+
+
+def simulate(scenarioMethod, c_i,  n = None, N = None,
+                 index = None, plotRange = [2.0, 10.0]):
+    kappaVals = linspace(plotRange[0], plotRange[1], 100)
     sVals = zeros_like(kappaVals)
 
     for (i, kappa) in enumerate(kappaVals):
@@ -64,17 +88,49 @@ def simulate(scenarioName, scenarioMethod, c_i,  n = None, N = None, index = Non
             sVals[i] = scenarioMethod(kappa, c_i, N)
         elif(n):
             sVals[i] = scenarioMethod(kappa, c_i, n, index)
+    return kappaVals, sVals
+
+
+def plotScenario(scenarioName, scenarioMethod, c_i,  n = None, N = None,
+                 index = None, plotBesselRoots = False, plotRange = [2.0, 10.0]):
+
+    plotName = getPlotName(scenarioName, c_i, n, N, index, plotBesselRoots, plotRange)
+
+    kappaVals, sVals = simulate(scenarioMethod, c_i, n, N, index, plotRange)
 
     plot(kappaVals, sVals, r"$\kappa$", r"$\sigma$", plotName)
+    if(plotBesselRoots):
+        if(N == None):
+            raise Exception("N needs to be defined to plot bessel roots")
+        rescalePlotRange = array(plotRange) * sqrt(c_i)
+        besselRoots = getBesselRootsFromInterval(rescalePlotRange[0], rescalePlotRange[1], N)
+        maxVal = sVals.max()
+        plt.vlines(besselRoots / sqrt(c_i), zeros_like(besselRoots),
+                   maxVal * ones_like(besselRoots), linestyles='dashed')
+
+
+
+
+
+
 
 if __name__ == "__main__":
+    plotScenario("ratioMaximumMinimumSingularValue", ratioMaximumMinimumSingularValue,
+                 3.0, N = 200, plotRange = [6.0, 8.0], plotBesselRoots= True )
 
-    simulate("getMaximumSingularValue", getMaximumSingularValue, 3.0, N = 100)
 
-    simulate("getMinimumSingularValue", getMinimumSingularValue, 3.0, N = 100)
+if __name__ == "__main1__":
 
-    simulate("getSingularValueOfBlock", getSingularValueOfBlock, 3.0, n = 5, index = 0)
-    simulate("getSingularValueOfBlock", getSingularValueOfBlock, 3.0, n = 5, index = 1)
+    plotScenario("getMaximumSingularValue", getMaximumSingularValue, 3.0, N = 100)
 
-    simulate("getSingularValueOfBlock", getSingularValueOfBlock, 1.0, n = 5, index = 0)
-    simulate("getSingularValueOfBlock", getSingularValueOfBlock, 1.0, n = 5, index = 1)
+    plotScenario("getMinimumSingularValue", getMinimumSingularValue, 3.0, N = 100)
+
+    plotScenario("getSingularValueOfBlock", getSingularValueOfBlock, 3.0, n = 5, index = 0)
+    plotScenario("getSingularValueOfBlock", getSingularValueOfBlock, 3.0, n = 5, index = 1)
+
+    plotScenario("getSingularValueOfBlock", getSingularValueOfBlock, 1.0, n = 5, index = 0)
+    plotScenario("getSingularValueOfBlock", getSingularValueOfBlock, 1.0, n = 5, index = 1)
+
+    plotScenario("ratioMaximumMinimumSingularValue", ratioMaximumMinimumSingularValue, 3.0, N = 100)
+
+
