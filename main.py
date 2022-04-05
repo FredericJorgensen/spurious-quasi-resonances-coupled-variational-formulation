@@ -115,12 +115,10 @@ def plotScenario(scenarioName, scenarioMethod, c_i,  n = None, N = None,
 
 
 if __name__ == "__main__":
+
     plotScenario("ratioMaximumMinimumSingularValue", ratioMaximumMinimumSingularValue,
                  3.0, N = 200, plotRange = [6.0, 8.0], plotBesselRoots= True )
-
-
-if __name__ == "__main1__":
-
+    
     plotScenario("getMaximumSingularValue", getMaximumSingularValue, 3.0, N = 100)
 
     plotScenario("getMinimumSingularValue", getMinimumSingularValue, 3.0, N = 100)
