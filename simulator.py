@@ -8,6 +8,7 @@ class Simulator:
     def __init__(self, model, eta=None) -> None:
         self.model = MatrixModel(model, eta)
         self.modelName = model
+        self.eta = eta
 
     # define scenarios
 
@@ -117,6 +118,8 @@ class Simulator:
             plotName += "index_" + str(index)
         if(plotBesselRoots):
             plotName += "plotBesselRoots_" + "true"
+        if(self.eta):
+            plotName += "eta" + str(self.eta)
         if(plotRange[0] != 2.0 or plotRange[1] != 10.0):
             plotName += "plotRangeStart_" + \
                 str(plotRange[0]) + "plotRangeEnd_" + str(plotRange[1])
