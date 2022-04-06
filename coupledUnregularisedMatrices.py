@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Apr  3 16:58:43 2022
-
-@author: fredericjoergensen
-"""
-
 from numpy import *
 from scipy.special import jv, jvp
 from eigenvaluesBIOs import lambdaV, lambdaK, lambdaK__adjoint, lambdaW

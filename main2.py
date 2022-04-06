@@ -1,4 +1,4 @@
-from coupledUnregularisedMatrices import getA_Tilde, getF_Tilde
+from coupledRegularisedMatrices import getA_Tilde
 from numpy import *
 import matplotlib.pyplot as plt
 from scipy.special import jn_zeros
@@ -108,21 +108,7 @@ def plotScenario(scenarioName, scenarioMethod, c_i,  n = None, N = None,
 
 if __name__ == "__main__":
 
-    plotScenario("ratioMaximumMinimumSingularValue", ratioMaximumMinimumSingularValue,
-                 3.0, N = 200, plotRange = [6.80, 6.82], plotBesselRoots= True,
+    plotScenario("ratioMaximumMinimumSingularValue", getMinimumSingularValue,
+                 3.0, N = 200, plotRange = [5.0, 10.0], plotBesselRoots= True,
                  yLabelName = r"$\sigma_{max} / \sigma_{min}$")
-    #plotScenario("ratioMaximumMinimumSingularValue", ratioMaximumMinimumSingularValue,
-                 #3.0, N = 200, plotRange = [6.0, 8.0], plotBesselRoots= True,
-                 #yLabelName = r"$\sigma_{max} / \sigma_{min}$")
-
-    #plotScenario("getMaximumSingularValue", getMaximumSingularValue, 3.0, N = 100)
-
-    #plotScenario("getMinimumSingularValue", getMinimumSingularValue, 3.0, N = 100)
-
-    #plotScenario("getSingularValueOfBlock", getSingularValueOfBlock, 3.0, n = 5, index = 0)
-    #plotScenario("getSingularValueOfBlock", getSingularValueOfBlock, 3.0, n = 5, index = 1)
-
-    #plotScenario("getSingularValueOfBlock", getSingularValueOfBlock, 1.0, n = 5, index = 0)
-    #plotScenario("getSingularValueOfBlock", getSingularValueOfBlock, 1.0, n = 5, index = 1)
-
 
