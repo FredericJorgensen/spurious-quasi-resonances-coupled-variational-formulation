@@ -13,3 +13,9 @@ if __name__ == "__main__":
     regularisedSimulator.plotScenario("ratioMaximumMinimumSingularValue", 3.0, N=100, plotRange=[
                                         4.0, 8.0])
 
+    regularisedSimulator.plotScenario("MaximumSingularValue", 3.0, N=100, plotRange=[
+                                        4.0, 8.0])
+
+    regularisedSimulator.plotScenario("MinimumSingularValue", 3.0, N=100, plotRange=[
+                                        4.0, 8.0])
+

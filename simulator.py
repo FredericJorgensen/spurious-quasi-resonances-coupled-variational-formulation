@@ -7,6 +7,7 @@ from scipy.special import jn_zeros
 class Simulator:
     def __init__(self, model, eta=None) -> None:
         self.model = MatrixModel(model, eta)
+        self.modelName = model
 
     # define scenarios
 
@@ -67,13 +68,13 @@ class Simulator:
 
         scenarioMethodOf = {"getSingularValueOfBlock": self.getSingularValueOfBlock,
                             "ratioMaximumMinimumSingularValue": self.ratioMaximumMinimumSingularValue,
-                            "getMinimumSingularValue": self.getMinimumSingularValue,
-                            "getMaximumSingularValue": self.getMaximumSingularValue}
+                            "MinimumSingularValue": self.getMinimumSingularValue,
+                            "MaximumSingularValue": self.getMaximumSingularValue}
 
         yLabelNameOf = {"getSingularValueOfBlock": r"$\sigma$",
                         "ratioMaximumMinimumSingularValue": r"$\sigma_{max} / \sigma_{min}$",
-                        "getMinimumSingularValue": r"$\sigma_{min}$",
-                        "getMaximumSingularValue": r"$\sigma_{max}$"}
+                        "MinimumSingularValue": r"$\sigma_{min}$",
+                        "MaximumSingularValue": r"$\sigma_{max}$"}
 
         scenarioMethod = scenarioMethodOf[scenarioName]
         yLabelName = yLabelNameOf[scenarioName]
@@ -95,7 +96,7 @@ class Simulator:
             maxVal = sVals.max()
             plt.vlines(besselRoots / sqrt(c_i), zeros_like(besselRoots),
                        maxVal * ones_like(besselRoots), linestyles='dashed')
-        plt.savefig("./figures/" + plotName + ".pdf")
+        plt.savefig("./figures/" + self.modelName + "/" + plotName + ".pdf")
 
     # methods for plotting
 
