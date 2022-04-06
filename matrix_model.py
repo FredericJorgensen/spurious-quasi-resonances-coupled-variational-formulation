@@ -22,7 +22,7 @@ class MatrixModel:
             if(self.eta == None):
                 raise Exception(
                     "Missing argument: The second argument is missing. There was no input provided for eta.")
-            a_11 = 2 * pi *self. R__der__at__1(kappa, c_i, n) * self.R__at__1(kappa,
+            a_11 = 2 * pi *self.R__der__at__1(kappa, c_i, n) * self.R__at__1(kappa,
                                                                     c_i, n) + self.lambdaW(n, kappa) * self.P("V", "V", kappa, c_i, n)
             a_12 = (0.5 - self.lambdaK__adjoint(n, kappa)) * \
                 self.P("y", "V", kappa, c_i, n)
@@ -59,17 +59,17 @@ class MatrixModel:
 
     def R__der__at__1(self, kappa, c_i, n) -> float:
         z = kappa ** 2 * c_i
-        factor1 = R__at__1(kappa, c_i, n)
+        factor1 = self.R__at__1(kappa, c_i, n)
         factor2 = jvp(n, z) / jv(n, z) * z
         return factor1 * factor2
 
     def P(self, a: str, b: str, kappa: float, c_i: float, n: int) -> float:
         if(a == "V" and b == "V"):
-            return 2 * pi * R__at__1(kappa, c_i, n) ** 2
+            return 2 * pi * self.R__at__1(kappa, c_i, n) ** 2
         elif(a == "y" and b == "V"):
-            return 2 * pi * R__at__1(kappa, c_i, n)
+            return 2 * pi * self.R__at__1(kappa, c_i, n)
         elif(a == "V" and b == "y"):
-            return 2 * pi * conj(R__at__1(kappa, c_i, n))
+            return 2 * pi * conj(self.R__at__1(kappa, c_i, n))
         elif(a == "y" and b == "y"):
             return 2 * pi
         else:
