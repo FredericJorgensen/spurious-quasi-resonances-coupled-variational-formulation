@@ -1,5 +1,4 @@
-
-\documentclass[10pt,journal,compsoc]{IEEEtran}
+\documentclass[10pt,journal,compsoc, onecolumn]{IEEEtran}
 
 \usepackage[pdftex]{graphicx}    
 \usepackage{cite}
@@ -26,6 +25,7 @@
 \usepackage{trfsigns}
 \usepackage{capt-of}
 \usepackage{booktabs}
+\usepackage{comment}
 \usepackage{amsmath}
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
@@ -97,22 +97,193 @@ singlelinecheck=false % <-- important
 \IEEEpeerreviewmaketitle
 
 
+\section{Theoretical Background}
 
+\subsubsection{Lipschitz Domain}
+%Another source : https://cloudflare-ipfs.com/ipfs/bafykbzacedngw4fznskrifjbxzdjkgixzzu7mwmb4sqvsywfkq3a7mdyjclfs?filename=William%20McLean%20-%20Strongly%20Elliptic%20Systems%20and%20Boundary%20Integral%20Equations%20%20-Cambridge%20University%20Press%20%282000%29.pdf 
+%Wikipedia 
+
+
+\begin{remark}
+Henceforth we shall require that, roughly speaking that \(\Omega\)  is locally the set of points located above the graph of some Lipschitz function and the boundary is this graph. 
+\end{remark}
+
+
+
+\begin{definition}[Lipschitz domain]
+Let \(n \in \mathbb{N} .\) Let \(\Omega\) be a domain of \(\mathbb{R}^{n}\) and let \(\partial \Omega\) denote the boundary of \(\Omega .\) Then \(\Omega\) is called a Lipschitz domain if for every point \(p \in \partial \Omega\) there exists a hyperplane \(H\) of dimension \(n-1\) through \(p\), a Lipschitz-continuous function \(g: H \rightarrow \mathbb{R}\) over that hyperplane, and reals \(r>0\) and \(h>0\) such that
+\begin{itemize}
+    \item \(\Omega \cap C=\left\{x+y \vec{n} \mid x \in B_{r}(p) \cap H,-h<y<g(x)\right\}\)
+    \item \((\partial \Omega) \cap C=\left\{x+y \vec{n} \mid x \in B_{r}(p) \cap H, g(x)=y\right\}\)
+\end{itemize}
+where \(\vec{n}\) is a unit vector that is normal to \(H\) and \(C:=\left\{x+y \vec{n} \mid x \in B_{r}(p) \cap H,-h<y<h\right\}\).
+\end{definition}
+
+
+\subsubsection{Sobolev Space}
+\begin{definition}[$H^1$]
+For a bounded domain \(\Omega \subset \mathbb{R}^{d}, d \in \mathbb{N}\), we define the Sobolev space \(H^{1}(\Omega):=\left\{v \in L^{2}(\Omega): \int_{\Omega}|\operatorname{grad} v(x)|^{2} \mathrm{~d} x<\infty\right\}\) as a Hilbert space with norm \(\|v\|_{H^{1}(\Omega)}^{2}:=\|v\|_{L^{2}(\Omega)}^{2}+|v|_{H^{1}(\Omega)}^{2}, \quad|v|_{H^{1}(\Omega)}^{2}:=\int_{\Omega}|\operatorname{grad} v(x)|^{2} \mathrm{~d} x\)
+\end{definition}
+
+
+
+
+
+
+\begin{definition}[$H^{1/2}$]
+
+\end{definition}
+
+\begin{definition}[$H^k_{loc}$]
+
+\end{definition}
+
+\subsubsection{Trace operators}
+\begin{definition}[Trace operator]
+A trace operator is a linear mapping from a function space on the volume domain \(\Omega\) to a function space on (parts of) the boundary \(\partial \Omega .\)
+\end{definition}
+
+
+\begin{definition}[(Layer) potential]
+A (layer) potential is a linear mapping from a function space on \(\partial \Omega\) into a function space on the
+volume domain \(\Omega .\)
+\end{definition}
+
+
+\begin{definition}[Dirichlet Trace]
+The Dirichlet trace (operator) \(\mathrm{T}_{D}\) boils down to pointwise restriction for smooth functions:
+$$
+\left(\mathrm{T}_{D} w\right)(\boldsymbol{x}):=w(\boldsymbol{x}) \quad \forall \boldsymbol{x} \in \Gamma, \quad w \in C^{\infty}(\bar{\Omega}).
+$$
+\end{definition}
+\begin{definition}[Dirichlet trace space]
+The Dirichlet trace space \(H^{\frac{1}{2}}(\Gamma)\) is the Hilbert space obtained by completion of \(\left.C^{\infty}(\bar{\Omega})\right|_{\Gamma}\) with
+respect to the energy norm 
+$$\|\mathfrak{u}\|_{H^{\frac{1}{2}}(\Gamma)}:=\inf \left\{\|v\|_{H^{1}(\Omega)}: v \in C^{\infty}(\bar{\Omega}), \top_{D} v=\mathfrak{u}\right\},\left.\quad \mathfrak{u} \in C^{\infty}(\bar{\Omega})\right|_{\Gamma}.$$
+\end{definition}
+
+\begin{theorem}
+The Dirichlet trace \(\mathrm{T}_{D}\) according can be extended to a continuous and surjective linear
+operator \(\mathrm{T}_{D}: H^{1}(\Omega) \rightarrow H^{\frac{1}{2}}(\Gamma)\)
+\end{theorem}
+
+\begin{definition}[Neumann Trace]
+For smooth functions the Neumann trace (operator) \(\mathrm{T}_{N}\) is defined by
+$$
+\left(\mathrm{T}_{N} w\right)(\boldsymbol{x}):=\operatorname{grad} w \cdot \boldsymbol{n}(\boldsymbol{x}) \quad \forall \boldsymbol{x} \in \Gamma, w \in C^{\infty}(\bar{\Omega}).
+$$
+\end{definition}
+
+\begin{definition}[Neumann Trace Space]
+The Neumann trace space \(H^{-\frac{1}{2}}(\Gamma)\) is the Hilbert space obtained by the completion of \(C^{0}(\Gamma)\) with respect to the norm $$\|\phi\|_{H^{-\frac{1}{2}}(\Gamma)}:=\|\widetilde{\phi}\|_{\widetilde{H}^{-1}(\Omega)}$$ where  \(\widetilde{\phi}\) is the
+"extension by zero to \(\mathbb{R}^{d \text { " }}\) of \(\phi .\)
+We have the definition \(\|\rho\|_{\widetilde{H}^{-1}(\Omega)}:=|u|_{H^{1}\left(\mathbb{R}^{3}\right)} \quad\) where \(u\) solves \(\quad\left\{\begin{array}{c}-\Delta u=\widetilde{\rho} \text { in } \mathbb{R}^{3} \\ u \text { satisfies decay conditions }\end{array}\right.\). 
+\end{definition}
+
+\begin{definition}[Space of function with square-integrable Laplacian]
+We define the Hilbert space
+$$
+H(\Delta, \Omega):=\left\{v \in H^{1}(\Omega): \Delta v \in L^{2}(\Omega)\right\}
+$$
+with norm
+$$
+\|u\|_{H(\Delta, \Omega)}^{2}:=\|u\|_{H^{1}(\Omega)}^{2}+\|\Delta u\|_{L^{2}(\Omega)}^{2}, \quad u \in H(\Delta, \Omega).
+$$
+\end{definition}
+
+\begin{theorem}
+The Neumann trace \(\mathrm{T}_{N}\) can be extended to a continuous mapping \(\mathrm{T}_{N}: H(\Delta, \Omega) \rightarrow H^{-\frac{1}{2}}(\Gamma)\).
+\end{theorem}
+
+\begin{definition}[\(C_{\mathrm{comp}}^{\infty}\left(\mathbb{R}^{d}\right)\)]
+
+\end{definition}
+
+
+\subsubsection{Notations}
+\begin{itemize}
+    \item Consider a bounded Lipschitz open set $\Omega^{-} \subset \mathbb{R}^{d}$, $d=2,3$.
+    \item \(\Omega^{+}:=\mathbb{R}^{d} \backslash \overline{\Omega^{-}}\)
+    \item \(\Gamma:=\partial \Omega^{-}=\partial \Omega^{+}\)
+    \item \(\mathbf{n}\) is the unit normal vector field on \(\Gamma\) pointing from \(\Omega^{-}\)into \(\Omega^{+}\)
+    \item For any \(\varphi \in L_{\text {loc }}^{2}\left(\mathbb{R}^{d}\right)\), we let \(\varphi^{-}:=\left.\varphi\right|_{\Omega^{-}}\)and \(\varphi^{+}:=\left.\varphi\right|_{\Omega^{+}}\)
+    \item \(H_{\text {loc }}^{1}\left(\Omega^{\pm}, \Delta\right):=\left\{v: \chi v \in H^{1}\left(\Omega^{\pm}\right), \Delta(\chi v) \in L^{2}\left(\Omega^{\pm}\right)\right.\)for all \(\left.\chi \in C_{\text {comp }}^{\infty}\left(\mathbb{R}^{d}\right)\right\}\)
+    \item Dirichlet and Neumann trace operators\footnote{The Dirichlet trace operator boils down to pointwise restriction.}: \(\gamma_{D}^{\pm}: H_{\mathrm{loc}}^{1}\left(\Omega_{\pm}\right) \rightarrow H^{1 / 2}(\Gamma) \quad\) and \(\quad \gamma_{N}^{\pm}: H_{\mathrm{loc}}^{1}\left(\Omega_{\pm}, \Delta\right) \rightarrow H^{-1 / 2}(\Gamma)\) with \(\gamma_{D}^{\pm} v:=\left.v^{\pm}\right|_{\Gamma}\) and \(\gamma_{N}^{\pm}\)such that if \(v \in H_{\mathrm{loc}}^{2}\left(\Omega_{\pm}\right)\)then \(\gamma_{N}^{\pm} v=\mathbf{n} \cdot \gamma_{D}^{\pm}(\nabla v)\)
+    \item Cauchy trace: \(\gamma_{C}^{\pm}: H_{\mathrm{loc}}^{1}\left(\Omega^{\pm}, \Delta\right) \rightarrow H^{1 / 2}(\Gamma) \times H^{-1 / 2}(\Gamma)\), \(\gamma_{C}^{\pm}:=\left(\gamma_{D}^{\pm}, \gamma_{N}^{\pm}\right)\)
+    \item Sommerfeld radiation condition: \(\varphi \in C^{1}\left(\mathbb{R}^{d} \backslash B_{R}\right)\), for some ball \(B_{R}:=\{|\mathbf{x}|<R\}\), and \(\kappa>0\) satisfies this condition if \(\lim _{r \rightarrow \infty} r^{\frac{d-1}{2}}\left(\frac{\partial \varphi(\mathbf{x})}{\partial r}-\mathrm{i} \kappa \varphi(\mathbf{x})\right)=0\) in all directions. We then write \(\varphi \in \operatorname{SRC}(\kappa)\)
+%\footnote{From Wikipedia: The Sommerfeld radiation condition is used to solve uniquely the Helmholtz equation. It makes sure that \"the sources must be sources, not sinks of energy. The energy which is radiated from the sources must scatter to infinity; no energy may be radiated from infinity into ... the field.\"}
+\end{itemize}
+
+\begin{theorem}[Green's first formula]
+    (From Wikipedia)
+    \(\int_{U}\left(\phi \nabla^{2} \psi+\nabla \phi \cdot \nabla \psi\right) \mathrm{d} U=\int_{\partial U} \phi \frac{\partial \psi}{\partial n} \mathrm{~d} S\)
+\end{theorem}
+\newpage
 \section{Problem }
-We start by formulating the problem ...
+We start by formulating the problem. We want to investigate the occurence of spurious quasi-resonances in the variational formulation of the following Helmholtz transition problem.
 
-We want to find the minimal SV of the lhs of: 
+\begin{definition}[Helmholtz Transmission Problem]
+Find \(u \in H_{\operatorname{loc}}^{1}\left(\mathbb{R}^{d} \backslash \Gamma\right) \cap \operatorname{SRC}\left(k \sqrt{c_{o}}\right)\) 
+such that
+$$
+\begin{aligned}
+    \left(\Delta+\kappa^{2} n_{i}\right) u^{-} &=0 & & \text { in } \Omega^{-} 
+    \\\left(\Delta+\kappa^{2} n_{o}\right) u^{+} &=0 & & \text { in } \Omega^{+} 
+    \\ \gamma_{C}^{-} u^{-} &=\gamma_{C}^{+} u^{+}+\mathbf{f} & & \text { on } \Gamma.
+\end{aligned}
+$$
+\end{definition}
+
+\subsection{Deriving the variational formulation}
+We will now state the variational formulation of the problem in $\Omega^-$. \\
+Integration by parts in $\Omega^-$ using Green's first formula implies 
+$$
+a(U, V) - \left(\gamma_{1}^{-} U, \gamma_{0}^{-} V\right)_{\Gamma}=0 \quad \forall v \in H^{1}\left(\Omega^{-}\right)
+$$
+
+This variational equation can be coupled to the transmission conditions using the BIE. As the problem is equivalent to the problem in the 2006 paper with $U_i = 0, f = 0$, we can use the same formulation as in the 2006 paper.\\
+\\
+The formulation is: \\ 
 Find \(U \in H^{1}(\Omega), \vartheta \in H^{-1 / 2}(\Gamma)\) and \(p \in H^{1}(\Gamma)\) such that for all \(V \in H^{1}(\Omega), \varphi \in H^{-1 / 2}(\Gamma)\)
 and \(q \in H^{1}(\Gamma)\) there holds
-\(\begin{aligned} \mathrm{q}_{\kappa}(U, V)+\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), \gamma_{D}^{-} V\right)_{\Gamma}-\left(\left(\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa}^{\prime}\right)(\vartheta), \gamma_{D}^{-} V\right)_{\Gamma} &=\mathrm{f}_{2}(V) \\\left(\varphi,\left(\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa}\right)\left(\gamma_{D}^{-} U\right)\right)_{\Gamma}+\left(\varphi, \mathrm{V}_{\kappa}(\vartheta)\right)_{\Gamma}-i \eta(\varphi, p)_{\Gamma} &=\mathrm{g}_{2}(V) \\-\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), q\right)_{\Gamma}-\left(\left(\mathrm{K}_{\kappa}^{\prime}+\frac{1}{2} \mathrm{Id}\right)(\vartheta), q\right)_{\Gamma}+\mathrm{b}(p, q) &=\mathrm{h}_{2}(q) \end{aligned}\)
+$$
+\begin{aligned}
+    \mathrm{q}_{\kappa}(U, V)+\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), \gamma_{D}^{-} V\right)_{\Gamma}-\left((\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa}^{\prime})(\vartheta), \gamma_{D}^{-} V\right)_{\Gamma} &=\mathrm{f}_{2}(V) \\
+    \left((\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa})\left(\gamma_{D}^{-} U\right), \varphi\right)_{\Gamma}+\left(\mathrm{V}_{\kappa}(\vartheta), \varphi\right)_{\Gamma}+i \overline{\eta}(p, \varphi)_{\Gamma} &=\overline{\mathrm{g}_{2}}(V) \\
+    -\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), q\right)_{\Gamma}-\left((\mathrm{K}_{\kappa}^{\prime}+\frac{1}{2} \mathrm{Id})(\vartheta), q\right)_{\Gamma}+\mathrm{b}(p, q) &=\mathrm{h}_{2}(q).
+\end{aligned}
+$$
+\section{How to investigate Stability}
+To figure out how stable this formulation is, we use the inf-sup constant
+\begin{theorem}
+    Existence and uniqueness of discrete solutions \(u_{h} \in V_{h}\) and the convergence \(u_{h} \rightarrow u\) can only
+hold if the sesquilinear form a satisfies a discrete inf-sup condition, cf. [89, Eq. 2.3.6]: There
+exists a constant \(\gamma>0\) such that for all \(v_{h} \in V_{h}\) and the whole family \(V_{h}\) with \(h \rightarrow 0\), there
+holds
+$$
+\sup _{0 \neq w_{h} \in V_{h}} \frac{\left|\mathrm{a}\left(v_{h}, w_{h}\right)\right|}{\left\|w_{h}\right\|_{V}} \geq \gamma\left\|v_{h}\right\|_{V}
+$$ (from P.Meury thesis).
+\end{theorem}
+We will now investgate the reliability of the variational formulation by investigating the inf-sup constant of the sesquilinear form on the left side of the variational problem. 
+\begin{definition}
+$$
+\gamma = \inf_{0 \neq v_h \in V_h}\sup _{0 \neq w_{h} \in V_{h}} \frac{\left|\mathrm{a}\left(v_{h}, w_{h}\right)\right|}{\left\|w_{h}\right\|_{V}\left\|v_{h}\right\|_{V}} 
+$$ 
+\end{definition}
+\begin{remark}
+    We can estimate the inf-sup constant from the minimum singular value of the Galerkin matrix (proven in P.Meury thesis).
+\end{remark}
+
+So we now derive the Galerkin Matrix to find the inf-sup constant. 
+
 
 \section{Derivation of Galerkin Matrix}
 First, we notice that we can restrict ourselves to finding functions on $H^{\frac{1}{2}}(\Gamma)\times H^{-\frac{1}{2}}(\Gamma) \times H^1(\Gamma)$, since the bilinear form only depends on the restriction $\gamma_D^-U$. 
 
-No we will further restrict this space to finite subspaces and choose orthonormal bases for the finite subspaces. 
-\subsection{Condition for $U$ }
+Now we will further restrict this space to finite subspaces and choose orthonormal bases for the finite subspaces. 
+\subsection{Basis functions of $\mathcal{H}^{\frac{1}{2}}(\Gamma)$}
 We make the Fourier Ansatz $V_n = V^r_n e^{i n \phi}$. 
-Since $U \in H^1(\Omega^-)$ must satisfy  $(\Delta + \kappa^2 n_i) U = 0$, we have 
+Since $U$ must satisfy  $(\Delta + \kappa^2 n_i) U = 0$, we have 
 $$
 r^2 \partial_r^2V_n^r + r \partial_r V_n^r + (r^2 \kappa^2 n_i - n^2)V^r_n = 0.
 $$
@@ -121,43 +292,148 @@ This is Bessel's equation. Since we require convergence at the origin we have $V
 
 We restrict our functions to $H^{\frac{1}{2}}$ and want to get an orthonormal basis $U_n(\phi) = v_n V_n(1, \phi)$ for this space: 
 $$
-(U_n, U_m)_{H^1(\Gamma)} = \delta_{nm}
+(U_n, U_m)_{H^{\frac{1}{2}}(\Gamma)} = \delta_{nm}
 $$
 This implies: 
 $$
-(U_n, U_m)_{H^1(\Gamma)} = (U_n, U_m)_{\Gamma} + (\div U_n, \div U_m)_{\Gamma}
+(U_n, U_m)_{H^{\frac{1}{2}}(\Gamma)} = (U_n, U_m)_{\Gamma} + (\div U_n, \div U_m)_{\Gamma} = \delta_{nm}
 $$
 
 $$
- = |v_n|^2 2\pi \delta_{nm} \left( (\int_0^1 dr r (J_n(\kappa \sqrt{n_i} r)^2 + \kappa^2 n_i J_n'(\kappa \sqrt{n_i} r)^2 ) - n^2 
- \right)
+ = |v_n|^2 2\pi(1 + n^2) |J_n(\kappa \sqrt{n_i} )|^2   \delta_{nm}  \overbrace{=}^! \delta_{nm}
 $$
+Therefore, we can choose real constants $v_n = \frac{1}{\sqrt{2 \pi (1 + n^2)} |J_n(\kappa \sqrt{n_i} )|}$.
 
-$$
-= |v_n|^2 2\pi \delta_{nm} \left( (\int_0^1 dr r (J_n(\kappa \sqrt{n_i} r)^2 + \kappa^2 n_i  J_n'(\kappa \sqrt{n_i} r)^2 ) - n^2 
-\right)
-$$
-
-where we used \(\nabla f = \frac{\partial f}{\partial r} \hat{\mathbf{r}}+\frac{1}{r} \frac{\partial f}{\partial \theta} \hat{\boldsymbol{\theta}}\)  and \(\frac{d}{d x} J_{n}(x)=+\frac{1}{2}\left(J_{n-1}(x)-J_{n+1}(x)\right)\) 
-%(https://math.libretexts.org/Bookshelves/Differential_Equations/Book%3A_Partial_Differential_Equations_(Walet)/10%3A_Bessel_Functions_and_Two-Dimensional_Problems/10.05%3A_Properties_of_Bessel_functions)
-etc. check with Meury
-
+\subsubsection*{Notes}
+In the calculation above we used \(\nabla f = \frac{\partial f}{\partial r} \hat{\mathbf{r}}+\frac{1}{r} \frac{\partial f}{\partial \theta} \hat{\boldsymbol{\theta}}\) and eliminated the $r-$ dependency.
+\begin{comment}
 \textit{Note (from NumPDE Advanced):} 1. The Dirichlet trace space \(H^{\frac{1}{2}}(\Gamma)\) is the Hilbert space obtained by completion of \(\left.C^{\infty}(\bar{\Omega})\right|_{\Gamma}\) with
 respect to the energy norm
 $$
 \|\mathfrak{u}\|_{H^{\frac{1}{2}}(\Gamma)}:=\inf \left\{\|v\|_{H^{1}(\Omega)}: v \in C^{\infty}(\bar{\Omega}), T_{D} v=\mathfrak{u}\right\},\left.\quad \mathfrak{u} \in C^{\infty}(\bar{\Omega})\right|_{\Gamma}
 $$. 
+\end{comment}
 
-2. The Dirichlet trace \(\mathrm{T}_{D}\) according to Def. 1.3.3 can be extended to a continuous and surjective linear
-operator \(\mathrm{T}_{D}: H^{1}(\Omega) \rightarrow H^{\frac{1}{2}}(\Gamma)\)
+%2. The Dirichlet trace \(\mathrm{T}_{D}\) according to Def. 1.3.3 can be extended to a continuous and surjective linear
+%$operator \(\mathrm{T}_{D}: H^{1}(\Omega) \rightarrow H^{\frac{1}{2}}(\Gamma)\)
 
 \subsection{Other basis functions}
-Next to $U_n$ we also pick orthonormal basis functions for $H^{-\frac{1}{2}}(\Gamma)$ and $H^1(\Gamma)$: 
-$\theta_n = ... e^{i n \phi}$
-$p_n = ... e^{i n \phi}$
+We also pick orthonormal basis functions for $\mathcal{H}^{-\frac{1}{2}}(\Gamma)$ and $\mathcal{H}^1(\Gamma)$.
+We choose $$\theta_n =w_n e^{i n \phi}\text{ where } w_n = \frac{(1 + n^2)^{\frac{1}{4}}}{\sqrt{2 \pi}}$$ for $\mathcal{H}^{\frac{1}{2}}(\Gamma)$ and for $\mathcal{H}^{-\frac{1}{2}}(\Gamma)$ we choose  $$p_n = l_n e^{i n \phi} \text{ where } l_n = \frac{1}{\sqrt{2 \pi (1+n^2)}}. $$
 
- \subsection*{Constructing the Galerkin Matrix}
 
+
+\subsubsection*{Notes}
+See P. Meury 3.22 (Lemma )for explanation why we use these bases.
+
+\begin{comment}
+Definition 3.21. For \(0 \leq s<\infty\) the space \(\mathcal{H}^{s}(\mathbb{S})\) is defined as the subspace of all functions
+\(\varphi \in L^{2}(\mathbb{S})\) with the property
+$$
+\sum_{n \in \mathbb{Z}}\left(1+n^{2}\right)^{s}\left|\varphi_{n}\right|^{2}<\infty
+$$ 
+for the Fourier coefficients \(\varphi_{n}\) of \(\varphi\). With the inner product defined by
+$$
+(\varphi, \psi)_{\mathcal{H}^{s}(\mathbb{S})}:=\sum_{n \in \mathbb{Z}}\left(1+n^{2}\right)^{s} \varphi_{n} \overline{\psi_{n}}
+$$
+
+The Neumann trace space \(H^{-\frac{1}{2}}(\Gamma)\) is the Hilbert space obtained by the completion of \(C^{0}(\Gamma)\) with
+respect to the norm
+$$
+\|\phi\|_{H^{-\frac{1}{2}(\Gamma)}}:=\|\widetilde{\phi}\|_{\widetilde{H}^{-1}(\Omega)}
+$$
+
+The norm is defined by this: 
+
+Definition 1.1.80. Dual norm for source charge distributions
+For \(\rho \in L^{2}(\Omega)\) let \(\widetilde{\rho} \in L^{2}\left(\mathbb{R}^{3}\right)\) be its extension by zero to \(\mathbb{R}^{3}\) and define
+\(\|\rho\|_{\tilde{H}^{-1}(\Omega)}:=|u|_{H^{1}\left(\mathbb{R}^{3}\right)} \quad\) where \(u\) solves \(\left\{\begin{array}{r}-\Delta u=\widetilde{\rho} \text { in } \mathbb{R}^{3} \\ u \text { satisfies decay conditions }(1.1 .76)\end{array}\right.\)
+The completion of \(L^{2}(\Omega)\) w.r.t. \(\|\cdot\|_{\tilde{H}^{-1}(\Omega)}\) yields the Hilbert space \(\widetilde{H}^{-1}(\Omega)\)
+
+Decay condition: 
+\(|u(x)|=O\left(\|x\|^{-1}\right) \quad\) and \(\quad\|\operatorname{grad} u(x)\|=O\left(\|x\|^{-2}\right) \quad\) for \(\quad\|x\| \rightarrow \infty\) (1.1.76)
+\end{comment}
+\subsection{Constructing the Galerkin Matrix}
+No we can construct the Galerkin Matrix.
+%  We introduce the notation $P^{ab}_n = (a_n, b_m)_\Gamma$. 
+Because of orthogonality our matrix will have a blockdiagonal structure. 
+We start by using Greens first formula 
+\(\int_{U}(\psi \Delta \varphi+\nabla \psi \cdot \nabla \varphi) d V=\oint_{\partial U} \psi \nabla \varphi \cdot d \mathbf{S}\)
+ to see that $$q_\kappa(U_n, U_m) = \int_{\Omega^-} ( \div U_n \div \overline{U_m} - \kappa^2 n_i U_n \overline{U_m}) $$
+$$
+= \int_{ \partial \Omega^-} \overline{U_m} \div U_n d \vec{S} - \int_{\Omega^{-}} \underbrace{(\kappa^2 n_i U_n + \Delta U_n)}_{=0} \overline{U_m} d \vec{S} 
+$$
+
+$$
+= \delta_{nm}\int_{ \partial \Omega^-} \overline{U_n} \div U_n d \vec{S}
+$$
+
+$$
+= \delta_{nm}|v_n|^2\kappa \sqrt{n_i} J_n(\kappa \sqrt{n_i}) J_n'(\kappa \sqrt{n_i})  \int_{\partial \Omega^-} e^{in\phi}  e^{-in\phi} dS
+$$
+
+$$
+= \delta_{nm} \frac{1}{1 + n ^ 2} \kappa \sqrt{n_i} \frac{J_n'(\kappa \sqrt{n_i})}{J_n(\kappa \sqrt{n_i})} =: \delta_{nm} \alpha_n .
+$$
+
+Also clearly $b(p_n, p_m) = (p_n, p_m)_{H^1(\Gamma)} = \delta_{nm}$
+% NOTE : This is a bit unclean as $U_n$ is technically not defined over Omega^-
+
+
+%TODO : CONTINUE CLEANING UP FROM HERE 
+PROVE ORTHOGONALITY OF MATRIX HERE, HERLEITUNG 
+\subsection{Eigenvalue Equations}
+We are also using the following eigenvalue equations 
+\(\begin{aligned} 
+    \mathrm{V}_{\kappa}\left(y_{n}\right) &=\lambda_{n}^{(\mathrm{V})} y_{n}, & \lambda_{n}^{(\mathrm{V})} &:=\frac{i \pi}{2} J_{n}(\kappa) H_{n}^{(1)}(\kappa) \\ 
+    \mathrm{K}_{\kappa}\left(y_{n}\right) &=\lambda_{n}^{(\mathrm{K})} y_{n}, & \lambda_{n}^{(\mathrm{K})} &:=\frac{i \pi \kappa}{2} J_{n}(\kappa) H_{n}^{(1)^{\prime}}(\kappa)+\frac{1}{2}=\frac{i \pi \kappa}{2} J_{n}^{\prime}(\kappa) H_{n}^{(1)}(\kappa)-\frac{1}{2} \\ 
+    \mathrm{~K}_{\kappa}^{\prime}\left(y_{n}\right) &=\lambda_{n}^{\left(\mathrm{K}^{\prime}\right)} y_{n}, & \lambda_{n}^{\left(\mathrm{K}^{\prime}\right)} &:=\frac{i \pi \kappa}{2} J_{n}(\kappa) H_{n}^{(1)^{\prime}}(\kappa)+\frac{1}{2}=\frac{i \pi \kappa}{2} J_{n}^{\prime}(\kappa) H_{n}^{(1)}(\kappa)-\frac{1}{2} \\ 
+    \mathcal{W}_{\kappa}\left(y_{n}\right) &=\lambda_{n}^{(\mathrm{W})} y_{n}, & \lambda_{n}^{(\mathrm{W})} &:= \frac{i \pi \kappa^{2}}{2} J_{n}^{\prime}(\kappa) H_{n}^{(1)^{\prime}}(\kappa) 
+\end{aligned}\)
+(from P. Meury.)
+
+\subsection{Matrix}
+
+Now the first equation yields with coefficents: 
+$$
+(\alpha_n + \lambda_n^{(w)} P^{UU}_n) C^U_n - (\frac{1}{2} - \lambda_n^{(K')}) P_n^{\theta U} C^\theta_n = f_2(V)
+$$
+
+second equation
+$$
+(\frac{1}{2} - \lambda_n^{(K)})P^{U\theta}_n C^U_n + \lambda^{(V)}_n P^{\theta \theta} C^\theta_n  + i \eta P^{p \theta}C_n^p = \overline{g_2}(V)
+$$
+third equation 
+$$
+-\lambda_n^{(W)} P^{Up}_n C_U^n - (\lambda^{(K')}_n + \frac{1}{2})  P^{\theta p} C^\theta_n + C_p^n = h_2(V)
+$$
+Using all the previously derived equations we can construct the Galerkin matrix:
+$$
+A_n = 
+\begin{pmatrix}
+    (\alpha_n + \lambda_n^{(w)} P^{UU}_n)  & - (\frac{1}{2} - \lambda_n^{(K')}) P_n^{\theta U} & 0\\
+    (\frac{1}{2} - \lambda_n^{(K)})P^{U\theta}_n  & \lambda^{(V)}_n P^{\theta \theta}  &  i \overline{\eta}     P^{p \theta} \\
+    -\lambda_n^{(W)} P^{Up}_n  &  - (\lambda^{(K')}_n + \frac{1}{2})  P^{\theta p} & 1 
+\end{pmatrix}
+$$
+%TODO : 0. Inwiefern anders von dem was P. Meury gemacht hat? -> wir summieren nicht ueber die Nullstellen von Besselfunktionen 
+% TODO: 1. numerical simulation of this matrix.
+% TODO:  2. Sanity check: use to solve problem. 
+% TODO: 3. sanity check p = 0. 
+% TODO: 4. Suche nach anderen wichtigen Eigenschaften in paper 
+
+\subsection{Scalar Product Values}
+Introduce $\tilde v_n = J_n(\kappa \sqrt{n_i})v_n$.
+The values of the scalar products are
+\begin{itemize}
+    \item $P^{UU}_n = 2\pi |\tilde v_n|^2$
+    \item $P^{\theta U}_n = 2\pi w_n \overline{\tilde v_n}$
+    \item $P^{U\theta}_n = \overline{P^{\theta U}_n}$
+    \item $P^{\theta \theta}_n = 2 \pi |w_n|^2$
+    \item $P^{p \theta}_n = 2\pi l_n\overline{w_n}$
+    \item $P^{Up}_n = 2\pi \tilde v_n \overline{l_n}$
+    \item $P^{\theta p}_n = \overline{P^{p\theta}_n }$
+\end{itemize}
 \section{Validation}
 
 

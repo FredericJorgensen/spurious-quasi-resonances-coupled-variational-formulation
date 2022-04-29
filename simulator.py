@@ -24,8 +24,6 @@ class Simulator:
         return self.getMaximumSingularValue(kappa, c_i, N) / self.getMinimumSingularValue(kappa, c_i, N)
 
     def getMaximumSingularValue(self, kappa, c_i, N):
-        #
-
         maxSigma = 0
         for n in range(-N, N + 1):
             s = self.getSingularValueOfBlock(kappa, c_i, n)
