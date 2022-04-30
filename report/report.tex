@@ -253,6 +253,16 @@ $$
     -\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), q\right)_{\Gamma}-\left((\mathrm{K}_{\kappa}^{\prime}+\frac{1}{2} \mathrm{Id})(\vartheta), q\right)_{\Gamma}+\mathrm{b}(p, q) &=\mathrm{h}_{2}(q).
 \end{aligned}
 $$
+where we have 
+$$
+\begin{aligned} 
+    \mathrm{f}_{2}(V) &:=(f, V)_{\Omega}-\left(g_{N}, \gamma_{D}^{-} V\right)_{\Gamma}-\left(\mathrm{W}_{\kappa}\left(g_{D}\right), \gamma_{D}^{-} V\right)_{\Gamma} \\ 
+    \mathrm{g}_{2}(\varphi) &:=\left(\varphi,\left(\mathrm{K}_{\kappa}-\frac{1}{2} \mathrm{ld}\right)\left(g_{D}\right)\right)_{\Gamma} \\ 
+    \mathrm{h}_{2}(q) &:=\left(\mathrm{W}_{\kappa}\left(g_{D}\right), q\right)_{\Gamma}
+\end{aligned}
+$$
+and 
+\(\mathrm{b}(p, q):=\left(\operatorname{grad}_{\Gamma} p, \operatorname{grad}_{\Gamma} q\right)_{\Gamma}+(p, q)_{\Gamma}\).
 \section{How to investigate Stability}
 To figure out how stable this formulation is, we use the inf-sup constant
 \begin{theorem}
@@ -376,7 +386,7 @@ $$
 = \delta_{nm} \frac{1}{1 + n ^ 2} \kappa \sqrt{n_i} \frac{J_n'(\kappa \sqrt{n_i})}{J_n(\kappa \sqrt{n_i})} =: \delta_{nm} \alpha_n .
 $$
 
-Also clearly $b(p_n, p_m) = (p_n, p_m)_{H^1(\Gamma)} = \delta_{nm}$
+Also clearly $b(p_n, p_m) =  (p_n, p_m)_{H^1(\Gamma)} = \delta_{nm}$
 % NOTE : This is a bit unclean as $U_n$ is technically not defined over Omega^-
 
 
@@ -434,9 +444,83 @@ The values of the scalar products are
     \item $P^{Up}_n = 2\pi \tilde v_n \overline{l_n}$
     \item $P^{\theta p}_n = \overline{P^{p\theta}_n }$
 \end{itemize}
+
 \section{Validation}
+\subsection{Setup}
+In preparation for the following steps to validate our matrix, we have to compute right side of the discretised variational problem. \\
+%TODO: Fix ambiguity with other $f_2$
+If we expand $f_1= \sum\limits_{j = -\infty}^\infty \frac{1}{2\pi}f_1^j e^{i j \theta}$ and $f_2= \sum\limits_{j = -\infty}^\infty \frac{1}{2\pi} f_2^j e^{i j \theta}$, we can write out the right side of the variational formulation
+$$
+\vec{b}_n = \begin{bmatrix}
+    f_1(U_n) \\
+    \overline{g_2}(\theta_n) \\
+    h_2(p_n)
+\end{bmatrix}
+ = \begin{bmatrix}
+    - \overline{\tilde{v_n}} f_2^n - \lambda_n^{(W)} \overline{\tilde{v_n}} f_1^n \\
+    (\lambda_n^{(K)} - 0.5)  \overline{w_n} f_1^n\\
+    \lambda_n^{(W)} \overline{l_n} f_1^n
+\end{bmatrix}
+= f_1^n 
+\underbrace{
+\begin{bmatrix}
+- \lambda_n^{(W)} \overline{\tilde{v_n}} \\
+(\lambda_n^{(K)} - 0.5) \overline{w_n}  \\
+\lambda_n^{(W)} \overline{l_n}
+\end{bmatrix}}_{\vec{x_1}}
++ f_2^n
+\underbrace{\begin{bmatrix}
+    - \overline{\tilde{v_n}} \\
+    0 \\
+    0
+\end{bmatrix}}_{\vec{x_1}}.
+$$
+\subsection{p = 0}
+From P.Meury:
+" At second glance, we realise that \(p=0\), if \((U, \vartheta)\) solve the problems \((3.23)\) and \((3.24)\), respectively.
+This directly follows from corollary \(3.12\), theorem \(1.8\) and the definition of the exterior Calderón
+projector \(\mathrm{P}_{+}\). In short, \(p\) is a "dummy variable"." \\
+\\
+Now to verify that our derived matrix $A_n$ is correct we just have to show that 
+$$
+A_n \begin{bmatrix}
+   C_n^U \\
+    C_n^\theta \\
+    C_n^p
+\end{bmatrix} = \vec{b}
+$$
+for $\vec{b} \in span( \vec{x}_1, \vec{x}_2) =: V_{\vec{b}}$ implies $C_n^p = 0$. \\
+Let's assume that $A_n$ is invertible. 
+Then we have to show that $ V_{\vec{b}} \subset Ker(P_3A_n^{-1}\vec{x_1})$.
+For dimensional reasons this is equivalent to  $ V_{\vec{b}} = Ker(P_3A_n^{-1}\vec{x_1})$.\\
+Let $P_{V_{\vec{b}}}$ be the projector on $V_{\vec{b}}$.
+Then we just have to show that $P_3A_n^{-1}P_{V_{\vec{b}}}$ is approximately the zero map. 
 
-
+\subsection{Solving a special case}
+Another thing we can to to validate the correctness of our derived matrix is to show that it yields the correct numerical solution. \\
+Define $\kappa_j = \sqrt{n_j} \kappa$ for $j = i, o$ and consider the special case 
+$$
+\vec{f} = 
+\begin{bmatrix}
+    H_0^{(1)}(\kappa_o ) - J_0(\kappa_i ) \\
+    \kappa_i J_1(\kappa_i ) - \kappa_o H_1^{(1)}(\kappa_o ) \\
+\end{bmatrix}.
+$$
+Then the solution is 
+$$
+u = J_0(\kappa_i r), x \in \Omega^-, u = H_0^{(1)}(\kappa_o r), x \in \Omega^+.
+$$
+This can be seen directly by plugging in. \\
+Let's validate if we get the same numerical solution using our matrix $A$. We just use the $\vec{b}_n$ as computed above,
+with $f_1^j =  \delta_{0j} (H_0^{(1)}(\kappa_o ) - J_0(\kappa_i )), f_2^j = \delta_{0j} (\kappa_i J_1(\kappa_i ) - \kappa_o H_1^{(1)}(\kappa_o))$.\\
+The analytical solution can be written as $u = \frac{1}{v_0} U_0$. 
+Also, we expect $\vartheta = \partial_r(u_{\Omega^+})_{|\Gamma} = - \frac{1}{w_0} \kappa_o H_1^{(1)}(\kappa_o) \theta_0 $ and $p = 0$.\\
+%the expectation about vartheta is FROM PAGE 33 Thesis P. Meury
+\\
+So the solution vector should be
+$$
+C_j^U = \delta_{0j}  \frac{1}{v_0}, C_j^\theta = -\delta_{0j} \frac{1}{w_0} \kappa_o H_1^{(1)}(\kappa_o), C_j^p = 0, \forall j.
+$$
 \section{Numerical Results}
 
 %

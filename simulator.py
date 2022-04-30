@@ -1,7 +1,8 @@
 from matrix_model import MatrixModel
 from numpy import *
 import matplotlib.pyplot as plt
-from scipy.special import jn_zeros
+from scipy.special import jn_zeros, jv, jvp, hankel1, h1vp
+
 
 
 class Simulator:
@@ -14,7 +15,7 @@ class Simulator:
 
     def getSingularValueOfBlock(self, kappa, c_i, n, index=None):
         # returns singular values of A_Tilde_b
-        A_Tilde = self.model.getA_Tilde(kappa, c_i, n)
+        A_Tilde = self.model.getA_TildeBlock(kappa, c_i, n)
         u, s, vh = linalg.svd(A_Tilde)
         if(index != None):
             return s[index]
