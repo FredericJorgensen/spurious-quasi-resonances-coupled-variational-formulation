@@ -31,7 +31,10 @@ class MatrixModel:
             if(self.eta == None):
                 raise Exception(
                     "Missing argument: The second argument is missing. There was no input provided for eta.")
-
+            if(n == 0):
+                #debugging
+                print(self.alpha(kappa, c_i, n))
+                
             a_11 = self.alpha(kappa, c_i, n) + self.lambdaW(n, kappa) * \
                 self.P("U", "U", kappa, c_i, n)
             a_12 = -(0.5 - self.lambdaK__adjoint(n, kappa)) * \
@@ -110,7 +113,8 @@ class MatrixModel:
 
     def alpha(self, kappa, c_i, n):
         z = kappa * sqrt(c_i)
-        return 2 * pi * abs(self.v(kappa, c_i, n)) ** 2 * z * jv(n, z) * jvp(n, z)
+        #removed just for debugging. problems if resonances? probably not 
+        return 0#2 * pi * abs(self.v(kappa, c_i, n)) ** 2 * z * jv(n, z) * jvp(n, z)
 
     def alpha1(self, kappa, c_i, n):
         z = kappa * sqrt(c_i)

@@ -15,8 +15,16 @@ class BoundaryConditions:
         v_tilde = self.model.v_tilde(kappa, c_i, n)
         w = self.model.w(kappa, c_i, n)
         l = self.model.l(kappa, c_i, n)
+        
+        if(n == 0):
+            #for debugging 
+            print("kappa: ", kappa)
+            print("lambdaW: ", lambdaW)
+            print("c_i: ", c_i)
+            print("lambdaK: ", lambdaK)
         x_1 = array([-lambdaW * conj(v_tilde),
-                    (lambdaK - 0.5) * conj(w), lambdaW * conj(l)])[newaxis].T
+                    (lambdaK - 0.5) * conj(w),  #just for debugging, change bacl 
+                    lambdaW * conj(l)])[newaxis].T
         return x_1
 
     def x_2(self, kappa, c_i, n):
@@ -26,11 +34,11 @@ class BoundaryConditions:
 
     def x_1_normed(self, kappa, c_i, n):
         x_1 = self.x_1(kappa, c_i, n)
-        return x_1 / norm(x_1)
+        return x_1 / norm(x_1.flatten())
 
     def x_1_normed(self, kappa, c_i, n):
         x_2 = self.x_2(kappa, c_i, n)
-        return x_2 / norm(x_2)
+        return x_2 / norm(x_2.flatten())
 
     def P_b(self, kappa, c_i, n):
         x_1_normed = self.x_1_normed(kappa, c_i, n)

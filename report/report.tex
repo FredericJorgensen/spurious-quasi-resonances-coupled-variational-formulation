@@ -227,8 +227,8 @@ Find \(u \in H_{\operatorname{loc}}^{1}\left(\mathbb{R}^{d} \backslash \Gamma\ri
 such that
 $$
 \begin{aligned}
-    \left(\Delta+\kappa^{2} n_{i}\right) u^{-} &=0 & & \text { in } \Omega^{-} 
-    \\\left(\Delta+\kappa^{2} n_{o}\right) u^{+} &=0 & & \text { in } \Omega^{+} 
+    \left(\Delta+\tilde\kappa^{2} c_{i}\right) u^{-} &=0 & & \text { in } \Omega^{-} 
+    \\\left(\Delta+\tilde\kappa^{2} c_{o}\right) u^{+} &=0 & & \text { in } \Omega^{+} 
     \\ \gamma_{C}^{-} u^{-} &=\gamma_{C}^{+} u^{+}+\mathbf{f} & & \text { on } \Gamma.
 \end{aligned}
 $$
@@ -241,7 +241,10 @@ $$
 a(U, V) - \left(\gamma_{1}^{-} U, \gamma_{0}^{-} V\right)_{\Gamma}=0 \quad \forall v \in H^{1}\left(\Omega^{-}\right)
 $$
 
-This variational equation can be coupled to the transmission conditions using the BIE. As the problem is equivalent to the problem in the 2006 paper with $U_i = 0, f = 0$, we can use the same formulation as in the 2006 paper.\\
+This variational equation can be coupled to the transmission conditions using the BIE. 
+As the problem is equivalent to the problem in the 2006 paper with $U_i = 0, f = 0, n(x) = c_i / c_o, 
+\kappa = \tilde \kappa \sqrt{c_o}$, 
+we can use the same formulation as in the 2006 paper.\\
 \\
 The formulation is: \\ 
 Find \(U \in H^{1}(\Omega), \vartheta \in H^{-1 / 2}(\Gamma)\) and \(p \in H^{1}(\Gamma)\) such that for all \(V \in H^{1}(\Omega), \varphi \in H^{-1 / 2}(\Gamma)\)
@@ -258,10 +261,10 @@ $$
 \begin{aligned} 
     \mathrm{f}_{2}(V) &:=(f, V)_{\Omega}-\left(g_{N}, \gamma_{D}^{-} V\right)_{\Gamma}-\left(\mathrm{W}_{\kappa}\left(g_{D}\right), \gamma_{D}^{-} V\right)_{\Gamma} \\ 
     \mathrm{g}_{2}(\varphi) &:=\left(\varphi,\left(\mathrm{K}_{\kappa}-\frac{1}{2} \mathrm{ld}\right)\left(g_{D}\right)\right)_{\Gamma} \\ 
-    \mathrm{h}_{2}(q) &:=\left(\mathrm{W}_{\kappa}\left(g_{D}\right), q\right)_{\Gamma}
+    \mathrm{h}_{2}(q) &:=\left(\mathrm{W}_{\kappa}\left(g_{D}\right), q\right)_{\Gamma}, 
 \end{aligned}
 $$
-and 
+\(\mathrm{q}_{\kappa}(U, V):=\int_{\Omega} \operatorname{grad} U \cdot \operatorname{grad} \bar{V}-\kappa^{2} n(\mathbf{x}) U \bar{V} \mathrm{~d} \mathbf{x}\) and 
 \(\mathrm{b}(p, q):=\left(\operatorname{grad}_{\Gamma} p, \operatorname{grad}_{\Gamma} q\right)_{\Gamma}+(p, q)_{\Gamma}\).
 \section{How to investigate Stability}
 To figure out how stable this formulation is, we use the inf-sup constant
@@ -293,11 +296,11 @@ First, we notice that we can restrict ourselves to finding functions on $H^{\fra
 Now we will further restrict this space to finite subspaces and choose orthonormal bases for the finite subspaces. 
 \subsection{Basis functions of $\mathcal{H}^{\frac{1}{2}}(\Gamma)$}
 We make the Fourier Ansatz $V_n = V^r_n e^{i n \phi}$. 
-Since $U$ must satisfy  $(\Delta + \kappa^2 n_i) U = 0$, we have 
+Since $U$ must satisfy  $(\Delta + \kappa^2) U = 0$, we have 
 $$
-r^2 \partial_r^2V_n^r + r \partial_r V_n^r + (r^2 \kappa^2 n_i - n^2)V^r_n = 0.
+r^2 \partial_r^2V_n^r + r \partial_r V_n^r + (r^2 \kappa^2 - n^2)V^r_n = 0.
 $$
-This is Bessel's equation. Since we require convergence at the origin we have $V^r_n(r) = J_n(\kappa \sqrt{n_i} r)$.
+This is Bessel's equation. Since we require convergence at the origin we have $V^r_n(r) = J_n(\kappa r)$.
 
 
 We restrict our functions to $H^{\frac{1}{2}}$ and want to get an orthonormal basis $U_n(\phi) = v_n V_n(1, \phi)$ for this space: 
@@ -310,9 +313,9 @@ $$
 $$
 
 $$
- = |v_n|^2 2\pi(1 + n^2) |J_n(\kappa \sqrt{n_i} )|^2   \delta_{nm}  \overbrace{=}^! \delta_{nm}
+ = |v_n|^2 2\pi(1 + n^2) |J_n(\kappa )|^2   \delta_{nm}  \overbrace{=}^! \delta_{nm}
 $$
-Therefore, we can choose real constants $v_n = \frac{1}{\sqrt{2 \pi (1 + n^2)} |J_n(\kappa \sqrt{n_i} )|}$.
+Therefore, we can choose real constants $v_n = \frac{1}{\sqrt{2 \pi (1 + n^2)} |J_n(\kappa  )|}$.
 
 \subsubsection*{Notes}
 In the calculation above we used \(\nabla f = \frac{\partial f}{\partial r} \hat{\mathbf{r}}+\frac{1}{r} \frac{\partial f}{\partial \theta} \hat{\boldsymbol{\theta}}\) and eliminated the $r-$ dependency.
@@ -369,9 +372,9 @@ No we can construct the Galerkin Matrix.
 Because of orthogonality our matrix will have a blockdiagonal structure. 
 We start by using Greens first formula 
 \(\int_{U}(\psi \Delta \varphi+\nabla \psi \cdot \nabla \varphi) d V=\oint_{\partial U} \psi \nabla \varphi \cdot d \mathbf{S}\)
- to see that $$q_\kappa(U_n, U_m) = \int_{\Omega^-} ( \div U_n \div \overline{U_m} - \kappa^2 n_i U_n \overline{U_m}) $$
+ to see that $$q_\kappa(U_n, U_m) = \int_{\Omega^-} ( \div U_n \div \overline{U_m} - \kappa^2U_n \overline{U_m}) $$
 $$
-= \int_{ \partial \Omega^-} \overline{U_m} \div U_n d \vec{S} - \int_{\Omega^{-}} \underbrace{(\kappa^2 n_i U_n + \Delta U_n)}_{=0} \overline{U_m} d \vec{S} 
+= \int_{ \partial \Omega^-} \overline{U_m} \div U_n d \vec{S} - \int_{\Omega^{-}} \underbrace{(\kappa^2 U_n + \Delta U_n)}_{=0} \overline{U_m} d \vec{S} 
 $$
 
 $$
@@ -379,11 +382,11 @@ $$
 $$
 
 $$
-= \delta_{nm}|v_n|^2\kappa \sqrt{n_i} J_n(\kappa \sqrt{n_i}) J_n'(\kappa \sqrt{n_i})  \int_{\partial \Omega^-} e^{in\phi}  e^{-in\phi} dS
+= \delta_{nm}|v_n|^2\kappa  J_n(\kappa ) J_n'(\kappa )  \int_{\partial \Omega^-} e^{in\phi}  e^{-in\phi} dS
 $$
 
 $$
-= \delta_{nm} \frac{1}{1 + n ^ 2} \kappa \sqrt{n_i} \frac{J_n'(\kappa \sqrt{n_i})}{J_n(\kappa \sqrt{n_i})} =: \delta_{nm} \alpha_n .
+= \delta_{nm} \frac{1}{1 + n ^ 2} \kappa  \frac{J_n'(\kappa )}{J_n(\kappa )} =: \delta_{nm} \alpha_n .
 $$
 
 Also clearly $b(p_n, p_m) =  (p_n, p_m)_{H^1(\Gamma)} = \delta_{nm}$
@@ -433,7 +436,7 @@ $$
 % TODO: 4. Suche nach anderen wichtigen Eigenschaften in paper 
 
 \subsection{Scalar Product Values}
-Introduce $\tilde v_n = J_n(\kappa \sqrt{n_i})v_n$.
+Introduce $\tilde v_n = J_n(\kappa )v_n$.
 The values of the scalar products are
 \begin{itemize}
     \item $P^{UU}_n = 2\pi |\tilde v_n|^2$
@@ -497,6 +500,9 @@ Let $P_{V_{\vec{b}}}$ be the projector on $V_{\vec{b}}$.
 Then we just have to show that $P_3A_n^{-1}P_{V_{\vec{b}}}$ is approximately the zero map. 
 
 \subsection{Solving a special case}
+(Would expect exact solution because in same space).
+
+
 Another thing we can to to validate the correctness of our derived matrix is to show that it yields the correct numerical solution. \\
 Define $\kappa_j = \sqrt{n_j} \kappa$ for $j = i, o$ and consider the special case 
 $$
@@ -510,9 +516,9 @@ Then the solution is
 $$
 u = J_0(\kappa_i r), x \in \Omega^-, u = H_0^{(1)}(\kappa_o r), x \in \Omega^+.
 $$
-This can be seen directly by plugging in. \\
+This can be seen directly by plugging in, using $J_0'(x) = - J_1(x)$ and $H_0'(x) = - H_1'(x)$. \\
 Let's validate if we get the same numerical solution using our matrix $A$. We just use the $\vec{b}_n$ as computed above,
-with $f_1^j =  \delta_{0j} (H_0^{(1)}(\kappa_o ) - J_0(\kappa_i )), f_2^j = \delta_{0j} (\kappa_i J_1(\kappa_i ) - \kappa_o H_1^{(1)}(\kappa_o))$.\\
+with $f_1^j =  \delta_{0j} 2\pi (H_0^{(1)}(\kappa_o ) - J_0(\kappa_i )), f_2^j = \delta_{0j} 2\pi (\kappa_i J_1(\kappa_i ) - \kappa_o H_1^{(1)}(\kappa_o))$.\\
 The analytical solution can be written as $u = \frac{1}{v_0} U_0$. 
 Also, we expect $\vartheta = \partial_r(u_{\Omega^+})_{|\Gamma} = - \frac{1}{w_0} \kappa_o H_1^{(1)}(\kappa_o) \theta_0 $ and $p = 0$.\\
 %the expectation about vartheta is FROM PAGE 33 Thesis P. Meury
@@ -521,6 +527,52 @@ So the solution vector should be
 $$
 C_j^U = \delta_{0j}  \frac{1}{v_0}, C_j^\theta = -\delta_{0j} \frac{1}{w_0} \kappa_o H_1^{(1)}(\kappa_o), C_j^p = 0, \forall j.
 $$
+\subsection{Even more special case}
+In addition to the assumptions above, pick $c_o = 1$, $\eta = 1$, and $\kappa = 5.502$ (then $J_0(\kappa) = 0$).\\
+Then we have $\lambda_0^{(V)} =0$, $\lambda_n^{(K)} = \lambda_n^{(K')} = 1/2$. For easier notation write $\lambda_n^{(W)} =: \nu$.
+Now we have
+$$
+A_0 = 
+\begin{pmatrix}
+    \alpha_0 + \nu P^{UU}_0  & 0 & 0\\
+    0 & 0  &  i P^{p \theta} \\
+    -\nu P^{Up}_0  &  -P_0^{\theta p} & 1 
+\end{pmatrix}.
+$$
+Moreover we have 
+$$
+b_0 = 2 \pi H_0^{(1)}(\kappa)
+\begin{bmatrix}
+    -\nu \overline{\tilde{v_0}} \\
+    0  \\
+    \nu \overline{l_0}
+\end{bmatrix}
++  2 \pi (H_1^{(1)}(\kappa) - J_1^{(1)}(\kappa))
+\begin{bmatrix}
+    - \overline{\tilde{v_0}} \\
+    0 \\
+    0
+\end{bmatrix}.
+$$
+
+We have 
+$$
+A_0^{-1} = 
+\begin{pmatrix}
+    (\alpha_n + \nu P^{UU}_n)^{-1} & 0 & 0 \\
+    - \frac{\nu P_0^{(Up)}}{( \alpha_0 + \nu P^{UU}_0) P_0^{\theta p}} & -\frac{i}{(P_0^{\theta p})^2} & -\frac{1}{P_0^{\theta p}} \\
+    0 & - \frac{i}{P^{p \theta}_0} & 0 
+\end{pmatrix}.
+$$
+So $
+x = A_0^{-1} b_0 =  ...
+\begin{pmatrix}
+    %TODO: VON HIER WEITER UND HERAUSFINDEN WARUM NICHT ANALYTISCHE LOESUNG RAUSKOMMT. Eventuell divergiert v_0? 
+    % Andere v_n  benutzen die nicht divergieren in der Naehe von Resonanzne? Also zB auf ganzem Kreis normieren? Dann faellt eventuell auch ein J_n oben weg 
+
+
+\end{pmatrix}
+$
 \section{Numerical Results}
 
 %
@@ -650,11 +702,11 @@ The Neumann trace \(\mathrm{T}_{N}\) can be extended to a continuous mapping \(\
 \subsection{Definition of the problem}
 
 \begin{definition}
-Given \(n_{i}, n_{o}>0\) and frequency \(k>0\), the Helmholtz transmission scattering problem is
+Given \(c_i, c_o>0\) and frequency \(k>0\), the Helmholtz transmission scattering problem is
 that of finding the complex amplitude \(u\) of the sound pressure, with \(u \in H_{\text {loc }}^{1}\left(\mathbb{R}^{d} \backslash \Gamma\right)\) the solution
-of \(\begin{aligned}\left(\Delta+k^{2} n_{i}\right) u^{-} &=0 & & \text { in } \Omega^{-} \\\left(\Delta+k^{2} n_{o}\right) u^{+} &=0 & & \text { in } \Omega^{+} \\ \gamma_{C}^{-} u^{-} &=\gamma_{C}^{+} u^{+}+\gamma_{C}^{\pm} u^{I} & & \text { on } \Gamma \\ u^{+} & \in \operatorname{SRC}\left(k \sqrt{n_{o}}\right), & & \end{aligned}\)
+of \(\begin{aligned}\left(\Delta+k^{2} c_i\right) u^{-} &=0 & & \text { in } \Omega^{-} \\\left(\Delta+k^{2} c_o\right) u^{+} &=0 & & \text { in } \Omega^{+} \\ \gamma_{C}^{-} u^{-} &=\gamma_{C}^{+} u^{+}+\gamma_{C}^{\pm} u^{I} & & \text { on } \Gamma \\ u^{+} & \in \operatorname{SRC}\left(k \sqrt{c_o}\right), & & \end{aligned}\)
 where the incident wave\footnote{Solution if transmission material would not be there.} \(u^{I}\) is an entire solution of the homogeneous Helmholtz equation in \(\mathbb{R}^{d}\) 
-$$\left(\Delta+k^{2} n_{o}\right) u^{I}=0 \quad \text{ in } \mathbb{R}^{d}\
+$$\left(\Delta+k^{2} c_o\right) u^{I}=0 \quad \text{ in } \mathbb{R}^{d}\
 $$
 
 \end{definition}
@@ -664,8 +716,8 @@ In principle, the jump \(\gamma_{C}^{+} u^{+}-\gamma_{C}^{-} u^{-}\)of the Cauch
 
 
 \begin{definition}
-Given positive real numbers \(k, n_{i}\), and \(n_{o}\) and \(\mathbf{f} \in H^{1 / 2}(\Gamma) \times H^{-1 / 2}(\Gamma)\), find \(u \in H_{\mathrm{loc}}^{1}\left(\mathbb{R}^{d} \backslash \Gamma\right) \cap \operatorname{SRC}\left(k \sqrt{n_{o}}\right)\) such that,
-\(\begin{aligned}\left(\Delta+k^{2} n_{i}\right) u^{-} &=0 & & i n \Omega^{-} \\\left(\Delta+k^{2} n_{o}\right) u^{+} &=0 & & i n \Omega^{+} \\ \gamma_{C}^{-} u^{-} &=\gamma_{C}^{+} u^{+}+\mathbf{f} & & \text { on } \Gamma \end{aligned}\)
+Given positive real numbers \(k, c_i\), and \(c_o\) and \(\mathbf{f} \in H^{1 / 2}(\Gamma) \times H^{-1 / 2}(\Gamma)\), find \(u \in H_{\mathrm{loc}}^{1}\left(\mathbb{R}^{d} \backslash \Gamma\right) \cap \operatorname{SRC}\left(k \sqrt{c_o}\right)\) such that,
+\(\begin{aligned}\left(\Delta+k^{2} c_i\right) u^{-} &=0 & & i n \Omega^{-} \\\left(\Delta+k^{2} c_o\right) u^{+} &=0 & & i n \Omega^{+} \\ \gamma_{C}^{-} u^{-} &=\gamma_{C}^{+} u^{+}+\mathbf{f} & & \text { on } \Gamma \end{aligned}\)
 \end{definition}
 \begin{lemma}
 The solution of the transmission problem of Definition \(1.1\) exists and is unique.
@@ -678,11 +730,11 @@ Given positive real numbers \(k, c_{i}\), and \(c_{o}\), let
 $$
 S\left(c_{i}, c_{o}\right) \mathbf{f}:=\gamma_{C}^{-} u
 $$
-where \(u \in H_{\mathrm{loc}}^{1}\left(\mathbb{R}^{d} \backslash \Gamma\right) \cap \operatorname{SRC}\left(k \sqrt{c_{o}}\right)\) is the solution of the Helmholtz transmission problem with $n_i = c_i$. According to the earlier lemmas this is well-defined.
+where \(u \in H_{\mathrm{loc}}^{1}\left(\mathbb{R}^{d} \backslash \Gamma\right) \cap \operatorname{SRC}\left(k \sqrt{c_{o}}\right)\) is the solution of the Helmholtz transmission problem with $c_i = c_i$. According to the earlier lemmas this is well-defined.
 \end{definition}
 
 
 
 %\begin{definition}
-%We introduce the abbreviations \(S_{i o}:=S\left(n_{i}, n_{o}\right) \quad\) and \(\quad S_{o i}:=S\left(n_{o}, n_{i}\right)\). 
+%We introduce the abbreviations \(S_{i o}:=S\left(c_i, c_o\right) \quad\) and \(\quad S_{o i}:=S\left(c_o, c_i\right)\). 
 %\end{definition}

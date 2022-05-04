@@ -70,16 +70,15 @@ class SolValidator:
         f_2n = zeros((baseLength, ), dtype=complex)
         kappa_i = kappa * c_i
         kappa_o = kappa * c_o
-        f_1n[N] = hankel1(0, kappa_o) - jv(0, kappa_i)
-        f_2n[N] = kappa_i * jv(1, kappa_i) - kappa_o * hankel1(1, kappa_o)
-        print(f_1n[N], f_2n[N])
+        f_1n[N] = 2 * pi * (hankel1(0, kappa_o) - jv(0, kappa_i))
+        f_2n[N] = 2 * pi * (kappa_i * jv(1, kappa_i) - kappa_o * hankel1(1, kappa_o))
         b = self.boundaryConditions.b(kappa, c_i, f_1n, f_2n, N)
 
         sol = linalg.solve(A, b)
         Asel = A[3 * N: 3 * (N + 1), 3 * N: 3 * (N + 1)]
         bsel = b[3 * N: 3 * (N + 1)]
         sol = sol[3 * N: 3 * (N + 1)]
-
+        set_printoptions(precision=2)
         print("Asel:", Asel )
         print("bsel:", bsel)
         print("sol:", sol * self.model.v(kappa, c_i, 0))
