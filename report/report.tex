@@ -602,13 +602,13 @@ To measure how good the solution is, let's introduce the $\zeta$-number:
     The $\zeta$-number is defined as 
     $$
         \zeta(\kappa)=  \max\limits_{n \in [-N, ..., N]}\frac{\|\vec{C}^{num}_n(\kappa) - \vec{C}^{ana}_n(\kappa)\|}{\|\vec{C}^{ana}_n(\kappa)\|}
-    $$ Let 
-As seen in fig. \ref{fig:sol_validation}, the $\zeta$-number is negligible across all values of $\kappa$ and $n$ which validates our derivation of $A_n$ and $b_n$.
+    $$ 
 \end{definition}
+As seen in fig. \ref{fig:sol_validation}, the $\zeta$-number is negligible across all values of $\kappa$ and $n$ which validates our derivation of $A_n$ and $b_n$.
 \begin{figure}
     \includegraphics[width=0.5\textwidth]{scenario1SolVal.pdf}
     \includegraphics[width=0.5\textwidth]{scenario2SolVal.pdf}
-    \caption{Maximum residuum of the numerical solution by wave number. 
+    \caption{Maximum relative residuum of the numerical solution by wave number. 
     On the left plot we have $c_i = 1, c_o = 3$ 
     and on the right plot we have $c_i = 3, c_o = 1.$
     We always use $N = 100$ from here on.}
@@ -681,7 +681,7 @@ Finally, let's consider the ratio of the minimum and maximum singular value (fig
     \includegraphics[width=0.5\textwidth]{scenario2Ratio.pdf}
     \caption{Ratio of Maximum and Minimum singular value of the matrix $diag(A_n)$ by wave number $\kappa$. 
     On the left plot we have $c_i = 1, c_o = 3$ 
-    and on the right plot we have $c_i = 3, c_o = 1.$ }
+    and on the right plot we have $c_i = 3, c_o = 1.$ The vertical dashed lines correspond to zeros of the Bessel roots. }
    \label{fig:ratio_sing_val}
 \end{figure}
 We see that in the case $c_i = 1, c_o =3$, where the solution operator has weaker resonances resonances, 
