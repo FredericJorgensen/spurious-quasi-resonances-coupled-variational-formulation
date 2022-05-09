@@ -6,8 +6,9 @@ if __name__ == "__main__":
     #pvalidator = PValidator(eta=1)
     #pvalidator.plotValidator(1.0, plotRange=[4.0, 8.0], N=100)
     solValidator = SolValidator(eta=1)
-    #c_i, kappa, c_o, N = 100):
-    solValidator.solve(1.0, 5.5201, 1.0, N=100)
+    # c_i, kappa, c_o, N = 100):
+    solValidator.simpleScenario(1.0)
+
     #unregularisedSimulator = Simulator("unregularised")
 
     # unregularisedSimulator.plotScenario("MinimumSingularValue", 1.0, N=100, plotRange=[

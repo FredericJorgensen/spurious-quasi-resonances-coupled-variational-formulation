@@ -28,6 +28,7 @@
 \usepackage{comment}
 \usepackage{amsmath}
 \usepackage{algorithm}
+\usepackage{amsthm}
 \usepackage[noend]{algpseudocode}
 \usepackage[
 singlelinecheck=false % <-- important
@@ -59,7 +60,7 @@ singlelinecheck=false % <-- important
 
 
 
-\newtheorem{theorem}{theorem}[section]
+\newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}{corollary}[theorem]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{definition}[theorem]{Definition}
@@ -77,6 +78,15 @@ singlelinecheck=false % <-- important
 \title{Spurious Quasi-Resonances for Stabilized BIE-Volume Formulations for Helmholtz Transition Problem}
 
 \author{Frederic Jørgensen}
+
+% TODO: Next steps:
+% 1. Herleitung nochmal durchgehen und sehen dass alles richtig formulieren
+% 2. Code mit Herleitung vergleichen 
+% 3. Validation completen
+%     a. Residuum A * sol - b plotten 
+%     b. Calc scenario with general n in sol;ution e^in * phi 
+%     c. Bestimmen von der p-Sache
+% 4. Ergebnisse an Hiptmair
 
 
 
@@ -247,21 +257,21 @@ As the problem is equivalent to the problem in the 2006 paper with $U_i = 0, f =
 we can use the same formulation as in the 2006 paper.\\
 \\
 The formulation is: \\ 
-Find \(U \in H^{1}(\Omega), \vartheta \in H^{-1 / 2}(\Gamma)\) and \(p \in H^{1}(\Gamma)\) such that for all \(V \in H^{1}(\Omega), \varphi \in H^{-1 / 2}(\Gamma)\)
+Find \(U \in H^{1}(\Omega), \theta \in H^{-1 / 2}(\Gamma)\) and \(p \in H^{1}(\Gamma)\) such that for all \(V \in H^{1}(\Omega), \varphi \in H^{-1 / 2}(\Gamma)\)
 and \(q \in H^{1}(\Gamma)\) there holds
 $$
 \begin{aligned}
-    \mathrm{q}_{\kappa}(U, V)+\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), \gamma_{D}^{-} V\right)_{\Gamma}-\left((\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa}^{\prime})(\vartheta), \gamma_{D}^{-} V\right)_{\Gamma} &=\mathrm{f}_{2}(V) \\
-    \left((\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa})\left(\gamma_{D}^{-} U\right), \varphi\right)_{\Gamma}+\left(\mathrm{V}_{\kappa}(\vartheta), \varphi\right)_{\Gamma}+i \overline{\eta}(p, \varphi)_{\Gamma} &=\overline{\mathrm{g}_{2}}(V) \\
-    -\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), q\right)_{\Gamma}-\left((\mathrm{K}_{\kappa}^{\prime}+\frac{1}{2} \mathrm{Id})(\vartheta), q\right)_{\Gamma}+\mathrm{b}(p, q) &=\mathrm{h}_{2}(q).
+    \mathrm{q}_{\kappa}(U, V)+\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), \gamma_{D}^{-} V\right)_{\Gamma}-\left((\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa}^{\prime})(\theta), \gamma_{D}^{-} V\right)_{\Gamma} &=g_1(V) \\
+    \left((\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa})\left(\gamma_{D}^{-} U\right), \varphi\right)_{\Gamma}+\left(\mathrm{V}_{\kappa}(\theta), \varphi\right)_{\Gamma}+i \overline{\eta}(p, \varphi)_{\Gamma} &=\overline{g_2(V)}(\varphi) \\
+    -\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), q\right)_{\Gamma}-\left((\mathrm{K}_{\kappa}^{\prime}+\frac{1}{2} \mathrm{Id})(\theta), q\right)_{\Gamma}+\mathrm{b}(p, q) &=g_3(V)(q).
 \end{aligned}
 $$
 where we have 
 $$
 \begin{aligned} 
-    \mathrm{f}_{2}(V) &:=(f, V)_{\Omega}-\left(g_{N}, \gamma_{D}^{-} V\right)_{\Gamma}-\left(\mathrm{W}_{\kappa}\left(g_{D}\right), \gamma_{D}^{-} V\right)_{\Gamma} \\ 
-    \mathrm{g}_{2}(\varphi) &:=\left(\varphi,\left(\mathrm{K}_{\kappa}-\frac{1}{2} \mathrm{ld}\right)\left(g_{D}\right)\right)_{\Gamma} \\ 
-    \mathrm{h}_{2}(q) &:=\left(\mathrm{W}_{\kappa}\left(g_{D}\right), q\right)_{\Gamma}, 
+    g_1(V) &:=(f, V)_{\Omega}-\left(g_{N}, \gamma_{D}^{-} V\right)_{\Gamma}-\left(\mathrm{W}_{\kappa}\left(g_{D}\right), \gamma_{D}^{-} V\right)_{\Gamma} \\ 
+    g_2(V)(\varphi) &:=\left(\varphi,\left(\mathrm{K}_{\kappa}-\frac{1}{2} \mathrm{ld}\right)\left(g_{D}\right)\right)_{\Gamma} \\ 
+    g_3(V)(q) &:=\left(\mathrm{W}_{\kappa}\left(g_{D}\right), q\right)_{\Gamma}, 
 \end{aligned}
 $$
 \(\mathrm{q}_{\kappa}(U, V):=\int_{\Omega} \operatorname{grad} U \cdot \operatorname{grad} \bar{V}-\kappa^{2} n(\mathbf{x}) U \bar{V} \mathrm{~d} \mathbf{x}\) and 
@@ -296,11 +306,11 @@ First, we notice that we can restrict ourselves to finding functions on $H^{\fra
 Now we will further restrict this space to finite subspaces and choose orthonormal bases for the finite subspaces. 
 \subsection{Basis functions of $\mathcal{H}^{\frac{1}{2}}(\Gamma)$}
 We make the Fourier Ansatz $V_n = V^r_n e^{i n \phi}$. 
-Since $U$ must satisfy  $(\Delta + \kappa^2) U = 0$, we have 
+Since $U$ must satisfy  $(\Delta + \frac{c_i}{c_o}\kappa^2) U = 0$, we have 
 $$
-r^2 \partial_r^2V_n^r + r \partial_r V_n^r + (r^2 \kappa^2 - n^2)V^r_n = 0.
+r^2 \partial_r^2V_n^r + r \partial_r V_n^r + (r^2  \frac{c_i}{c_o}\kappa^2 - n^2)V^r_n = 0.
 $$
-This is Bessel's equation. Since we require convergence at the origin we have $V^r_n(r) = J_n(\kappa r)$.
+This is Bessel's equation. Since we require convergence at the origin we have $V^r_n(r) = J_n(\sqrt{ \frac{c_i}{c_o}}\kappa r)$.
 
 
 We restrict our functions to $H^{\frac{1}{2}}$ and want to get an orthonormal basis $U_n(\phi) = v_n V_n(1, \phi)$ for this space: 
@@ -309,13 +319,13 @@ $$
 $$
 This implies: 
 $$
-(U_n, U_m)_{H^{\frac{1}{2}}(\Gamma)} = (U_n, U_m)_{\Gamma} + (\div U_n, \div U_m)_{\Gamma} = \delta_{nm}
+(U_n, U_m)_{H^{\frac{1}{2}}(\Gamma)} = (U_n, U_m)_{\Gamma} + (\grad_\Gamma U_n, \grad_\Gamma U_m)_{\Gamma} = \delta_{nm}
 $$
 
 $$
- = |v_n|^2 2\pi(1 + n^2) |J_n(\kappa )|^2   \delta_{nm}  \overbrace{=}^! \delta_{nm}
+ = |v_n|^2 2\pi(1 + n^2) |J_n(\sqrt{ \frac{c_i}{c_o}} \kappa )|^2   \delta_{nm}  \overbrace{=}^! \delta_{nm}
 $$
-Therefore, we can choose real constants $v_n = \frac{1}{\sqrt{2 \pi (1 + n^2)} |J_n(\kappa  )|}$.
+Therefore, we can choose real constants $v_n = \frac{1}{\sqrt{2 \pi (1 + n^2)} |J_n(\sqrt{ \frac{c_i}{c_o}} \kappa  )|}$.
 
 \subsubsection*{Notes}
 In the calculation above we used \(\nabla f = \frac{\partial f}{\partial r} \hat{\mathbf{r}}+\frac{1}{r} \frac{\partial f}{\partial \theta} \hat{\boldsymbol{\theta}}\) and eliminated the $r-$ dependency.
@@ -366,44 +376,171 @@ The completion of \(L^{2}(\Omega)\) w.r.t. \(\|\cdot\|_{\tilde{H}^{-1}(\Omega)}\
 Decay condition: 
 \(|u(x)|=O\left(\|x\|^{-1}\right) \quad\) and \(\quad\|\operatorname{grad} u(x)\|=O\left(\|x\|^{-2}\right) \quad\) for \(\quad\|x\| \rightarrow \infty\) (1.1.76)
 \end{comment}
-\subsection{Constructing the Galerkin Matrix}
-No we can construct the Galerkin Matrix.
-%  We introduce the notation $P^{ab}_n = (a_n, b_m)_\Gamma$. 
-Because of orthogonality our matrix will have a blockdiagonal structure. 
-We start by using Greens first formula 
-\(\int_{U}(\psi \Delta \varphi+\nabla \psi \cdot \nabla \varphi) d V=\oint_{\partial U} \psi \nabla \varphi \cdot d \mathbf{S}\)
- to see that $$q_\kappa(U_n, U_m) = \int_{\Omega^-} ( \div U_n \div \overline{U_m} - \kappa^2U_n \overline{U_m}) $$
-$$
-= \int_{ \partial \Omega^-} \overline{U_m} \div U_n d \vec{S} - \int_{\Omega^{-}} \underbrace{(\kappa^2 U_n + \Delta U_n)}_{=0} \overline{U_m} d \vec{S} 
-$$
+\section{Constructing the Galerkin Matrix}
+Now let's restrict ourselves to the space $\mathcal{S}_N^{\frac{1}{2}} \times \mathcal{S}_N^{-\frac{1}{2}} \times \mathcal{S}_N^{1}$ where ... and $N \in \mathbb{N}$. 
+Now we can construct the Galerkin Matrix.
+\subsection{Redefining the problem}
+We reduce our problem to the space \(\mathcal{H}^{\frac{1}{2}} \times \mathcal{H}^{-\frac{1}{2}} \times \mathcal{H}^{1}\):
+\begin{definition}[The restricted problem]
+    Find \((u, \theta, p) \in  \mathcal{S}_N^{\frac{1}{2}} \times \mathcal{S}_N^{-\frac{1}{2}} \times \mathcal{S}_N^{1}\) 
+    such that for all $(V, \varphi, p) \in \mathcal{S}_N^{\frac{1}{2}} \times \mathcal{S}_N^{-\frac{1}{2}} \times \mathcal{S}_N^{1}$ there holds
+    $$
+    \begin{aligned}
+        \mathrm{q}_{\kappa}(U, V)+\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), \gamma_{D}^{-} V\right)_{\Gamma}-\left((\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa}^{\prime})(\theta), \gamma_{D}^{-} V\right)_{\Gamma} &=g_1(V) \\
+        \left((\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa})\left(\gamma_{D}^{-} U\right), \varphi\right)_{\Gamma}+\left(\mathrm{V}_{\kappa}(\theta), \varphi\right)_{\Gamma}+i \overline{\eta}(p, \varphi)_{\Gamma} &=\overline{g_2(V)}(\varphi) \\
+        -\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), q\right)_{\Gamma}-\left((\mathrm{K}_{\kappa}^{\prime}+\frac{1}{2} \mathrm{Id})(\theta), q\right)_{\Gamma}+\mathrm{b}(p, q) &=g_3(V)(q).
+    \end{aligned}
+    $$
+\end{definition}
+Now let's simplify the notation of this problem a bit. First, let's extend 
+$(u, \theta, p) = \sum\limits_{n = -N}^N (C^U_n U_n, C^\theta_n \theta_n, C^p_n p_n)$, 
+$f_1= \sum\limits_{j = -N}^N \frac{1}{2\pi}f_1^j e^{i j \theta}$ and $f_2= \sum\limits_{j = -N}^N \frac{1}{2\pi} f_2^j e^{i j \theta}$.
 
-$$
-= \delta_{nm}\int_{ \partial \Omega^-} \overline{U_n} \div U_n d \vec{S}
-$$
+Define $\vec{C}_n = (C^U_n, C^\theta_n, C^p_n)$.
 
-$$
-= \delta_{nm}|v_n|^2\kappa  J_n(\kappa ) J_n'(\kappa )  \int_{\partial \Omega^-} e^{in\phi}  e^{-in\phi} dS
-$$
+Let's introduce a few new constants before deriving the Galerkin Matrix. 
 
-$$
-= \delta_{nm} \frac{1}{1 + n ^ 2} \kappa  \frac{J_n'(\kappa )}{J_n(\kappa )} =: \delta_{nm} \alpha_n .
-$$
+\begin{definition}
+    Define the notation $P^{ab}_n = (a_n, b_n)_\Gamma$ where $a_n, b_n \in L^2(\Gamma)$. 
+    In particular, the following values will be helpful: 
+    \begin{itemize}
+        \item $P^{UU}_n = 2\pi |\tilde v_n|^2$
+        \item $P^{\theta U}_n = 2\pi w_n \overline{\tilde v_n}$
+        \item $P^{U\theta}_n = \overline{P^{\theta U}_n}$
+        \item $P^{\theta \theta}_n = 2 \pi |w_n|^2$
+        \item $P^{p \theta}_n = 2\pi l_n\overline{w_n}$
+        \item $P^{Up}_n = 2\pi \tilde v_n \overline{l_n}$
+        \item $P^{\theta p}_n = \overline{P^{p\theta}_n }$
+    \end{itemize}
+    where $\tilde v_n = J_n(\kappa )v_n$.
+\end{definition}
+Let's introduce the following matrix and vector: 
+\begin{definition}
+    $$
+    A_n:= 
+    \begin{pmatrix}
+        (\alpha_n + \lambda_n^{(w)} P^{UU}_n)  & - (\frac{1}{2} - \lambda_n^{(K')}) P_n^{\theta U} & 0\\
+        (\frac{1}{2} - \lambda_n^{(K)})P^{U\theta}_n  & \lambda^{(V)}_n P^{\theta \theta}  &  i \overline{\eta}     P^{p \theta} \\
+        -\lambda_n^{(W)} P^{Up}_n  &  - (\lambda^{(K')}_n + \frac{1}{2})  P^{\theta p} & 1 
+    \end{pmatrix}
+    $$
+    and 
+    $$
+    \vec{b}_n = 
+    \begin{bmatrix}
+       g_1(U_n)\\
+        \overline{g_2}(\theta_n) \\
+        g_3(p_n)
+    \end{bmatrix}
+    = 
+    \begin{bmatrix}
+        - \overline{\tilde{v_n}} f_2^n - \lambda_n^{(W)} \overline{\tilde{v_n}} f_1^n \\
+        (\lambda_n^{(K)} - 0.5)  \overline{w_n} f_1^n\\
+        \lambda_n^{(W)} \overline{l_n} f_1^n
+    \end{bmatrix}
+= f_1^n 
+\underbrace{
+\begin{bmatrix}
+- \lambda_n^{(W)} \overline{\tilde{v_n}} \\
+(\lambda_n^{(K)} - 0.5) \overline{w_n}  \\
+\lambda_n^{(W)} \overline{l_n}
+\end{bmatrix}}_{\vec{x_1}}
++ f_2^n
+\underbrace{\begin{bmatrix}
+    - \overline{\tilde{v_n}} \\
+    0 \\
+    0
+\end{bmatrix}}_{\vec{x_1}}.
+    $$
+\end{definition}
+The following theorem summarises the Galerkin formulation of the problem: 
+\begin{theorem}
+    \((u, \theta, p) \in  \mathcal{H}^{\frac{1}{2}} \times \mathcal{H}^{-\frac{1}{2}} \times \mathcal{H}^{1}\) solves the problem in definition 5.1
+    if and only if $A_n\vec{C_n} = \vec{b}_n \forall n \in \{-N, -N + 1, ..., N\}$. 
+\end{theorem}
 
-Also clearly $b(p_n, p_m) =  (p_n, p_m)_{H^1(\Gamma)} = \delta_{nm}$
-% NOTE : This is a bit unclean as $U_n$ is technically not defined over Omega^-
+Before we proof this we need the following Lemma from (...): 
+\begin{lemma}
+    We are also using the following eigenvalue equations 
+    $$
+    \begin{aligned} 
+        \mathrm{V}_{\kappa}\left(y_{n}\right) &=\lambda_{n}^{(\mathrm{V})} y_{n}, & \lambda_{n}^{(\mathrm{V})} &:=\frac{i \pi}{2} J_{n}(\kappa) H_{n}^{(1)}(\kappa) \\ 
+        \mathrm{K}_{\kappa}\left(y_{n}\right) &=\lambda_{n}^{(\mathrm{K})} y_{n}, & \lambda_{n}^{(\mathrm{K})} &:=\frac{i \pi \kappa}{2} J_{n}(\kappa) H_{n}^{(1)^{\prime}}(\kappa)+\frac{1}{2}=\frac{i \pi \kappa}{2} J_{n}^{\prime}(\kappa) H_{n}^{(1)}(\kappa)-\frac{1}{2} \\ 
+        \mathrm{~K}_{\kappa}^{\prime}\left(y_{n}\right) &=\lambda_{n}^{\left(\mathrm{K}^{\prime}\right)} y_{n}, & \lambda_{n}^{\left(\mathrm{K}^{\prime}\right)} &:=\frac{i \pi \kappa}{2} J_{n}(\kappa) H_{n}^{(1)^{\prime}}(\kappa)+\frac{1}{2}=\frac{i \pi \kappa}{2} J_{n}^{\prime}(\kappa) H_{n}^{(1)}(\kappa)-\frac{1}{2} \\ 
+        \mathcal{W}_{\kappa}\left(y_{n}\right) &=\lambda_{n}^{(\mathrm{W})} y_{n}, & \lambda_{n}^{(\mathrm{W})} &:= - \frac{i \pi \kappa^{2}}{2} J_{n}^{\prime}(\kappa) H_{n}^{(1)^{\prime}}(\kappa) 
+    \end{aligned}
+    $$
+    in particular these eigenvalue equations are satisfied for $U_n, \theta_n, p_n$.
+\end{lemma}
+The following lemmas will also come in handy for the proof.
+\begin{lemma}
+    $q_\kappa(U_n, U_m) = 2 \pi  \delta_{nm}|v_n|^2\kappa  J_n(\kappa ) J_n'(\kappa ) =: \alpha_n$.
+\end{lemma}
 
 
-%TODO : CONTINUE CLEANING UP FROM HERE 
-PROVE ORTHOGONALITY OF MATRIX HERE, HERLEITUNG 
-\subsection{Eigenvalue Equations}
-We are also using the following eigenvalue equations 
-\(\begin{aligned} 
-    \mathrm{V}_{\kappa}\left(y_{n}\right) &=\lambda_{n}^{(\mathrm{V})} y_{n}, & \lambda_{n}^{(\mathrm{V})} &:=\frac{i \pi}{2} J_{n}(\kappa) H_{n}^{(1)}(\kappa) \\ 
-    \mathrm{K}_{\kappa}\left(y_{n}\right) &=\lambda_{n}^{(\mathrm{K})} y_{n}, & \lambda_{n}^{(\mathrm{K})} &:=\frac{i \pi \kappa}{2} J_{n}(\kappa) H_{n}^{(1)^{\prime}}(\kappa)+\frac{1}{2}=\frac{i \pi \kappa}{2} J_{n}^{\prime}(\kappa) H_{n}^{(1)}(\kappa)-\frac{1}{2} \\ 
-    \mathrm{~K}_{\kappa}^{\prime}\left(y_{n}\right) &=\lambda_{n}^{\left(\mathrm{K}^{\prime}\right)} y_{n}, & \lambda_{n}^{\left(\mathrm{K}^{\prime}\right)} &:=\frac{i \pi \kappa}{2} J_{n}(\kappa) H_{n}^{(1)^{\prime}}(\kappa)+\frac{1}{2}=\frac{i \pi \kappa}{2} J_{n}^{\prime}(\kappa) H_{n}^{(1)}(\kappa)-\frac{1}{2} \\ 
-    \mathcal{W}_{\kappa}\left(y_{n}\right) &=\lambda_{n}^{(\mathrm{W})} y_{n}, & \lambda_{n}^{(\mathrm{W})} &:= \frac{i \pi \kappa^{2}}{2} J_{n}^{\prime}(\kappa) H_{n}^{(1)^{\prime}}(\kappa) 
-\end{aligned}\)
-(from P. Meury.)
+\begin{proof}[Proof of Lemma]
+    We start by using Greens first formula 
+    \(\int\limits_{U}(\psi \Delta \varphi+\nabla \psi \cdot \nabla \varphi) d V=\oint_{\partial U} \psi \nabla \varphi \cdot d \mathbf{S}\)
+    to see that $$q_\kappa(U_n, U_m) = \int_{\Omega^-} ( \div U_n \div \overline{U_m} -  \frac{c_i}{c_o}\kappa^2U_n \overline{U_m}) $$
+    $$
+        = \int_{ \partial \Omega^-} \overline{U_m} \div U_n d \vec{S} - \int_{\Omega^{-}} \underbrace{( \frac{c_i}{c_o}\kappa^2 U_n + \Delta U_n)}_{=0} \overline{U_m} d \vec{S} 
+    $$
+    $$
+        = \delta_{nm}\int_{ \partial \Omega^-} \overline{U_n} \div U_n d \vec{S}
+    $$
+    $$
+        = \delta_{nm}|v_n|^2 \sqrt{ \frac{c_i}{c_o}} \kappa  J_n(\sqrt{ \frac{c_i}{c_o}}\kappa ) J_n'(\sqrt{ \frac{c_i}{c_o}}\kappa )  \int_{\partial \Omega^-} e^{in\phi}  e^{-in\phi} dS
+    $$
+    $$
+        = \delta_{nm}2\pi |v_n|^2\kappa \sqrt{ \frac{c_i}{c_o}} J_n(\sqrt{ \frac{c_i}{c_o}} \kappa ) J_n'(\sqrt{ \frac{c_i}{c_o}} \kappa )
+    $$
+\end{proof}
+
+\begin{remark}
+    In the previous proof $U_n$ is integrated over $\Omega^-$, while $U_n$ is technically only defined on $\Gamma$. 
+    However, note that, knowing the coefficients of $U_n$, it is straightforward to extend $U$ to $\Omega^-$ using our basis vectors $V_n$. 
+    Also, the end result only depends on the restriction to $\Gamma$.
+    \footnote{These two points is what justified the restriction of $U_n$ to $\Gamma$ in the first place.}
+\end{remark}
+
+\begin{lemma}
+    $b(p_n, p_m) =  (p_n, p_m)_{H^1(\Gamma)} = \delta_{nm}$.
+\end{lemma}
+\begin{proof}
+    ...
+\end{proof}
+   
+\begin{proof}[Proof of theorem ...]
+    Both sides of the problem in definition 5.1 are linear in $(V, \varphi, q)$. 
+    Therefore the condition in the problem is satisfied for all 
+    $(V, \varphi, q)\in \mathcal{S}^{\frac{1}{2}}_N  \times  \mathcal{S}^{-\frac{1}{2}}_N \times  \mathcal{S}^{1}_N$
+    if and only it is satisfied for $(V, \varphi, q) \in (U_n, \theta_n, p_n) \forall n \in \{-N, -N+1, ..., N\}$.
+    So we end up with $(2N + 1)$ systems of equations of the form 
+    $$
+    \begin{aligned}
+        \mathrm{q}_{\kappa}(U, U_n)+\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), U_n\right)_{\Gamma}-\left((\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa}^{\prime})(\theta),U_n\right)_{\Gamma} &=\mathrm{f}_{2}(U_n) \\
+        \left((\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa})\left(\gamma_{D}^{-} U\right), \theta_n\right)_{\Gamma}+\left(\mathrm{V}_{\kappa}(\theta), \theta_n\right)_{\Gamma}+i \overline{\eta}(p, \theta_n)_{\Gamma} &=\overline{g_2(V)}(\theta_n) \\
+        -\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), p_n\right)_{\Gamma}-\left((\mathrm{K}_{\kappa}^{\prime}+\frac{1}{2} \mathrm{Id})(\theta), p_n\right)_{\Gamma}+\mathrm{b}(p, p_n) &=g_3(V)(p_n).
+    \end{aligned}.
+    $$
+    Now, before plugging in for $(U, \theta, p)$ note the following structural feature: 
+    Each of the summands of the left side of the problem has a factor that contains one of the following three bilinear forms:
+    \begin{itemize}
+        \item A scalar product $(a,b)_\Gamma$ of one of the entries of $(U, \theta, p)$ and a basis function. 
+        \item The bilinear form $b(a,b)$ of of the entries of $(U, \theta, p)$ and a basis function. 
+        \item The bilinear form $q_\kappa(a,b)$ of of the entries of $(U, \theta, p)$ and a basis function. 
+    \end{itemize}
+    Note that for each of these bilinear forms $s$ we have the orthogonality property $s(a_n, b_m) = 0$ for $n \neq m$, $a, b \in \{U, \theta, p\}$.
+    Also considering that our basis are also eigenvectors of the BIO, this implies that for each of the $(2N + 1)$ problems all but one $x_n$ is in the kernel of the left hand side.
+    Or, said more simply, the problem can be written as a blockdiagonal problem with $3 \times 3$ blocks. 
+
+    Plugging the relations derived in the former lemmata for $q_(U, U_n), b(p, p_n)$, 
+    the BIOs and the scalar products elementary calculation yields
+    $A_n x_n$ for the left hand side of the problem.  \\
+    For the right, plugging in our extension for $f_1, f_2$ yields $b_n$.
+    This concludes the proof. 
+\end{proof} 
+
 
 \subsection{Matrix}
 
@@ -418,7 +555,7 @@ $$
 $$
 third equation 
 $$
--\lambda_n^{(W)} P^{Up}_n C_U^n - (\lambda^{(K')}_n + \frac{1}{2})  P^{\theta p} C^\theta_n + C_p^n = h_2(V)
+-\lambda_n^{(W)} P^{Up}_n C_U^n - (\lambda^{(K')}_n + \frac{1}{2})  P^{\theta p} C^\theta_n + C_p^n = g_3(V)
 $$
 Using all the previously derived equations we can construct the Galerkin matrix:
 $$
@@ -435,18 +572,7 @@ $$
 % TODO: 3. sanity check p = 0. 
 % TODO: 4. Suche nach anderen wichtigen Eigenschaften in paper 
 
-\subsection{Scalar Product Values}
-Introduce $\tilde v_n = J_n(\kappa )v_n$.
-The values of the scalar products are
-\begin{itemize}
-    \item $P^{UU}_n = 2\pi |\tilde v_n|^2$
-    \item $P^{\theta U}_n = 2\pi w_n \overline{\tilde v_n}$
-    \item $P^{U\theta}_n = \overline{P^{\theta U}_n}$
-    \item $P^{\theta \theta}_n = 2 \pi |w_n|^2$
-    \item $P^{p \theta}_n = 2\pi l_n\overline{w_n}$
-    \item $P^{Up}_n = 2\pi \tilde v_n \overline{l_n}$
-    \item $P^{\theta p}_n = \overline{P^{p\theta}_n }$
-\end{itemize}
+
 
 \section{Validation}
 \subsection{Setup}
@@ -455,9 +581,9 @@ In preparation for the following steps to validate our matrix, we have to comput
 If we expand $f_1= \sum\limits_{j = -\infty}^\infty \frac{1}{2\pi}f_1^j e^{i j \theta}$ and $f_2= \sum\limits_{j = -\infty}^\infty \frac{1}{2\pi} f_2^j e^{i j \theta}$, we can write out the right side of the variational formulation
 $$
 \vec{b}_n = \begin{bmatrix}
-    f_1(U_n) \\
+   g_1(U_n)\\
     \overline{g_2}(\theta_n) \\
-    h_2(p_n)
+    g_3(p_n)
 \end{bmatrix}
  = \begin{bmatrix}
     - \overline{\tilde{v_n}} f_2^n - \lambda_n^{(W)} \overline{\tilde{v_n}} f_1^n \\
@@ -480,7 +606,7 @@ $$
 $$
 \subsection{p = 0}
 From P.Meury:
-" At second glance, we realise that \(p=0\), if \((U, \vartheta)\) solve the problems \((3.23)\) and \((3.24)\), respectively.
+" At second glance, we realise that \(p=0\), if \((U, \theta)\) solve the problems \((3.23)\) and \((3.24)\), respectively.
 This directly follows from corollary \(3.12\), theorem \(1.8\) and the definition of the exterior Calderón
 projector \(\mathrm{P}_{+}\). In short, \(p\) is a "dummy variable"." \\
 \\
@@ -520,7 +646,7 @@ This can be seen directly by plugging in, using $J_0'(x) = - J_1(x)$ and $H_0'(x
 Let's validate if we get the same numerical solution using our matrix $A$. We just use the $\vec{b}_n$ as computed above,
 with $f_1^j =  \delta_{0j} 2\pi (H_0^{(1)}(\kappa_o ) - J_0(\kappa_i )), f_2^j = \delta_{0j} 2\pi (\kappa_i J_1(\kappa_i ) - \kappa_o H_1^{(1)}(\kappa_o))$.\\
 The analytical solution can be written as $u = \frac{1}{v_0} U_0$. 
-Also, we expect $\vartheta = \partial_r(u_{\Omega^+})_{|\Gamma} = - \frac{1}{w_0} \kappa_o H_1^{(1)}(\kappa_o) \theta_0 $ and $p = 0$.\\
+Also, we expect $\theta = \partial_r(u_{\Omega^+})_{|\Gamma} = - \frac{1}{w_0} \kappa_o H_1^{(1)}(\kappa_o) \theta_0 $ and $p = 0$.\\
 %the expectation about vartheta is FROM PAGE 33 Thesis P. Meury
 \\
 So the solution vector should be
