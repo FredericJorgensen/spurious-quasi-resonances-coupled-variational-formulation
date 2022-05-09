@@ -40,11 +40,12 @@ class PValidator:
 
     def plotValidator(self, c_i, c_o, plotRange=[4.0, 8.0], N=100):
         # it is a matrix with (2N + 1) blocks, so in total there are
-        plotName = "plotTest"  # compute more sophisticated name here
         kappaVals, nVals = self.simulate(
             c_i, c_o, plotRange=plotRange, N=N)
 
         self.plot(kappaVals, nVals, r"$\kappa$", "Matrix Norm")
+        
+        plotName = self.getPlotName(c_i, c_o, N, plotRange)
         plt.savefig("./figures/p_validation/" + plotName + ".pdf")
 
     def plot(self, x, y, xLabelName, yLabelName):
@@ -54,6 +55,15 @@ class PValidator:
         plt.ylabel(yLabelName)
         plt.show()
 
+    def getPlotName(self, c_i, c_o,  N,
+                     plotRange):
+        plotName = "validate_p_" + "c_i" + str(c_i) + "c_o" + str(c_o)
+        if(N):
+            plotName += "N_" + str(N)
+
+        plotName += "plotRangeStart_" + \
+            str(plotRange[0]) + "plotRangeEnd_" + str(plotRange[1])
+        return plotName
 
 class SimpleSolValidator:
     def __init__(self, eta=1):

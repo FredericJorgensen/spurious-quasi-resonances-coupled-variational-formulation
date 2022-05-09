@@ -13,29 +13,29 @@ class Simulator:
 
     # define scenarios
 
-    def getSingularValueOfBlock(self, kappa, c_i, n, index=None):
+    def getSingularValueOfBlock(self, kappa, c_i, c_o, n, index=None):
         # returns singular values of A_Tilde_b
-        A_Tilde = self.model.getA_TildeBlock(kappa, c_i, n)
+        A_Tilde = self.model.getA_TildeBlock(kappa, c_i, c_o, n)
         u, s, vh = linalg.svd(A_Tilde)
         if(index != None):
             return s[index]
         return s
 
-    def ratioMaximumMinimumSingularValue(self, kappa, c_i, N):
-        return self.getMaximumSingularValue(kappa, c_i, N) / self.getMinimumSingularValue(kappa, c_i, N)
+    def ratioMaximumMinimumSingularValue(self, kappa, c_i, c_o, N):
+        return self.getMaximumSingularValue(kappa, c_i, c_o, N) / self.getMinimumSingularValue(kappa, c_i, c_o, N)
 
-    def getMaximumSingularValue(self, kappa, c_i, N):
+    def getMaximumSingularValue(self, kappa, c_i, c_o, N):
         maxSigma = 0
         for n in range(-N, N + 1):
-            s = self.getSingularValueOfBlock(kappa, c_i, n)
+            s = self.getSingularValueOfBlock(kappa, c_i, c_o, n)
             maxSigma = max(maxSigma, s.max())
         return maxSigma
 
-    def getMinimumSingularValue(self, kappa, c_i, N):
+    def getMinimumSingularValue(self, kappa, c_i, c_o, N):
         # returns minimum singular value of matrices A_Tilde_n with n in [-N, N]
         minSigma = float(inf)
         for n in range(-N, N + 1):
-            s = self.getSingularValueOfBlock(kappa, c_i, n)
+            s = self.getSingularValueOfBlock(kappa, c_i, c_o, n)
             minSigma = min(minSigma, s.min())
         return minSigma
 
@@ -51,19 +51,19 @@ class Simulator:
 
     # plotting of scenarios
 
-    def simulate(self, scenarioMethod, c_i,  n=None, N=None,
+    def simulate(self, scenarioMethod, c_i, c_o,  n=None, N=None,
                  index=None, plotRange=[2.0, 10.0]):
         kappaVals = linspace(plotRange[0], plotRange[1], 100)
         sVals = zeros_like(kappaVals)
 
         for (i, kappa) in enumerate(kappaVals):
             if(N):
-                sVals[i] = scenarioMethod(kappa, c_i, N)
+                sVals[i] = scenarioMethod(kappa, c_i, c_o, N)
             elif(n):
-                sVals[i] = scenarioMethod(kappa, c_i, n, index)
+                sVals[i] = scenarioMethod(kappa, c_i, c_o, n, index)
         return kappaVals, sVals
 
-    def plotScenario(self, scenarioName, c_i,  n=None, N=None, plotRange=[2.0, 10.0],
+    def plotScenario(self, scenarioName, c_i, c_o,  n=None, N=None, plotRange=[2.0, 10.0],
                      index=None, plotBesselRoots=False):
 
         scenarioMethodOf = {"getSingularValueOfBlock": self.getSingularValueOfBlock,
@@ -79,22 +79,22 @@ class Simulator:
         scenarioMethod = scenarioMethodOf[scenarioName]
         yLabelName = yLabelNameOf[scenarioName]
 
-        plotName = self.getPlotName(scenarioName, c_i, n, N,
+        plotName = self.getPlotName(scenarioName, c_i, c_o, n, N,
                                     index, plotBesselRoots, plotRange)
 
         kappaVals, sVals = self.simulate(
-            scenarioMethod, c_i, n, N, index, plotRange)
+            scenarioMethod, c_i, c_o, n, N, index, plotRange)
 
         self.plot(kappaVals, sVals, r"$\kappa$", yLabelName)
 
         if(plotBesselRoots):
             if(N == None):
                 raise Exception("N needs to be defined to plot bessel roots")
-            rescalePlotRange = array(plotRange) * sqrt(c_i)
+            rescalePlotRange = array(plotRange) * sqrt(c_i) / sqrt(c_o)
             besselRoots = self.getBesselRootsFromInterval(
                 rescalePlotRange[0], rescalePlotRange[1], N)
             maxVal = sVals.max()
-            plt.vlines(besselRoots / sqrt(c_i), zeros_like(besselRoots),
+            plt.vlines(besselRoots * sqrt(c_o) / sqrt(c_i), zeros_like(besselRoots),
                        maxVal * ones_like(besselRoots), linestyles='dashed')
         plt.savefig("./figures/" + self.modelName + "/" + plotName + ".pdf")
 
@@ -102,13 +102,14 @@ class Simulator:
 
     def plot(self, x, y, xLabelName, yLabelName):
         plt.figure()
-        plt.plot(x, y, 'r')
+        plt.semilogy(x, y, 'r')
         plt.xlabel(xLabelName)
         plt.ylabel(yLabelName)
+        plt.grid(True)
 
-    def getPlotName(self, scenarioName, c_i, n, N, index,
+    def getPlotName(self, scenarioName, c_i, c_o, n, N, index,
                     plotBesselRoots, plotRange):
-        plotName = scenarioName + "c_i" + str(c_i)
+        plotName = scenarioName + "c_i" + str(c_i) + "c_o" + str(c_o)
         if(n):
             plotName += "n_" + str(n)
         if(N):
