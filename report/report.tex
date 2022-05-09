@@ -1,6 +1,6 @@
 \documentclass[10pt,journal,compsoc, onecolumn]{IEEEtran}
 
-\usepackage[pdftex]{graphicx}    
+\usepackage[pdftex]{graphicx}   
 \usepackage{cite}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -239,7 +239,7 @@ $$
 \begin{aligned}
     \left(\Delta+\tilde\kappa^{2} c_{i}\right) u^{-} &=0 & & \text { in } \Omega^{-} 
     \\\left(\Delta+\tilde\kappa^{2} c_{o}\right) u^{+} &=0 & & \text { in } \Omega^{+} 
-    \\ \gamma_{C}^{-} u^{-} &=\gamma_{C}^{+} u^{+}+\mathbf{f} & & \text { on } \Gamma.
+    \\ \gamma_{C}^{+} u^{+} &=\gamma_{C}^{-} u^{-}+\mathbf{f} & & \text { on } \Gamma.
 \end{aligned}
 $$
 \end{definition}
@@ -412,7 +412,7 @@ Let's introduce a few new constants before deriving the Galerkin Matrix.
         \item $P^{Up}_n = 2\pi \tilde v_n \overline{l_n}$
         \item $P^{\theta p}_n = \overline{P^{p\theta}_n }$
     \end{itemize}
-    where $\tilde v_n = J_n(\kappa )v_n$.
+    where $\tilde v_n = J_n(\sqrt{\frac{c_i}{c_o}}\kappa )v_n$.
 \end{definition}
 Let's introduce the following matrix and vector: 
 \begin{definition}
@@ -575,84 +575,80 @@ $$
 
 
 \section{Validation}
-\subsection{Setup}
-In preparation for the following steps to validate our matrix, we have to compute right side of the discretised variational problem. \\
-%TODO: Fix ambiguity with other $f_2$
-If we expand $f_1= \sum\limits_{j = -\infty}^\infty \frac{1}{2\pi}f_1^j e^{i j \theta}$ and $f_2= \sum\limits_{j = -\infty}^\infty \frac{1}{2\pi} f_2^j e^{i j \theta}$, we can write out the right side of the variational formulation
-$$
-\vec{b}_n = \begin{bmatrix}
-   g_1(U_n)\\
-    \overline{g_2}(\theta_n) \\
-    g_3(p_n)
-\end{bmatrix}
- = \begin{bmatrix}
-    - \overline{\tilde{v_n}} f_2^n - \lambda_n^{(W)} \overline{\tilde{v_n}} f_1^n \\
-    (\lambda_n^{(K)} - 0.5)  \overline{w_n} f_1^n\\
-    \lambda_n^{(W)} \overline{l_n} f_1^n
-\end{bmatrix}
-= f_1^n 
-\underbrace{
-\begin{bmatrix}
-- \lambda_n^{(W)} \overline{\tilde{v_n}} \\
-(\lambda_n^{(K)} - 0.5) \overline{w_n}  \\
-\lambda_n^{(W)} \overline{l_n}
-\end{bmatrix}}_{\vec{x_1}}
-+ f_2^n
-\underbrace{\begin{bmatrix}
-    - \overline{\tilde{v_n}} \\
-    0 \\
-    0
-\end{bmatrix}}_{\vec{x_1}}.
-$$
-\subsection{p = 0}
-From P.Meury:
-" At second glance, we realise that \(p=0\), if \((U, \theta)\) solve the problems \((3.23)\) and \((3.24)\), respectively.
-This directly follows from corollary \(3.12\), theorem \(1.8\) and the definition of the exterior Calderón
-projector \(\mathrm{P}_{+}\). In short, \(p\) is a "dummy variable"." \\
-\\
-Now to verify that our derived matrix $A_n$ is correct we just have to show that 
-$$
-A_n \begin{bmatrix}
-   C_n^U \\
-    C_n^\theta \\
-    C_n^p
-\end{bmatrix} = \vec{b}
-$$
-for $\vec{b} \in span( \vec{x}_1, \vec{x}_2) =: V_{\vec{b}}$ implies $C_n^p = 0$. \\
-Let's assume that $A_n$ is invertible. 
-Then we have to show that $ V_{\vec{b}} \subset Ker(P_3A_n^{-1}\vec{x_1})$.
-For dimensional reasons this is equivalent to  $ V_{\vec{b}} = Ker(P_3A_n^{-1}\vec{x_1})$.\\
-Let $P_{V_{\vec{b}}}$ be the projector on $V_{\vec{b}}$.
-Then we just have to show that $P_3A_n^{-1}P_{V_{\vec{b}}}$ is approximately the zero map. 
+
 
 \subsection{Solving a special case}
-(Would expect exact solution because in same space).
-
-
-Another thing we can to to validate the correctness of our derived matrix is to show that it yields the correct numerical solution. \\
-Define $\kappa_j = \sqrt{n_j} \kappa$ for $j = i, o$ and consider the special case 
+To validate the correctness of our derived matrix is to show that it yields the correct numerical solution for a simple example. \\
+Consider the special case
 $$
 \vec{f} = 
 \begin{bmatrix}
-    H_0^{(1)}(\kappa_o ) - J_0(\kappa_i ) \\
-    \kappa_i J_1(\kappa_i ) - \kappa_o H_1^{(1)}(\kappa_o ) \\
-\end{bmatrix}.
+    H_n^{(1)}(\kappa) -  J_n(\tilde c \kappa ) \\
+    H_n^{\prime (1)}(\kappa) - J_n^{\prime}(\tilde c \kappa )\\
+\end{bmatrix} e^{i n \phi}
 $$
+where $\tilde c = \sqrt{\frac{c_i}{c_o}}$. \\
 Then the solution is 
 $$
-u = J_0(\kappa_i r), x \in \Omega^-, u = H_0^{(1)}(\kappa_o r), x \in \Omega^+.
+u = J_n(\tilde c \kappa r) e^{i n \phi}, x \in \Omega^-, u = H_n^{(1)}(\kappa r)e^{i n \phi}, x \in \Omega^+.
 $$
-This can be seen directly by plugging in, using $J_0'(x) = - J_1(x)$ and $H_0'(x) = - H_1'(x)$. \\
-Let's validate if we get the same numerical solution using our matrix $A$. We just use the $\vec{b}_n$ as computed above,
-with $f_1^j =  \delta_{0j} 2\pi (H_0^{(1)}(\kappa_o ) - J_0(\kappa_i )), f_2^j = \delta_{0j} 2\pi (\kappa_i J_1(\kappa_i ) - \kappa_o H_1^{(1)}(\kappa_o))$.\\
-The analytical solution can be written as $u = \frac{1}{v_0} U_0$. 
-Also, we expect $\theta = \partial_r(u_{\Omega^+})_{|\Gamma} = - \frac{1}{w_0} \kappa_o H_1^{(1)}(\kappa_o) \theta_0 $ and $p = 0$.\\
-%the expectation about vartheta is FROM PAGE 33 Thesis P. Meury
+This can be seen directly by plugging in.\\
+\begin{remark}
+Note that the discretized problem will yield the same solution as the original one 
+    as the restricted space contains the analytical solution. 
+\end{remark}
+\begin{proposition}
+    With regards to our chosen basis, the analytical solution can be written as $(U, \theta, p) = (\frac{1}{v_n} U_n, \frac{1}{w_n} \kappa H_n^{\prime(1)}(\kappa)\theta_n, 0)$. \\
+    So the solution vector should be
+    $$
+        C_j^U = \delta_{nj}  \frac{1}{v_n}, C_j^\theta = \delta_{nj}  \frac{1}{w_n} \kappa H_n^{\prime(1)}(\kappa), C_j^p = 0, \forall j.
+    $$
+\end{proposition}
+\begin{proof}
+    ..
+    Also, we expect $\theta = \partial_r(u_{\Omega^+})_{|\Gamma} = - \frac{1}{w_0} \kappa_o H_1^{(1)}(\kappa_o) \theta_0 $ and $p = 0$, from ... 
+    %the expectation about vartheta is FROM PAGE 33 Thesis P. Meury
+\end{proof}
+Let's validate if we get the same numerical solution using our matrix $A_n$. We just use the $\vec{b}_n$ as computed above,
+with $f_1^j =  \delta_{nj} 2\pi (J_n(\tilde c \kappa) - H_n^{(1)}(\kappa)), f_2^j = \delta_{nj} 2\pi (\tilde c \kappa J_1^{\prime}(\tilde c\kappa) - \kappa H_n^{\prime(1)}(\kappa))$.\\
 \\
-So the solution vector should be
+To measure how good the solution is, let's introduce the $\zeta$-number: 
 $$
-C_j^U = \delta_{0j}  \frac{1}{v_0}, C_j^\theta = -\delta_{0j} \frac{1}{w_0} \kappa_o H_1^{(1)}(\kappa_o), C_j^p = 0, \forall j.
+\zeta(\kappa)=  \max\limits_{n \in [-N, ..., N]}\frac{\| \vec{C}^n_{num} - \vec{C}^n_{ana}\|}{\|\vec{C}^n_{ana}\|}
 $$
+As seen in fig. \ref{fig:sol_validation}, the $\zeta$-number is negligible across all values of $\kappa$ and $n$ which validates our derivation of $A_n$ and $b_n$.
+
+\begin{figure}
+    %\includegraphics[width=0.9\textwidth]{test.pdf}
+    \caption{Validation of the numerical solution for the considered case case.}
+    \label{fig:sol_validation}
+\end{figure}
+\subsection{p = 0}
+From P.Meury:
+\begin{remark}
+At second glance, we realise that \(p=0\), if \((U, \theta)\) solve the problem. \\
+\end{remark}
+
+We can use this to validate that our derived matrix $A_n$ is correct we just have to show that every solution of $A_n \vec{x} = \vec{b}_n$ satisfies $x_3 = 0$, 
+where $\vec{b} \in span( \vec{x}_1, \vec{x}_2) =: V_{\vec{b}}$. \\
+Let's assume that $A_n$ is invertible.
+Then we have to show that $ V_{\vec{b}} \subset Ker(P_3A_n^{-1})$.
+For dimensional reasons this is equivalent to  $ V_{\vec{b}} = Ker(P_3A_n^{-1})$.\\
+Let $P_{V_{\vec{b}}}$ be the projector on $V_{\vec{b}}$.
+Then we just have to show that $P_3A_n^{-1}P_{V_{\vec{b}}}$ is approximately the zero map. 
+For that, we just calculate the euclidian matrix norm of $A$ for a range of $\kappa$ values. 
+
+\section{Numerical Results}
+
+%
+%\bibliography{bib}
+%\bibliographystyle{ieeetr}
+
+
+\end{document}
+
+OLD STuff 
+
 \subsection{Even more special case}
 In addition to the assumptions above, pick $c_o = 1$, $\eta = 1$, and $\kappa = 5.502$ (then $J_0(\kappa) = 0$).\\
 Then we have $\lambda_0^{(V)} =0$, $\lambda_n^{(K)} = \lambda_n^{(K')} = 1/2$. For easier notation write $\lambda_n^{(W)} =: \nu$.
@@ -699,16 +695,7 @@ x = A_0^{-1} b_0 =  ...
 
 \end{pmatrix}
 $
-\section{Numerical Results}
 
-%
-%\bibliography{bib}
-%\bibliographystyle{ieeetr}
-
-
-\end{document}
-
-OLD STuff 
 \section{Defining the problem}
 \subsection{Basic Definitions}
 \subsubsection{Lipschitz Domain}

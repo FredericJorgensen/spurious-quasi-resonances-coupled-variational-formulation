@@ -98,7 +98,7 @@ class MatrixModel:
         # avoid unnecessary 0 / 0
         #if(abs(jv(n, kappa * sqrt(c_i)) < 1e-280)):
         #    return 1 / sqrt(2 * pi * (1 + n ** 2))
-        return self.v(kappa, c_i, c_o, n) * jv(n, kappa * sqrt(c_i))
+        return self.v(kappa, c_i, c_o, n) * jv(n, kappa * sqrt(c_i/c_o))
 
     def w(self, kappa, c_i, c_o, n):
         return (1 + n ** 2) ** (1/4) / sqrt(2 * pi)
@@ -107,8 +107,9 @@ class MatrixModel:
         return 1/sqrt(2 * pi * (1 + n ** 2))
 
     def alpha(self, kappa, c_i, c_o, n):
-        z = kappa * sqrt(c_i)
-        return 2 * pi * abs(self.v(kappa, c_i, c_o, c_o, n)) ** 2 * z * jv(n, z) * jvp(n, z)
+        z = kappa * sqrt(c_i/c_o)
+        #this looks weird, but it avoids overflow problem if v is very large: 
+        return 2 * pi * z * abs(self.v(kappa, c_i, c_o, n)) * jv(n, z) * abs(self.v(kappa, c_i, c_o, n)) * jvp(n, z)
 
     def alpha1(self, kappa, c_i, c_o, n):
         z = kappa * sqrt(c_i)
