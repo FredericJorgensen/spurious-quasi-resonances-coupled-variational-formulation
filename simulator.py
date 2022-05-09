@@ -59,8 +59,10 @@ class Simulator:
         for (i, kappa) in enumerate(kappaVals):
             if(N):
                 sVals[i] = scenarioMethod(kappa, c_i, c_o, N)
-            elif(n):
-                sVals[i] = scenarioMethod(kappa, c_i, c_o, n, index)
+            else:
+                raise Exception("Invalid arguments")
+            # elif(n):
+                # sVals[i] = scenarioMethod(kappa, c_i, c_o, n, index)
         return kappaVals, sVals
 
     def plotScenario(self, scenarioName, c_i, c_o,  n=None, N=None, plotRange=[2.0, 10.0],

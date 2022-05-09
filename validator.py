@@ -53,7 +53,8 @@ class PValidator:
         plt.plot(x, y, 'r')
         plt.xlabel(xLabelName)
         plt.ylabel(yLabelName)
-        plt.show()
+        plt.grid(True)
+        # plt.show()
 
     def getPlotName(self, c_i, c_o,  N,
                      plotRange):

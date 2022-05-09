@@ -393,17 +393,36 @@ INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
-INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/validate_p_1.pdf
-INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/validate_p_1.pdf
-INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/validate_p_1.pdf
-INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/validate_p_1.pdf
-INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/validate_p_1.pdf
-INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/numRes1.pdf
-INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/numRes1.pdf
-INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/numRes1.pdf
-INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/numRes2.pdf
-INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/numRes2.pdf
-INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/numRes2.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario1SolVal.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario1SolVal.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario1SolVal.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario2SolVal.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario2SolVal.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario2SolVal.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario1PVal.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario1PVal.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario1PVal.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario2PVal.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario2PVal.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario2PVal.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario1MaximumSingVal.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario1MaximumSingVal.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario1MaximumSingVal.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario2MaximumSingVal.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario2MaximumSingVal.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario2MaximumSingVal.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario1MinimumSingVal.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario1MinimumSingVal.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario1MinimumSingVal.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario2MinimumSingVal.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario2MinimumSingVal.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario2MinimumSingVal.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario1Ratio.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario1Ratio.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario1Ratio.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario2Ratio.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario2Ratio.pdf
+INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/scenario2Ratio.pdf
 INPUT /Users/fredericjoergensen/Documents/Meine Dokumente/Uni/Semester VI/Thesis/Code.nosync/report/report.aux
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc
