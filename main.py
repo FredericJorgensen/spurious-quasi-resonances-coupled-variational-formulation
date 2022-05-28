@@ -26,8 +26,8 @@ if __name__ == "__main__":
     #pvalidator.plotValidator(c_i, c_o, plotRange=kappaRange, N=N)
 
     # numerical simulation
-    regularisedSimulator = Simulator("regularised", eta=eta)
-    regularisedSimulator.plotScenario(
+    simulator = Simulator(eta=eta)
+    simulator.plotScenario(
         "ratioMaximumMinimumSingularValue", c_i, c_o, N=100,  plotBesselRoots=True,
         plotRange=kappaRange)
 

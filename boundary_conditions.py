@@ -6,7 +6,7 @@ from numpy.linalg import inv
 
 class BoundaryConditions:
     def __init__(self, eta=1):
-        self.model = MatrixModel("regularised", eta)
+        self.model = MatrixModel(eta)
         self.eta = eta
 
     def x_1(self, kappa, c_i, c_o, n):
@@ -16,14 +16,8 @@ class BoundaryConditions:
         w = self.model.w(kappa, c_i, c_o, n)
         l = self.model.l(kappa, c_i, c_o, n)
         
-        # if(n == 0):
-        #     #for debugging 
-        #     print("kappa: ", kappa)
-        #     print("lambdaW: ", lambdaW)
-        #     print("c_i: ", c_i)
-        #     print("lambdaK: ", lambdaK)
         x_1 = array([-lambdaW * conj(v_tilde),
-                    (lambdaK - 0.5) * conj(w),  #just for debugging, change bacl 
+                    (lambdaK - 0.5) * conj(w),  
                     lambdaW * conj(l)])[newaxis].T
         return x_1
 

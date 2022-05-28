@@ -9,7 +9,7 @@ from scipy.special import jn_zeros, jv, jvp, hankel1, h1vp
 
 class PValidator:
     def __init__(self, eta=1):
-        self.model = MatrixModel("regularised", eta)
+        self.model = MatrixModel(eta)
         self.boundaryConditions = BoundaryConditions(eta)
         self.eta = eta
 
@@ -54,7 +54,6 @@ class PValidator:
         plt.xlabel(xLabelName)
         plt.ylabel(yLabelName)
         plt.grid(True)
-        # plt.show()
 
     def getPlotName(self, c_i, c_o,  N,
                      plotRange):
@@ -68,7 +67,7 @@ class PValidator:
 
 class SimpleSolValidator:
     def __init__(self, eta=1):
-        self.model = MatrixModel("regularised", eta)
+        self.model = MatrixModel(eta)
         self.boundaryConditions = BoundaryConditions(eta)
         self.eta = eta
 
