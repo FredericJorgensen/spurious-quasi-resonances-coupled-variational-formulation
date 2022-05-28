@@ -652,6 +652,50 @@ As we see in fig \ref{fig:p_validation}, this is satisfied which is another vali
    \label{fig:p_validation}
 \end{figure}
 
+\section{Constructing the Solution Operator}
+For better comparability, let's construct the discretized version of the solution operator for the considered problem.
+\begin{definition}
+    Given positive real numbers \(k, c_{i}\), and \(c_{o}\), let \(S\left(c_{i}, c_{o}\right) \mathbf{f}:=\gamma_{C}^{-} u\)
+    be the solution operator where \(u\) solves eq \ref{eq:helmholtz}.
+\end{definition}
+\begin{theorem}
+According to paper 2006 BEM-FEM we can write $u$ as 
+\begin{equation}
+    \label{eq:boundary-integral-representation}
+    u = -\Psi_{\mathrm{SL}}^{\kappa}\left(\left[\gamma_{N} u\right]_{\Gamma}\right)+\Psi_{\mathrm{DL}}^{\kappa}\left(\left[\gamma_{D} u\right]_{\Gamma}\right)
+\end{equation}
+where $\Psi_{SL}$ and $\Psi_{DL}$ are the single and double layer potential, respectively. 
+Moreover, we used the notation \(\left[\gamma_{D} V\right]_{\Gamma}:=\gamma_{D}^{+} V-\gamma_{D}^{-} V, \quad\left[\gamma_{N} V\right]_{\Gamma}:=\gamma_{D}^{+} V-\gamma_{D}^{-} V\)
+\end{theorem}
+Note that eq. \ref{eq:helmholtz} implies that $\left[\gamma_{D} u\right] = f_1, \left[\gamma_{N} u\right] =  f_2$.
+
+No let's use the following identity from the 2006 BEM-FEM paper.
+
+\begin{align} 
+    \gamma_{D}^{\pm} \Psi_{\mathrm{SL}}^{\kappa} &=\mathrm{V}_{\kappa}, & \gamma_{N}^{\pm} \Psi_{\mathrm{SL}}^{\kappa} &=\mathrm{K}_{\kappa} \pm \frac{1}{2} \mathrm{ld} \label{eq:bound-ops-identities}\\ 
+    \gamma_{D}^{\pm} \Psi_{\mathrm{DL}}^{\kappa} &=\mathrm{K}_{\kappa}^{\prime} \mp \frac{1}{2} \mathrm{ld}, & \gamma_{N}^{\pm} \Psi_{\mathrm{DL}}^{\kappa} &=-\mathrm{W}_{\kappa}.  \nonumber
+\end{align}
+
+We'll plug this into \(\gamma_C^-u\) and obtain the solution operator: 
+\begin{align}
+    \gamma_C^-u & = \gamma_C^-\left(-\Psi_{\mathrm{SL}}^{\kappa}\left(f_2\right)+\Psi_{\mathrm{DL}}^{\kappa}\left(f_1\right) \right) = 
+    \left(\gamma_D^-\left(-\Psi_{\mathrm{SL}}^{\kappa}\left(f_2\right)+\Psi_{\mathrm{DL}}^{\kappa}\left(f_1\right) \right),
+    \gamma_N^- \left(-\Psi_{\mathrm{SL}}^{\kappa}\left(f_2\right)+\Psi_{\mathrm{DL}}^{\kappa}\left(f_1\right) \right)\right)  \nonumber \\
+    & = \left( - V_\kappa f_2 + (K_\kappa^\prime + \frac{1}{2}) f_1, 
+    -(K_\kappa -\frac{1}{2})f_2 - W_\kappa f_1 \right).
+\end{align}
+
+Now we will restrict the solution operator to $\mathcal{S}^{\frac{1}{2}} \times \mathcal{S}^{-\frac{1}{2}}$ 
+and write it out in our orthonormal basis. Assuming we write out $\vec{f}$ and $u$ in our orthonormal basis, we can achieve this by simply plugging in the basis vectors for $f_1$ and $f_2$. 
+This results in a blockdiagonal matrix with the following blocks.
+\begin{equation}
+    S_n =  
+    \begin{pmatrix}
+        \lambda_n^{(K')} + \frac{1}{2} & - \lambda_n^{(V)}  \\
+        - \lambda_n^{(W)} & -(\lambda_n^{(K)} - \frac{1}{2})
+    \end{pmatrix}
+\end{equation}
+
 
 \section{Numerical Results}
 Now let's investigate maximal singular value of $A = diag(A_{-N}, A_{-N + 1}, ..., A_{N})$. 

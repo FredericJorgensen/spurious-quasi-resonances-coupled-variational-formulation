@@ -14,12 +14,10 @@ def blockDiagFromList(list):
 
 class MatrixModel:
     def __init__(self, eta=None) -> None:
-        self.model = model
         self.eta = eta
 
-    def getA_TildeBlock(self, kappa, c_i, c_o, n):
-        
-      
+    def getBlock(self, kappa, c_i, c_o, n):
+
         if(self.eta == None):
             raise Exception(
                 "Missing argument: The second argument is missing. There was no input provided for eta.")
@@ -38,12 +36,12 @@ class MatrixModel:
             self.P("theta", "p", kappa, c_i, c_o, n)
         a_33 = 1
         return array([[a_11, a_12, a_13],
-                        [a_21, a_22, a_23],
-                        [a_31, a_32, a_33]])
+                      [a_21, a_22, a_23],
+                      [a_31, a_32, a_33]])
 
-    def getA_Tilde(self, kappa, c_i, c_o, N):
-        A = blockDiagFromList([self.getA_TildeBlock(kappa, c_i, c_o, n)
-                              for n in range(-N, N + 1)])
+    def getBlockMatrix(self, kappa, c_i, c_o, N):
+        A = blockDiagFromList([self.getBlock(kappa, c_i, c_o, n)
+                               for n in range(-N, N + 1)])
         baseSize = 2 * N + 1
         assert(shape(A) == (3 * baseSize, 3 * baseSize))
         return A
@@ -86,7 +84,7 @@ class MatrixModel:
 
     def v_tilde(self, kappa, c_i, c_o, n):
         # avoid unnecessary 0 / 0
-        #if(abs(jv(n, kappa * sqrt(c_i)) < 1e-280)):
+        # if(abs(jv(n, kappa * sqrt(c_i)) < 1e-280)):
         #    return 1 / sqrt(2 * pi * (1 + n ** 2))
         return self.v(kappa, c_i, c_o, n) * jv(n, kappa * sqrt(c_i/c_o))
 
@@ -98,7 +96,7 @@ class MatrixModel:
 
     def alpha(self, kappa, c_i, c_o, n):
         z = kappa * sqrt(c_i/c_o)
-        #this looks weird, but it avoids overflow problem if v is very large: 
+        # this looks weird, but it avoids overflow problem if v is very large:
         return 2 * pi * z * abs(self.v(kappa, c_i, c_o, n)) * jv(n, z) * abs(self.v(kappa, c_i, c_o, n)) * jvp(n, z)
 
     def alpha1(self, kappa, c_i, c_o, n):
