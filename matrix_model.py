@@ -13,43 +13,33 @@ def blockDiagFromList(list):
 
 
 class MatrixModel:
-    def __init__(self, model="unregularised", eta=None) -> None:
-        # model has to be "regularised" || "unregularised"
+    def __init__(self, eta=None) -> None:
         self.model = model
         self.eta = eta
 
     def getA_TildeBlock(self, kappa, c_i, c_o, n):
-        if(self.model == "unregularised"):
-            a_11 = 2 * pi * (self.alpha1(kappa, c_i, c_o, n) +
-                             self.lambdaW(n, kappa))
-            a_12 = - 2 * pi * (0.5 - self.lambdaK__adjoint(n, kappa))
-            a_21 = 2 * pi * (0.5 - conj(self.lambdaK(n, kappa)))
-            a_22 = 2 * pi * (conj(self.lambdaV(n, kappa)))
-            return array([[a_11, a_12],
-                          [a_21, a_22]])
-        elif(self.model == "regularised"):
-            if(self.eta == None):
-                raise Exception(
-                    "Missing argument: The second argument is missing. There was no input provided for eta.")
-            a_11 = self.alpha(kappa, c_i, c_o, n) + self.lambdaW(n, kappa) * \
-                self.P("U", "U", kappa, c_i, c_o, n)
-            a_12 = -(0.5 - self.lambdaK__adjoint(n, kappa)) * \
-                self.P("theta", "U", kappa, c_i, c_o, n)
-            a_13 = 0
-            a_21 = (0.5 - self.lambdaK(n, kappa)) * \
-                self.P("U", "theta", kappa, c_i, c_o, n)
-            a_22 = self.lambdaV(n, kappa) * \
-                self.P("theta", "theta", kappa, c_i, c_o, n)
-            a_23 = 1j * conj(self.eta) * self.P("p", "theta", kappa, c_i, c_o, n)
-            a_31 = - self.lambdaW(n, kappa) * self.P("U", "p", kappa, c_i, c_o, n)
-            a_32 = - (self.lambdaK__adjoint(n, kappa) + 0.5) * \
-                self.P("theta", "p", kappa, c_i, c_o, n)
-            a_33 = 1
-            return array([[a_11, a_12, a_13],
-                          [a_21, a_22, a_23],
-                          [a_31, a_32, a_33]])
-        else:
-            raise Exception("Type Error: the given model does not exist.")
+        
+      
+        if(self.eta == None):
+            raise Exception(
+                "Missing argument: The second argument is missing. There was no input provided for eta.")
+        a_11 = self.alpha(kappa, c_i, c_o, n) + self.lambdaW(n, kappa) * \
+            self.P("U", "U", kappa, c_i, c_o, n)
+        a_12 = -(0.5 - self.lambdaK__adjoint(n, kappa)) * \
+            self.P("theta", "U", kappa, c_i, c_o, n)
+        a_13 = 0
+        a_21 = (0.5 - self.lambdaK(n, kappa)) * \
+            self.P("U", "theta", kappa, c_i, c_o, n)
+        a_22 = self.lambdaV(n, kappa) * \
+            self.P("theta", "theta", kappa, c_i, c_o, n)
+        a_23 = 1j * conj(self.eta) * self.P("p", "theta", kappa, c_i, c_o, n)
+        a_31 = - self.lambdaW(n, kappa) * self.P("U", "p", kappa, c_i, c_o, n)
+        a_32 = - (self.lambdaK__adjoint(n, kappa) + 0.5) * \
+            self.P("theta", "p", kappa, c_i, c_o, n)
+        a_33 = 1
+        return array([[a_11, a_12, a_13],
+                        [a_21, a_22, a_23],
+                        [a_31, a_32, a_33]])
 
     def getA_Tilde(self, kappa, c_i, c_o, N):
         A = blockDiagFromList([self.getA_TildeBlock(kappa, c_i, c_o, n)
