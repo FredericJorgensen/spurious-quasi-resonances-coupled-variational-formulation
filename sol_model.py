@@ -8,7 +8,7 @@ class SolModel:
     def __init__(self):
         pass
 
-    def getS_Block(self, kappa, c_i, c_o, n):
+    def getBlock(self, kappa, c_i, c_o, n):
         s_11 = self.lambdaK__adjoint(n, kappa) + 0.5
         s_12 = - self.lambdaV(n, kappa)
         s_21 = - self.lambdaW(n, kappa)
@@ -16,7 +16,7 @@ class SolModel:
         return array([[s_11, s_12],
                       [s_21, s_22]])
 
-    
+
     def lambdaV(self, n, kappa):
         return 1j * pi / 2.0 * jv(n, kappa) * hankel1(n, kappa)
 

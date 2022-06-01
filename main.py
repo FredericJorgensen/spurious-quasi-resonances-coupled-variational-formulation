@@ -7,7 +7,7 @@ if __name__ == "__main__":
     scenario2 = [3.0, 1.0]
 
     # parameters
-    scenario = scenario2
+    scenario = scenario1
     c_i = scenario[0]
     c_o = scenario[1]
     kappa = 1
@@ -26,8 +26,7 @@ if __name__ == "__main__":
     #pvalidator.plotValidator(c_i, c_o, plotRange=kappaRange, N=N)
 
     # numerical simulation
-    simulator = Simulator(eta=eta)
+    simulator = Simulator(model="solution", eta=eta)
     simulator.plotScenario(
-        "ratioMaximumMinimumSingularValue", c_i, c_o, N=100,  plotBesselRoots=True,
+        "MinimumSingularValue", c_i, c_o, N=100,  plotBesselRoots=False,
         plotRange=kappaRange)
-

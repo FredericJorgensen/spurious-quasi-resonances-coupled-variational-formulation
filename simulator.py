@@ -6,7 +6,7 @@ from sol_model import SolModel
 
 
 class Simulator:
-    def __init__(self, model= "variational", eta=None) -> None:
+    def __init__(self, model="variational", eta=None) -> None:
         if(model == "variational"):
             self.model = MatrixModel(eta)
         elif(model == "solution"):
