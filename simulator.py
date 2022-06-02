@@ -85,7 +85,7 @@ class Simulator:
 
     def simulate(self, scenarioMethod, c_i, c_o,  n=None, N=None,
                  index=None, plotRange=[2.0, 10.0]):
-        kappaVals = linspace(plotRange[0], plotRange[1], 100)
+        kappaVals = linspace(plotRange[0], plotRange[1], 1000)
         sVals = zeros_like(kappaVals)
         maximumIndices = zeros_like(kappaVals)
 
