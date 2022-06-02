@@ -2,6 +2,7 @@ from numpy import *
 from scipy import *
 from scipy.special import jv, jvp, hankel1, h1vp
 from scipy.linalg import block_diag
+from utils import kappa_tilde, lambdaV, lambdaK, lambdaK__adjoint, lambdaW
 
 
 def blockDiagFromList(list):
@@ -48,16 +49,16 @@ class MatrixModel:
 
     # mathematical helper functions
     def lambdaV(self, n, kappa):
-        return 1j * pi / 2.0 * jv(n, kappa) * hankel1(n, kappa)
+        return lambdaV(n, kappa)
 
     def lambdaK(self, n, kappa):
-        return 1j * pi * kappa / 2.0 * jv(n, kappa) * h1vp(n, kappa) + 0.5
+        return lambdaK(n, kappa)
 
     def lambdaK__adjoint(self, n, kappa):
-        return 1j * pi * kappa / 2.0 * jv(n, kappa) * h1vp(n, kappa) + 0.5
+        return lambdaK__adjoint(n, kappa)
 
     def lambdaW(self, n, kappa):
-        return - 1j * pi * kappa ** 2 / 2.0 * jvp(n, kappa) * h1vp(n, kappa)
+        return lambdaW(n, kappa)
 
     def P(self, a: str, b: str, kappa: float, c_i: float, c_o, n: int):
         if(a == "U" and b == "U"):
@@ -77,8 +78,11 @@ class MatrixModel:
         else:
             raise Exception("This scalar product is not defined.")
 
+    def kappa_tilde(self, kappa, c_i, c_o, n):
+        return kappa_tilde(kappa, c_i, c_o, n)
+
     def v(self, kappa, c_i, c_o, n):
-        denominator = sqrt(2 * pi * (1 + n ** 2)) * \
+        denominator = sqrt(2 * pi * (self.kappa_tilde(kappa, c_i, c_o, n) ** 2 + n ** 2)) * \
             abs(jv(n, kappa * sqrt(c_i/c_o)))
         return 1 / denominator
 
@@ -89,10 +93,10 @@ class MatrixModel:
         return self.v(kappa, c_i, c_o, n) * jv(n, kappa * sqrt(c_i/c_o))
 
     def w(self, kappa, c_i, c_o, n):
-        return (1 + n ** 2) ** (1/4) / sqrt(2 * pi)
+        return (self.kappa_tilde(kappa, c_i, c_o, n) ** 2 + n ** 2) ** (1/4) / sqrt(2 * pi)
 
     def l(self, kappa, c_i, c_o, n):
-        return 1/sqrt(2 * pi * (1 + n ** 2))
+        return 1/sqrt(2 * pi * (self.kappa_tilde(kappa, c_i, c_o, n) ** 2 + n ** 2))
 
     def alpha(self, kappa, c_i, c_o, n):
         z = kappa * sqrt(c_i/c_o)
