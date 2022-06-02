@@ -10,7 +10,7 @@ def simulateScenario(selectedScenario):
     scenario3 = [1.0, 10.0, 1.0]
     scenario4 = [10.0, 1.0, 1.0]
     scenario5 = [1.0, 3.0, 100.0]
-    scenario6 = [3.0, 1.0, 0.1]
+    scenario6 = [1.0, 3.0, 10]
 
     scenarios = [scenario1, scenario2, scenario3, scenario4, scenario5,
                  scenario6]
