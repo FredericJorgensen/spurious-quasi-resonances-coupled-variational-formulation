@@ -261,7 +261,6 @@ we can use the same formulation.\\
     makes it more clear that the resonance behavior depends only on the ratio and not the scaling
     of the refractive indices.
 \end{remark}
-\\
 The formulation is: 
 Find \(U \in H^{1}(\Omega), \theta \in H^{-1 / 2}(\Gamma)\) and \(p \in H^{1}(\Gamma)\) such that for all \(V \in H^{1}(\Omega), \varphi \in H^{-1 / 2}(\Gamma)\)
 and \(q \in H^{1}(\Gamma)\) there holds
@@ -308,35 +307,39 @@ $$
 So we now derive the Galerkin Matrix to find the inf-sup constant. 
 \end{comment}
 
-\section{Derivation of Galerkin Matrix}
-First, we notice that we can restrict ourselves to finding functions on $H^{\frac{1}{2}}(\Gamma)\times H^{-\frac{1}{2}}(\Gamma) \times H^1(\Gamma)$,
- since the bilinear form on the left hand side only depends on the restriction $\gamma_D^-U$.\footnote{We will see this later.} \\
-Now we will further restrict this space to finite subspaces $\mathcal{H}^{\frac{1}{2}}(\Gamma), \mathcal{H}^{-\frac{1}{2}}(\Gamma)$ and $\mathcal{H}^1(\Gamma)$ 
-defined by the orthonormal bases we choose for them. 
- for the finite subspaces. 
-\subsection{Basis functions of $\mathcal{H}^{\frac{1}{2}}(\Gamma)$}
-We make the Fourier Ansatz $V_n = V^r_n e^{i n \phi}$. 
-Since $U$ must satisfy  $(\Delta + \tilde c\kappa^2) U = 0$ from eq. \ref{eq:helmholtz}, 
-we have 
-$$
-r^2 \partial_r^2V_n^r + r \partial_r V_n^r + (r^2  \tilde c \kappa^2 - n^2)V^r_n = 0.
-$$
-This is Bessel's equation. Since we require convergence at the origin we have $V^r_n(r) = J_n(\sqrt{\tilde}\kappa r)$.
+\section{Galerkin Matrix}
+\subsection{Constructing an orthonormal basis}
+Before we can derive the Galerkin matrix, we have to define an orthonormal basis of a finite subspace $H^{1}(\Omega)\times H^{-\frac{1}{2}}(\Gamma) \times H^1(\Gamma)$, 
+so that we can formulate the problem in terms of finding the coefficients with respect to this basis. \\ 
+To simplify the following derivations, we will consider the following space 
+\begin{definition} 
+    For \(0 \leq s<\infty\) the space \(\mathcal{H}^{s}_{\tilde \kappa}(X)\) is defined as the subspace of all functions $\varphi \in L^{2}(X)$
+    such that
+    $$
+    \sum_{n \in \mathbb{Z}}\left(\tilde \kappa^2+n^{2}\right)^{s}\left|\varphi_{n}\right|^{2}<\infty. 
+    $$
+    for the Fourier coefficients \(\varphi_{n}\) of \(\varphi\). We define an inner product on this space by
+    $$
+    (\varphi, \psi)_{\mathcal{H}^{s}(\mathbb{S})}:=\sum_{n \in \mathbb{Z}}\left(\tilde \kappa^2+n^{2}\right)^{s} \varphi_{n} \overline{\psi_{n}}.
+    $$
+\end{definition}
+A justification for this definition is given in Meury (lemma 3.22) and the norm is introduced in (2021 Spurious resonances).
+\\
+We note that, within the variational formulation, $U$ is only evaluated on the boundary $\Gamma$\footnote{This is actually not clear for the term $\mathrm{q}_{\kappa}$. However, we will prove this assumption later.}, 
+so that we can restrict $U$ to $H^{\frac{1}{2}}(\Gamma)$, which simplifies our problem. \\
+Now we can can define a complete orthogonal system $\mathcal(H)^{\frac{1}{2}}(\Gamma) \times \mathcal(H)^{-\frac{1}{2}}(\Gamma) \times \mathcal(H)^{1}(\Gamma)$. 
+We choose $U_{n}=v_{n} V_{n}(1, \phi)$, $\theta_{n}=w_{n} e^{i n \phi}$, $p_{n}=l_{n} e^{i n \phi}$ 
+of \(\mathcal{H}^{-\frac{1}{2}}(\Gamma)\) and \(\mathcal{H}^{1}(\Gamma)\) respectively, where
+\begin{align} 
+    v_{n}=\frac{1}{\sqrt{2 \pi\left(\tilde \kappa^2+n^{2}\right)}\left|J_{n}\left(\sqrt{\frac{c_{i}}{c_{o}}} \kappa\right)\right|}, V_{n}=J_{n}\left(\sqrt{\frac{c_{i}}{c_{o}}} \kappa r\right) e^{i n \phi} \nonumber \\
+    w_{n}=\frac{\left(\tilde \kappa^2+n^{2}\right)^{\frac{1}{4}}}{\sqrt{2 \pi}} \label{eq:coefficients}\\
+    l_{n}=\frac{1}{\sqrt{2 \pi\left(\tilde \kappa^2+n^{2}\right)}} \nonumber
+\end{align}
+CITE MEURY 
 
 
-We restrict our functions to $H^{\frac{1}{2}}$ and want to get an orthonormal basis $U_n(\phi) = v_n V_n(1, \phi)$ for this space: 
-$$
-(U_n, U_m)_{H^{\frac{1}{2}}(\Gamma)} = \delta_{nm}
-$$
-This implies: 
-$$
-(U_n, U_m)_{H^{\frac{1}{2}}(\Gamma)} = (U_n, U_m)_{\Gamma} + (\grad_\Gamma U_n, \grad_\Gamma U_m)_{\Gamma} = \delta_{nm}
-$$
 
-$$
- = |v_n|^2 2\pi(1 + n^2) |J_n(\sqrt{ \tilde c} \kappa )|^2   \delta_{nm}  \overbrace{=}^! \delta_{nm}
-$$
-Therefore, we can choose real constants $v_n = \frac{1}{\sqrt{2 \pi (1 + n^2)} |J_n(\sqrt{ \tilde c} \kappa  )|}$.
+
 
 \begin{comment}
 \subsubsection*{Notes}
@@ -351,51 +354,11 @@ $$.
 
 %2. The Dirichlet trace \(\mathrm{T}_{D}\) according to Def. 1.3.3 can be extended to a continuous and surjective linear
 %$operator \(\mathrm{T}_{D}: H^{1}(\Omega) \rightarrow H^{\frac{1}{2}}(\Gamma)\)
-
-\subsection{Basis functions for $\mathcal{H}^{-\frac{1}{2}}(\Gamma)$ and $\mathcal{H}^1(\Gamma)$}
-We also pick orthonormal basis functions for $\mathcal{H}^{-\frac{1}{2}}(\Gamma)$ and $\mathcal{H}^1(\Gamma)$.
-We choose $$\theta_n =w_n e^{i n \phi}\text{ where } w_n = \frac{(1 + n^2)^{\frac{1}{4}}}{\sqrt{2 \pi}}$$ for $\mathcal{H}^{-\frac{1}{2}}(\Gamma)$ 
-and for $\mathcal{H}^{1}(\Gamma)$ we choose  $$p_n = l_n e^{i n \phi} \text{ where } l_n = \frac{1}{\sqrt{2 \pi (1+n^2)}}. $$
-
-
-
-\subsubsection*{Notes}
-See P. Meury 3.22 (Lemma )for an explanation why these bases are orthogonal 
-(\textit{to be added in here later}).
-
-\begin{comment}
-Definition 3.21. For \(0 \leq s<\infty\) the space \(\mathcal{H}^{s}(\mathbb{S})\) is defined as the subspace of all functions
-\(\varphi \in L^{2}(\mathbb{S})\) with the property
-$$
-\sum_{n \in \mathbb{Z}}\left(1+n^{2}\right)^{s}\left|\varphi_{n}\right|^{2}<\infty
-$$ 
-for the Fourier coefficients \(\varphi_{n}\) of \(\varphi\). With the inner product defined by
-$$
-(\varphi, \psi)_{\mathcal{H}^{s}(\mathbb{S})}:=\sum_{n \in \mathbb{Z}}\left(1+n^{2}\right)^{s} \varphi_{n} \overline{\psi_{n}}
-$$
-
-The Neumann trace space \(H^{-\frac{1}{2}}(\Gamma)\) is the Hilbert space obtained by the completion of \(C^{0}(\Gamma)\) with
-respect to the norm
-$$
-\|\phi\|_{H^{-\frac{1}{2}(\Gamma)}}:=\|\widetilde{\phi}\|_{\widetilde{H}^{-1}(\Omega)}
-$$
-
-The norm is defined by this: 
-
-Definition 1.1.80. Dual norm for source charge distributions
-For \(\rho \in L^{2}(\Omega)\) let \(\widetilde{\rho} \in L^{2}\left(\mathbb{R}^{3}\right)\) be its extension by zero to \(\mathbb{R}^{3}\) and define
-\(\|\rho\|_{\tilde{H}^{-1}(\Omega)}:=|u|_{H^{1}\left(\mathbb{R}^{3}\right)} \quad\) where \(u\) solves \(\left\{\begin{array}{r}-\Delta u=\widetilde{\rho} \text { in } \mathbb{R}^{3} \\ u \text { satisfies decay conditions }(1.1 .76)\end{array}\right.\)
-The completion of \(L^{2}(\Omega)\) w.r.t. \(\|\cdot\|_{\tilde{H}^{-1}(\Omega)}\) yields the Hilbert space \(\widetilde{H}^{-1}(\Omega)\)
-
-Decay condition: 
-\(|u(x)|=O\left(\|x\|^{-1}\right) \quad\) and \(\quad\|\operatorname{grad} u(x)\|=O\left(\|x\|^{-2}\right) \quad\) for \(\quad\|x\| \rightarrow \infty\) (1.1.76)
-\end{comment}
 \section{Constructing the Galerkin Matrix}
 Now let's restrict ourselves to the space $\mathcal{S}_N^{\frac{1}{2}} 
 \times \mathcal{S}_N^{-\frac{1}{2}} \times \mathcal{S}_N^{1}$ where $N \in \mathbb{N}$ 
 and $\mathcal{S}_N^{\frac{1}{2}}$ is the restriction to $\mathrm{span}(U_{-N}, -U_{-N+1}, ..., U_N)$ and similarly 
-for $\mathcal{S}_N^{-\frac{1}{2}}$ and $\mathcal{S}_N^{1}$.
-Now we can construct the Galerkin Matrix.
+for $\mathcal{S}_N^{-\frac{1}{2}}$ and $\mathcal{S}_N^{1}$ and construct the Galerkin Matrix.
 \subsection{Redefining the problem}
 We reduce our problem to the space \(\mathcal{S}^{\frac{1}{2}} \times \mathcal{S}^{-\frac{1}{2}} \times \mathcal{S}^{1}\):
 \begin{definition}[The restricted problem]
@@ -438,7 +401,7 @@ Let's introduce the following matrix and vector:
     \begin{pmatrix}
         (\alpha_n + \lambda_n^{(w)} P^{UU}_n)  & - (\frac{1}{2} - \lambda_n^{(K')}) P_n^{\theta U} & 0\\
         (\frac{1}{2} - \lambda_n^{(K)})P^{U\theta}_n  & \lambda^{(V)}_n P^{\theta \theta}  &  i \overline{\eta}     P^{p \theta} \\
-        -\lambda_n^{(W)} P^{Up}_n  &  - (\lambda^{(K')}_n + \frac{1}{2})  P^{\theta p} & 1 
+        -\lambda_n^{(W)} P^{Up}_n  &  - (\lambda^{(K')}_n + \frac{1}{2})  P^{\theta p} & \beta_n 
     \end{pmatrix}
     $$
     and 
@@ -467,8 +430,9 @@ Let's introduce the following matrix and vector:
     - \overline{\tilde{v_n}} \\
     0 \\
     0
-\end{bmatrix}}_{\vec{x_1}}.
+\end{bmatrix}}_{\vec{x_1}}
     $$
+    where $\alpha_n, \beta_n$ are constants that are defined below. 
 \end{definition}
 The following theorem summarises the Galerkin formulation of the problem: 
 \begin{theorem}
@@ -522,13 +486,13 @@ The following formulas will also be helpful for the proof.
 \end{remark}
 
 \begin{lemma}
-    $b(p_n, p_m) =  (p_n, p_m)_{H^1(\Gamma)} = \delta_{nm}$.
+    $b(p_n, p_m) =  (p_n, p_m)_{H^1(\Gamma)} = \frac{(1 + n^2)}{\tilde \kappa^2 + n^2}$
 \end{lemma}
-Now we can proof theorem \ref{def:galerkin_matrix}
 \begin{proof}
-    $p_n$ is was constructed to be orthogonal w.r.t $(-, -)_{H^1(\Gamma)}$.
+    $p_n\frac{\tilde \kappa^2 + n^2}{1 + n^2}$ is orthogonal w.r.t $(-, -)_{H^1(\Gamma)}$.
 \end{proof}
    
+Now we can proof theorem \ref{def:galerkin_matrix}.
 \begin{proof}[Proof of theorem \ref{def:galerkin_matrix}]
     Both sides of the problem in definition \ref{def:galerkin_matrix} are linear in $(V, \varphi, q)$. 
     Therefore the condition in the problem is satisfied for all 
@@ -661,49 +625,58 @@ As we see in fig \ref{fig:p_validation}, this is satisfied which is another vali
 \end{figure}
 
 \section{Constructing the Solution Operator}
-For better comparability, let's construct the discretized version of the solution operator for the considered problem.
+For better comparability, we construct the discretized solution operator for the considered problem.
 \begin{definition}
     Given positive real numbers \(k, c_{i}\), and \(c_{o}\), let \(S\left(c_{i}, c_{o}\right) \mathbf{f}:=\gamma_{C}^{-} u\)
     be the solution operator where \(u\) solves eq \ref{eq:helmholtz}.
 \end{definition}
-\begin{theorem}
-According to paper 2006 BEM-FEM we can write $u$ as 
-\begin{equation}
-    \label{eq:boundary-integral-representation}
-    u = -\Psi_{\mathrm{SL}}^{\kappa}\left(\left[\gamma_{N} u\right]_{\Gamma}\right)+\Psi_{\mathrm{DL}}^{\kappa}\left(\left[\gamma_{D} u\right]_{\Gamma}\right)
-\end{equation}
-where $\Psi_{SL}$ and $\Psi_{DL}$ are the single and double layer potential, respectively. 
-Moreover, we used the notation \(\left[\gamma_{D} V\right]_{\Gamma}:=\gamma_{D}^{+} V-\gamma_{D}^{-} V, \quad\left[\gamma_{N} V\right]_{\Gamma}:=\gamma_{D}^{+} V-\gamma_{D}^{-} V\)
-\end{theorem}
-Note that eq. \ref{eq:helmholtz} implies that $\left[\gamma_{D} u\right] = f_1, \left[\gamma_{N} u\right] =  f_2$.
-
-No let's use the following identity from the 2006 BEM-FEM paper.
-
-\begin{align} 
-    \gamma_{D}^{\pm} \Psi_{\mathrm{SL}}^{\kappa} &=\mathrm{V}_{\kappa}, & \gamma_{N}^{\pm} \Psi_{\mathrm{SL}}^{\kappa} &=\mathrm{K}_{\kappa} \pm \frac{1}{2} \mathrm{ld} \label{eq:bound-ops-identities}\\ 
-    \gamma_{D}^{\pm} \Psi_{\mathrm{DL}}^{\kappa} &=\mathrm{K}_{\kappa}^{\prime} \mp \frac{1}{2} \mathrm{ld}, & \gamma_{N}^{\pm} \Psi_{\mathrm{DL}}^{\kappa} &=-\mathrm{W}_{\kappa}.  \nonumber
-\end{align}
-
-We'll plug this into \(\gamma_C^-u\) and obtain the solution operator: 
+Plugging the Fourier ansatz into eq. \ref{eq:helmholtz} and imposing convergence at the origin and 
+the Sommerfeld radiation condition results in
 \begin{align}
-    \gamma_C^-u & = \gamma_C^-\left(-\Psi_{\mathrm{SL}}^{\kappa}\left(f_2\right)+\Psi_{\mathrm{DL}}^{\kappa}\left(f_1\right) \right) = 
-    \left(\gamma_D^-\left(-\Psi_{\mathrm{SL}}^{\kappa}\left(f_2\right)+\Psi_{\mathrm{DL}}^{\kappa}\left(f_1\right) \right),
-    \gamma_N^- \left(-\Psi_{\mathrm{SL}}^{\kappa}\left(f_2\right)+\Psi_{\mathrm{DL}}^{\kappa}\left(f_1\right) \right)\right)  \nonumber \\
-    & = \left( - V_\kappa f_2 + (K_\kappa^\prime + \frac{1}{2}) f_1, 
-    -(K_\kappa -\frac{1}{2})f_2 - W_\kappa f_1 \right).
+    u^- = \sum\limits_{n = -\infty}^\infty u_n^- \frac{J_n(\sqrt{ c_i} \tilde \kappa r)}{J_n(\sqrt{ c_i} \tilde \kappa)} e^{i n \phi} \nonumber \\
+    u^+ = \sum\limits_{n = -\infty}^\infty u_n^+ \frac{H_n(\sqrt{ c_o} \tilde \kappa r)}{H_n(\sqrt{ c_o} \tilde \kappa)} e^{i n \phi} \nonumber
 \end{align}
-
-Now we will restrict the solution operator to $\mathcal{S}^{\frac{1}{2}} \times \mathcal{S}^{-\frac{1}{2}}$ 
-and write it out in our orthonormal basis. Assuming we write out $\vec{f}$ and $u$ in our orthonormal basis, we can achieve this by simply plugging in the basis vectors for $f_1$ and $f_2$. 
-This results in a blockdiagonal matrix with the following blocks.
-\begin{equation}
-    S_n =  
+where $u_n^-$ and $u_n^+$ are the restrictions of $u$ to $\Omega^-$ und $\Omega^+$.\\
+Extend $f_i = \sum\limits_{n = -\infty}^\infty f_i^n e^{in\phi}$ for $i=1,2$. The transmission condition $\gamma_{C}^{+} u^{+}=\gamma_{C}^{-} u^{-}+\mathbf{f}$ implies 
+\begin{align}
     \begin{pmatrix}
-        \lambda_n^{(K')} + \frac{1}{2} & - \lambda_n^{(V)}  \\
-        - \lambda_n^{(W)} & -(\lambda_n^{(K)} - \frac{1}{2})
+        1 & -1 \\
+        \sqrt{c_i} \tilde \kappa \frac{J_n^\prime(\sqrt{c_i} \tilde \kappa)}{J_n(\sqrt{c_i} \tilde \kappa)} & 
+        -  \sqrt{c_o} \tilde \kappa \frac{H_n^\prime(\sqrt{c_o} \tilde \kappa)}{H_n(\sqrt{c_o} \tilde \kappa)}
+    \end{pmatrix} 
+    \begin{pmatrix}
+        u_n^- \\u_n^+
+    \end{pmatrix}
+    = 
+    \begin{pmatrix}
+        f_n^1 \\ f_n^2
+    \end{pmatrix}.
+\end{align} 
+By using the well-known inverse of a 2x2 matrix we obtain 
+\begin{equation}
+    u_n^- = \zeta((-\sqrt{c_o}\tilde \kappa J_n(\sqrt{c_i} \tilde \kappa) H_n^\prime(\sqrt{c_i} \tilde \kappa))f_n^1 
+    + J_n(\sqrt{c_i} \tilde \kappa) H_n(\sqrt{c_o} \tilde \kappa) f_n^2).
+\end{equation}
+where $\zeta := \frac{1}{\sqrt{c_i} \tilde \kappa J_n^\prime(\sqrt{c_i} \tilde \kappa) H_n(\sqrt{c_o} \tilde \kappa)
+-\sqrt{c_o} \tilde \kappa H_n^\prime(\sqrt{c_o}\tilde \kappa) J_n(\sqrt{c_i} \tilde \kappa)
+}$.
+This presents the solution operator, as we get $\gamma_D^-$ from restriction to the boundary.
+$\gamma_N^-$ can be directly obtained by restriction of the normal derivative of $u_n^-$ to the boundary 
+which is equivalent to multiplying the Fourier coefficients by $\sqrt{c_i \tilde \kappa}\frac{J_n^\prime(\sqrt{c_i}\tilde \kappa)}{J_n(\sqrt{c_i}\tilde \kappa)}$.
+After rescaling the $u_n$, $f_i^n$ to the complete orthonormal system defined in eq. \ref{eq:coefficients}
+we obtain the solution operator matrix: 
+\begin{equation}
+    S_{io}^n = 
+    \zeta
+    \begin{pmatrix}
+        -\sqrt{c_o}\tilde \kappa J_n(\sqrt{c_i} \tilde \kappa) H_n^\prime(\sqrt{c_i} \tilde \kappa) & 
+        \sqrt{n^2 + \tilde \kappa^2} J_n(\sqrt{c_i} \tilde \kappa) H_n(\sqrt{c_o} \tilde \kappa)  \\
+        -\frac{1}{\sqrt{n^2 + \tilde \kappa^2}}\sqrt{c_o}\sqrt{c_i} \tilde \kappa^2 J^\prime_n(\sqrt{c_i} \tilde \kappa) H_n^\prime(\sqrt{c_i} \tilde \kappa) & 
+        \sqrt{c_i} \tilde \kappa J^\prime_n(\sqrt{c_i} \tilde \kappa) H_n(\sqrt{c_o} \tilde \kappa) \\
     \end{pmatrix}
 \end{equation}
-
+that maps the Fourier coefficients of $\vec{f}$ in the complete orthonormal system for $\mathcal{H}^{\frac{1}{2}}\times \mathcal{H}^{-\frac{1}{2}}$
+(as defined in eq. \ref{eq:coefficients}) to the Fouier coefficients of $\gamma_C^-u$ in the same basis.
 
 \section{Numerical Results}
 Now let's investigate maximal singular value of $A = diag(A_{-N}, A_{-N + 1}, ..., A_{N})$. 

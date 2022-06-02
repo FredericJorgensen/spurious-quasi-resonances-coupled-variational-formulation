@@ -50,7 +50,7 @@ class PValidator:
 
     def plot(self, x, y, xLabelName, yLabelName):
         plt.figure()
-        plt.plot(x, y, 'r')
+        plt.semilogy(x, y, 'r')
         plt.xlabel(xLabelName)
         plt.ylabel(yLabelName)
         plt.grid(True)
@@ -134,7 +134,7 @@ class SimpleSolValidator:
 
     def plot(self, x, y, xLabelName, yLabelName):
         plt.figure()
-        plt.plot(x, y, 'r')
+        plt.semilogy(x, y, 'r')
         plt.xlabel(xLabelName)
         plt.ylabel(yLabelName)
         plt.grid(True)

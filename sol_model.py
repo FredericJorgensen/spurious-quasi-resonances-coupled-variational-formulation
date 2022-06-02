@@ -2,6 +2,7 @@ from numpy import *
 from scipy import *
 from scipy.special import jv, jvp, hankel1, h1vp
 from scipy.linalg import block_diag
+from utils import kappa_tilde, lambdaV, lambdaK, lambdaK__adjoint, lambdaW
 
 
 class SolModel:
@@ -9,22 +10,17 @@ class SolModel:
         pass
 
     def getBlock(self, kappa, c_i, c_o, n):
-        s_11 = self.lambdaK__adjoint(n, kappa) + 0.5
-        s_12 = - self.lambdaV(n, kappa)
-        s_21 = - self.lambdaW(n, kappa)
-        s_22 = -(self.lambdaK(n, kappa) - 0.5)
-        return array([[s_11, s_12],
-                      [s_21, s_22]])
+        kappa_tilde = self.kappa_tilde(kappa, c_i, c_o, n)
+        ki = kappa_tilde * sqrt(c_i)
+        ko = kappa_tilde * sqrt(c_o)
 
+        s_11 = - jv(n, ki) * ko * h1vp(n, ko)
+        s_12 = jv(n, ki) * hankel1(n, ko) * sqrt(n ** 2 + kappa_tilde ** 2)
+        s_21 = - ki * jvp(n, ki) * ko * h1vp(n, ko) / sqrt(n ** 2 + kappa_tilde ** 2)
+        s_22 = ki * jvp(n, ki) * hankel1(n, ko)
+        factor = 1 / (hankel1(n, ko) * ki * jvp(n, ki) - jv(n, ki) * ko * h1vp(n, ko))
+        return factor * array([[s_11, s_12],
+                              [s_21, s_22]])
 
-    def lambdaV(self, n, kappa):
-        return 1j * pi / 2.0 * jv(n, kappa) * hankel1(n, kappa)
-
-    def lambdaK(self, n, kappa):
-        return 1j * pi * kappa / 2.0 * jv(n, kappa) * h1vp(n, kappa) + 0.5
-
-    def lambdaK__adjoint(self, n, kappa):
-        return 1j * pi * kappa / 2.0 * jv(n, kappa) * h1vp(n, kappa) + 0.5
-
-    def lambdaW(self, n, kappa):
-        return - 1j * pi * kappa ** 2 / 2.0 * jvp(n, kappa) * h1vp(n, kappa)
+    def kappa_tilde(self, kappa, c_i, c_o, n):
+        return kappa_tilde(kappa, c_i, c_o, n)
