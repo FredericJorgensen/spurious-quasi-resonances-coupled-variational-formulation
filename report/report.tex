@@ -256,8 +256,13 @@ This variational equation can be coupled to the transmission conditions using th
 As the problem is equivalent to the problem in the doctoral thesis of P. Meury (section 3) with $U_i = 0, f = 0, n(x) = c_i / c_o, 
 \kappa = \tilde \kappa \sqrt{c_o}$, 
 we can use the same formulation.\\
+\begin{remark}
+    From here on, we will use the constant $\tilde c := \frac{c_i}{c_o}$ for two reasons. This reduces the amount of parameters we have to consider and
+    makes it more clear that the resonance behavior depends only on the ratio and not the scaling
+    of the refractive indices.
+\end{remark}
 \\
-The formulation is: \\ 
+The formulation is: 
 Find \(U \in H^{1}(\Omega), \theta \in H^{-1 / 2}(\Gamma)\) and \(p \in H^{1}(\Gamma)\) such that for all \(V \in H^{1}(\Omega), \varphi \in H^{-1 / 2}(\Gamma)\)
 and \(q \in H^{1}(\Gamma)\) there holds
 
@@ -311,12 +316,12 @@ defined by the orthonormal bases we choose for them.
  for the finite subspaces. 
 \subsection{Basis functions of $\mathcal{H}^{\frac{1}{2}}(\Gamma)$}
 We make the Fourier Ansatz $V_n = V^r_n e^{i n \phi}$. 
-Since $U$ must satisfy  $(\Delta + \frac{c_i}{c_o}\kappa^2) U = 0$ from eq. \ref{eq:helmholtz}, 
+Since $U$ must satisfy  $(\Delta + \tilde c\kappa^2) U = 0$ from eq. \ref{eq:helmholtz}, 
 we have 
 $$
-r^2 \partial_r^2V_n^r + r \partial_r V_n^r + (r^2  \frac{c_i}{c_o}\kappa^2 - n^2)V^r_n = 0.
+r^2 \partial_r^2V_n^r + r \partial_r V_n^r + (r^2  \tilde c \kappa^2 - n^2)V^r_n = 0.
 $$
-This is Bessel's equation. Since we require convergence at the origin we have $V^r_n(r) = J_n(\sqrt{ \frac{c_i}{c_o}}\kappa r)$.
+This is Bessel's equation. Since we require convergence at the origin we have $V^r_n(r) = J_n(\sqrt{\tilde}\kappa r)$.
 
 
 We restrict our functions to $H^{\frac{1}{2}}$ and want to get an orthonormal basis $U_n(\phi) = v_n V_n(1, \phi)$ for this space: 
@@ -329,9 +334,9 @@ $$
 $$
 
 $$
- = |v_n|^2 2\pi(1 + n^2) |J_n(\sqrt{ \frac{c_i}{c_o}} \kappa )|^2   \delta_{nm}  \overbrace{=}^! \delta_{nm}
+ = |v_n|^2 2\pi(1 + n^2) |J_n(\sqrt{ \tilde c} \kappa )|^2   \delta_{nm}  \overbrace{=}^! \delta_{nm}
 $$
-Therefore, we can choose real constants $v_n = \frac{1}{\sqrt{2 \pi (1 + n^2)} |J_n(\sqrt{ \frac{c_i}{c_o}} \kappa  )|}$.
+Therefore, we can choose real constants $v_n = \frac{1}{\sqrt{2 \pi (1 + n^2)} |J_n(\sqrt{ \tilde c} \kappa  )|}$.
 
 \begin{comment}
 \subsubsection*{Notes}
@@ -349,7 +354,8 @@ $$.
 
 \subsection{Basis functions for $\mathcal{H}^{-\frac{1}{2}}(\Gamma)$ and $\mathcal{H}^1(\Gamma)$}
 We also pick orthonormal basis functions for $\mathcal{H}^{-\frac{1}{2}}(\Gamma)$ and $\mathcal{H}^1(\Gamma)$.
-We choose $$\theta_n =w_n e^{i n \phi}\text{ where } w_n = \frac{(1 + n^2)^{\frac{1}{4}}}{\sqrt{2 \pi}}$$ for $\mathcal{H}^{\frac{1}{2}}(\Gamma)$ and for $\mathcal{H}^{-\frac{1}{2}}(\Gamma)$ we choose  $$p_n = l_n e^{i n \phi} \text{ where } l_n = \frac{1}{\sqrt{2 \pi (1+n^2)}}. $$
+We choose $$\theta_n =w_n e^{i n \phi}\text{ where } w_n = \frac{(1 + n^2)^{\frac{1}{4}}}{\sqrt{2 \pi}}$$ for $\mathcal{H}^{-\frac{1}{2}}(\Gamma)$ 
+and for $\mathcal{H}^{1}(\Gamma)$ we choose  $$p_n = l_n e^{i n \phi} \text{ where } l_n = \frac{1}{\sqrt{2 \pi (1+n^2)}}. $$
 
 
 
@@ -422,7 +428,7 @@ $f_1= \sum\limits_{j = -N}^N \frac{1}{2\pi}f_1^j e^{i j \theta}$ and $f_2= \sum\
         \item $P^{Up}_n = 2\pi \tilde v_n \overline{l_n}$
         \item $P^{\theta p}_n = \overline{P^{p\theta}_n }$
     \end{itemize}
-    where $\tilde v_n = J_n(\sqrt{\frac{c_i}{c_o}}\kappa )v_n$.
+    where $\tilde v_n = J_n(\sqrt{\tilde c}\kappa )v_n$.
 \end{definition}
 Let's introduce the following matrix and vector: 
 \begin{definition}
@@ -466,7 +472,7 @@ Let's introduce the following matrix and vector:
 \end{definition}
 The following theorem summarises the Galerkin formulation of the problem: 
 \begin{theorem}
-    \label{thm:galerkin_matrix}
+    \label{def:galerkin_matrix}
     \((u, \theta, p) \in  \mathcal{H}^{\frac{1}{2}} \times \mathcal{H}^{-\frac{1}{2}} \times \mathcal{H}^{1}\) solves the problem in definition \ref{def:restricted_variational_problem}.
     if and only if $A_n\vec{C_n} = \vec{b}_n$ for all  $n = -N, -N + 1, ..., N$. 
 \end{theorem}
@@ -493,18 +499,18 @@ The following formulas will also be helpful for the proof.
 \begin{proof}[Proof of Lemma]
     We start by using Greens first formula 
     \(\int\limits_{U}(\psi \Delta \varphi+\nabla \psi \cdot \nabla \varphi) d V=\oint_{\partial U} \psi \nabla \varphi \cdot d \mathbf{S}\)
-    to see that $$q_\kappa(U_n, U_m) = \int_{\Omega^-} ( \div U_n \div \overline{U_m} -  \frac{c_i}{c_o}\kappa^2U_n \overline{U_m}) $$
+    to see that $$q_\kappa(U_n, U_m) = \int_{\Omega^-} ( \div U_n \div \overline{U_m} -  \tilde c\kappa^2U_n \overline{U_m}) $$
     $$
-        = \int_{ \partial \Omega^-} \overline{U_m} \div U_n d \vec{S} - \int_{\Omega^{-}} \underbrace{( \frac{c_i}{c_o}\kappa^2 U_n + \Delta U_n)}_{=0} \overline{U_m} d \vec{S} 
+        = \int_{ \partial \Omega^-} \overline{U_m} \div U_n d \vec{S} - \int_{\Omega^{-}} \underbrace{( \tilde c\kappa^2 U_n + \Delta U_n)}_{=0} \overline{U_m} d \vec{S} 
     $$
     $$
         = \delta_{nm}\int_{ \partial \Omega^-} \overline{U_n} \div U_n d \vec{S}
     $$
     $$
-        = \delta_{nm}|v_n|^2 \sqrt{ \frac{c_i}{c_o}} \kappa  J_n(\sqrt{ \frac{c_i}{c_o}}\kappa ) J_n'(\sqrt{ \frac{c_i}{c_o}}\kappa )  \int_{\partial \Omega^-} e^{in\phi}  e^{-in\phi} dS
+        = \delta_{nm}|v_n|^2 \sqrt{ \tilde c} \kappa  J_n(\sqrt{ \tilde c}\kappa ) J_n'(\sqrt{ \tilde c}\kappa )  \int_{\partial \Omega^-} e^{in\phi}  e^{-in\phi} dS
     $$
     $$
-        = \delta_{nm}2\pi |v_n|^2\kappa \sqrt{ \frac{c_i}{c_o}} J_n(\sqrt{ \frac{c_i}{c_o}} \kappa ) J_n'(\sqrt{ \frac{c_i}{c_o}} \kappa )
+        = \delta_{nm}2\pi |v_n|^2\kappa \sqrt{ \tilde c} J_n(\sqrt{ \tilde c} \kappa ) J_n'(\sqrt{ \tilde c} \kappa )
     $$
 \end{proof}
 
@@ -518,12 +524,12 @@ The following formulas will also be helpful for the proof.
 \begin{lemma}
     $b(p_n, p_m) =  (p_n, p_m)_{H^1(\Gamma)} = \delta_{nm}$.
 \end{lemma}
-Now we can proof theorem \ref{thm:galerkin_matrix}
+Now we can proof theorem \ref{def:galerkin_matrix}
 \begin{proof}
     $p_n$ is was constructed to be orthogonal w.r.t $(-, -)_{H^1(\Gamma)}$.
 \end{proof}
    
-\begin{proof}[Proof of theorem \ref{thm:galerkin_matrix}]
+\begin{proof}[Proof of theorem \ref{def:galerkin_matrix}]
     Both sides of the problem in definition \ref{def:galerkin_matrix} are linear in $(V, \varphi, q)$. 
     Therefore the condition in the problem is satisfied for all 
     $(V, \varphi, q)\in \mathcal{S}^{\frac{1}{2}}_N  \times  \mathcal{S}^{-\frac{1}{2}}_N \times  \mathcal{S}^{1}_N$
@@ -565,14 +571,14 @@ Consider the special case
 $$
 \vec{f} = 
 \begin{bmatrix}
-    H_n^{(1)}(\kappa) -  J_n(\tilde c \kappa ) \\
-    H_n^{\prime (1)}(\kappa) - J_n^{\prime}(\tilde c \kappa )\\
+    H_n^{(1)}(\kappa) -  J_n(\sqrt{\tilde c} \kappa ) \\
+    H_n^{\prime (1)}(\kappa) - J_n^{\prime}(\sqrt{\tilde c} \kappa )\\
 \end{bmatrix} e^{i n \phi}
 $$
-where $\tilde c = \sqrt{\frac{c_i}{c_o}}$ and $n =-N, -N+1, ..., N$ \\
+where $n =-N, -N+1, ..., N$ \\
 Then the solution is 
 $$
-u = J_n(\tilde c \kappa r) e^{i n \phi}, x \in \Omega^-, u = H_n^{(1)}(\kappa r)e^{i n \phi}, x \in \Omega^+.
+u = J_n(\sqrt{\tilde c} \kappa r) e^{i n \phi}, x \in \Omega^-, u = H_n^{(1)}(\kappa r)e^{i n \phi}, x \in \Omega^+.
 $$
 This can be seen directly by plugging in.\\
 \begin{remark}
@@ -591,7 +597,8 @@ Note that the discretized problem will yield the same solution as the original o
     \textit{still to be written out, but the main point is:} $\theta = \partial_r(u_{\Omega^+})_{|\Gamma} = - \frac{1}{w_0} \kappa_o H_1^{(1)}(\kappa_o) \theta_0 $ and $p = 0$, (from page 33 Thesis P. Meury).
 \end{proof}
 Let's validate whether we get the same numerical solution using our matrix $A_n$. We just use the $\vec{b}_n$ as computed above,
-with $f_1^j =  \delta_{nj} 2\pi (J_n(\tilde c \kappa) - H_n^{(1)}(\kappa)), f_2^j = \delta_{nj} 2\pi (\tilde c \kappa J_1^{\prime}(\tilde c\kappa) - \kappa H_n^{\prime(1)}(\kappa))$.\\
+with $f_1^j =  \delta_{nj} 2\pi (J_n(\sqrt{\tilde c} \kappa) - H_n^{(1)}(\kappa)), 
+f_2^j = \delta_{nj} 2\pi (\sqrt{\tilde c} \kappa J_1^{\prime}(\sqrt{\tilde c}\kappa) - \kappa H_n^{\prime(1)}(\kappa))$.\\
 \\
 To measure how good the solution is, let's introduce the $\zeta$-number: 
 \begin{definition}[ $\zeta$-number]
@@ -606,13 +613,13 @@ To measure how good the solution is, let's introduce the $\zeta$-number:
 \end{definition}
 As seen in fig. \ref{fig:sol_validation}, the $\zeta$-number is negligible across all values of $\kappa$ and $n$ which validates our derivation of $A_n$ and $b_n$.
 \begin{figure}
+    \label{fig:sol_validation}
     \includegraphics[width=0.5\textwidth]{scenario1SolVal.pdf}
     \includegraphics[width=0.5\textwidth]{scenario2SolVal.pdf}
     \caption{Maximum relative residuum of the numerical solution by wave number. 
-    On the left plot we have $c_i = 1, c_o = 3$ 
-    and on the right plot we have $c_i = 3, c_o = 1.$
+    On the left plot we have $\tilde c = 1/3$ (f.e.$c_i = 1, c_o = 3$)
+    and on the right plot we have $\tilde c = 3/1$.
     We always use $N = 100$ from here on.}
-    \label{fig:sol_validation}
 \end{figure}
 \subsection{p = 0}
 We validate our matrix $A$ with another method, using the following remark from the doctoral
@@ -647,10 +654,55 @@ As we see in fig \ref{fig:p_validation}, this is satisfied which is another vali
     \includegraphics[width=0.5\textwidth]{scenario1PVal.pdf}
     \includegraphics[width=0.5\textwidth]{scenario2PVal.pdf}
     \caption{Euclidian matrix norm of composed matrix  $P_3A_n^{-1}P_{V_{\vec{b}}}$. 
-    On the left plot we have $c_i = 1, c_o = 3$ 
-    and on the right plot we have $c_i = 3, c_o = 1.$}
+     On the left plot we have $\tilde c = 1/3$ (f.e.$c_i = 1, c_o = 3$)
+    and on the right plot we have $\tilde c = 3/1$.
+    }
    \label{fig:p_validation}
 \end{figure}
+
+\section{Constructing the Solution Operator}
+For better comparability, let's construct the discretized version of the solution operator for the considered problem.
+\begin{definition}
+    Given positive real numbers \(k, c_{i}\), and \(c_{o}\), let \(S\left(c_{i}, c_{o}\right) \mathbf{f}:=\gamma_{C}^{-} u\)
+    be the solution operator where \(u\) solves eq \ref{eq:helmholtz}.
+\end{definition}
+\begin{theorem}
+According to paper 2006 BEM-FEM we can write $u$ as 
+\begin{equation}
+    \label{eq:boundary-integral-representation}
+    u = -\Psi_{\mathrm{SL}}^{\kappa}\left(\left[\gamma_{N} u\right]_{\Gamma}\right)+\Psi_{\mathrm{DL}}^{\kappa}\left(\left[\gamma_{D} u\right]_{\Gamma}\right)
+\end{equation}
+where $\Psi_{SL}$ and $\Psi_{DL}$ are the single and double layer potential, respectively. 
+Moreover, we used the notation \(\left[\gamma_{D} V\right]_{\Gamma}:=\gamma_{D}^{+} V-\gamma_{D}^{-} V, \quad\left[\gamma_{N} V\right]_{\Gamma}:=\gamma_{D}^{+} V-\gamma_{D}^{-} V\)
+\end{theorem}
+Note that eq. \ref{eq:helmholtz} implies that $\left[\gamma_{D} u\right] = f_1, \left[\gamma_{N} u\right] =  f_2$.
+
+No let's use the following identity from the 2006 BEM-FEM paper.
+
+\begin{align} 
+    \gamma_{D}^{\pm} \Psi_{\mathrm{SL}}^{\kappa} &=\mathrm{V}_{\kappa}, & \gamma_{N}^{\pm} \Psi_{\mathrm{SL}}^{\kappa} &=\mathrm{K}_{\kappa} \pm \frac{1}{2} \mathrm{ld} \label{eq:bound-ops-identities}\\ 
+    \gamma_{D}^{\pm} \Psi_{\mathrm{DL}}^{\kappa} &=\mathrm{K}_{\kappa}^{\prime} \mp \frac{1}{2} \mathrm{ld}, & \gamma_{N}^{\pm} \Psi_{\mathrm{DL}}^{\kappa} &=-\mathrm{W}_{\kappa}.  \nonumber
+\end{align}
+
+We'll plug this into \(\gamma_C^-u\) and obtain the solution operator: 
+\begin{align}
+    \gamma_C^-u & = \gamma_C^-\left(-\Psi_{\mathrm{SL}}^{\kappa}\left(f_2\right)+\Psi_{\mathrm{DL}}^{\kappa}\left(f_1\right) \right) = 
+    \left(\gamma_D^-\left(-\Psi_{\mathrm{SL}}^{\kappa}\left(f_2\right)+\Psi_{\mathrm{DL}}^{\kappa}\left(f_1\right) \right),
+    \gamma_N^- \left(-\Psi_{\mathrm{SL}}^{\kappa}\left(f_2\right)+\Psi_{\mathrm{DL}}^{\kappa}\left(f_1\right) \right)\right)  \nonumber \\
+    & = \left( - V_\kappa f_2 + (K_\kappa^\prime + \frac{1}{2}) f_1, 
+    -(K_\kappa -\frac{1}{2})f_2 - W_\kappa f_1 \right).
+\end{align}
+
+Now we will restrict the solution operator to $\mathcal{S}^{\frac{1}{2}} \times \mathcal{S}^{-\frac{1}{2}}$ 
+and write it out in our orthonormal basis. Assuming we write out $\vec{f}$ and $u$ in our orthonormal basis, we can achieve this by simply plugging in the basis vectors for $f_1$ and $f_2$. 
+This results in a blockdiagonal matrix with the following blocks.
+\begin{equation}
+    S_n =  
+    \begin{pmatrix}
+        \lambda_n^{(K')} + \frac{1}{2} & - \lambda_n^{(V)}  \\
+        - \lambda_n^{(W)} & -(\lambda_n^{(K)} - \frac{1}{2})
+    \end{pmatrix}
+\end{equation}
 
 
 \section{Numerical Results}
@@ -662,8 +714,8 @@ We see that the peaks often coincide with the zeros of the Bessel function.
     \includegraphics[width=0.5\textwidth]{scenario1MaximumSingVal.pdf}
     \includegraphics[width=0.5\textwidth]{scenario2MaximumSingVal.pdf}
     \caption{Maximum singular value of the matrix $diag(A_n)$ by wave number $\kappa$. 
-    On the left plot we have $c_i = 1, c_o = 3$ 
-    and on the right plot we have $c_i = 3, c_o = 1.$} The vertical dashed lines correspond to zeros of the Bessel functions. 
+     On the left plot we have $\tilde c = 1/3$ (f.e.$c_i = 1, c_o = 3$)
+    and on the right plot we have $\tilde c = 3/1$. } The vertical dashed lines correspond to zeros of the Bessel functions. 
    \label{fig:max_sing_val}
 \end{figure}
 We can also consider the minimum singular value (fig. \ref{fig:min_sing_val}).
@@ -671,8 +723,8 @@ We can also consider the minimum singular value (fig. \ref{fig:min_sing_val}).
     \includegraphics[width=0.5\textwidth]{scenario1MinimumSingVal.pdf}
     \includegraphics[width=0.5\textwidth]{scenario2MinimumSingVal.pdf}
     \caption{Maximum singular value of the matrix $diag(A_n)$ by wave number $\kappa$. 
-    On the left plot we have $c_i = 1, c_o = 3$ 
-    and on the right plot we have $c_i = 3, c_o = 1.$ Again, the vertical dashed lines correspond to zeros of the Bessel functions. }
+     On the left plot we have $\tilde c = 1/3$ (f.e.$c_i = 1, c_o = 3$)
+    and on the right plot we have $\tilde c = 3/1$.  Again, the vertical dashed lines correspond to zeros of the Bessel functions. }
    \label{fig:min_sing_val}
 \end{figure}
 Finally, let's consider the ratio of the minimum and maximum singular value (fig. \ref{fig:ratio_sing_val}).
@@ -680,8 +732,8 @@ Finally, let's consider the ratio of the minimum and maximum singular value (fig
     \includegraphics[width=0.5\textwidth]{scenario1Ratio.pdf}
     \includegraphics[width=0.5\textwidth]{scenario2Ratio.pdf}
     \caption{Ratio of Maximum and Minimum singular value of the matrix $diag(A_n)$ by wave number $\kappa$. 
-    On the left plot we have $c_i = 1, c_o = 3$ 
-    and on the right plot we have $c_i = 3, c_o = 1.$ The vertical dashed lines correspond to zeros of the Bessel functions. }
+     On the left plot we have $\tilde c = 1/3$ (f.e.$c_i = 1, c_o = 3$)
+    and on the right plot we have $\tilde c = 3/1$.  The vertical dashed lines correspond to zeros of the Bessel functions. }
    \label{fig:ratio_sing_val}
 \end{figure}
 We see that in the case $c_i = 1, c_o =3$, where the solution operator has weaker resonances resonances, 

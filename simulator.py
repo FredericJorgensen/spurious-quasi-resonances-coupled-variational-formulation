@@ -2,12 +2,17 @@ from matrix_model import MatrixModel
 from numpy import *
 import matplotlib.pyplot as plt
 from scipy.special import jn_zeros, jv, jvp, hankel1, h1vp
-
+from sol_model import SolModel
 
 
 class Simulator:
-    def __init__(self, model, eta=None) -> None:
-        self.model = MatrixModel(model, eta)
+    def __init__(self, model="variational", eta=None) -> None:
+        if(model == "variational"):
+            self.model = MatrixModel(eta)
+        elif(model == "solution"):
+            self.model = SolModel()
+        else:
+            raise Exception("Invalid model")
         self.modelName = model
         self.eta = eta
 
@@ -15,7 +20,7 @@ class Simulator:
 
     def getSingularValueOfBlock(self, kappa, c_i, c_o, n, index=None):
         # returns singular values of A_Tilde_b
-        A_Tilde = self.model.getA_TildeBlock(kappa, c_i, c_o, n)
+        A_Tilde = self.model.getBlock(kappa, c_i, c_o, n)
         u, s, vh = linalg.svd(A_Tilde)
         if(index != None):
             return s[index]
@@ -126,3 +131,5 @@ class Simulator:
             plotName += "plotRangeStart_" + \
                 str(plotRange[0]) + "plotRangeEnd_" + str(plotRange[1])
         return plotName
+
+# %%
