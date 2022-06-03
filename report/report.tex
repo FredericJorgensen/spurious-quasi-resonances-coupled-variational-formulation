@@ -191,14 +191,12 @@ we consider the simple example where $d = 2$ and $\Omega^- = B_1(0)$ in the foll
 \section{Constructing the Galerkin Matrix}
 A numerical solution of the regularized variational formulation requires the 
 construction of the Galerkin matrix of eq. \ref{eq:variational_formulation}. 
-To proceed with this, we must first construct an
- orthonormal basis of the solution spaces. 
+To proceed with this, we must first construct a
+ basis of a subspace of the the solution space $H^{1}(\Omega)\times H^{-\frac{1}{2}}(\Gamma) \times H^1(\Gamma)$. 
 Orthonormality is required since the representation matrix 
 of an endomorphism is orthogonal if and only if the representation basis is orthogonal. 
 As our goal is to approximate operator norms discretely, we must choose a orthonormal basis, 
-allowing us to use an SVD for this\footnote{How we will do this will be defined more specifically on the following pages.}.
-
-
+allowing us to use an SVD for this\footnote{How we will do this will be defined more specifically on the following pages.}.\\
 Before we can derive the Galerkin matrix, we have to define an orthonormal basis of a finite subspace $H^{1}(\Omega)\times H^{-\frac{1}{2}}(\Gamma) \times H^1(\Gamma)$, 
 so that we can formulate the problem in terms of finding the coefficients with respect to this basis. \\ 
 To simplify the following derivations, we will consider the following space 
