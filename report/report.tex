@@ -168,7 +168,7 @@ For easier notation let $\kappa = \tilde \kappa \sqrt{c_o}$ on the following pag
         g_1(V) &:=(f, V)_{\Omega}-\left(g_{N}, \gamma_{D}^{-} V\right)_{\Gamma}-\left(\mathrm{W}_{\kappa}\left(g_{D}\right), \gamma_{D}^{-} V\right)_{\Gamma} \\ 
         g_2(V)(\varphi) &:=\left(\varphi,\left(\mathrm{K}_{\kappa}-\frac{1}{2} \mathrm{ld}\right)\left(g_{D}\right)\right)_{\Gamma} \\ 
         g_3(V)(q) &:=\left(\mathrm{W}_{\kappa}\left(g_{D}\right), q\right)_{\Gamma} \\ 
-        \mathrm{q}_{\kappa}(U, V)& :=\int_{\Omega} \operatorname{grad} U \cdot \operatorname{grad} \bar{V}-\kappa^{2} n(\mathbf{x}) U \bar{V} \mathrm{~d} \mathbf{x} \\
+        \mathrm{q}_{\kappa}(U, V)& :=\int_{\Omega} \operatorname{grad} U \cdot \operatorname{grad} \bar{V}-\kappa^{2} n({x}) U \bar{V} \mathrm{~d} {x} \\
         \mathrm{b}(p, q)& :=\left(\operatorname{grad}_{\Gamma} p, \operatorname{grad}_{\Gamma} q\right)_{\Gamma}+(p, q)_{\Gamma}.
     \end{aligned}
     $$
@@ -213,17 +213,39 @@ To simplify the following derivations, we will consider the following space
 \end{definition}
 A justification for this definition is given in Meury (lemma 3.22) and the norm is introduced in (2021 Spurious resonances).
 \\
-We note that, within the variational formulation, $U$ is only evaluated on the boundary $\Gamma$\footnote{This is actually not clear for the term $\mathrm{q}_{\kappa}$. However, we will prove this assumption later.}, 
-so that we can restrict $U$ to $H^{\frac{1}{2}}(\Gamma)$, which simplifies our problem. \\
-Now we can can define a complete orthogonal system $\mathcal(H)^{\frac{1}{2}}(\Gamma) \times \mathcal(H)^{-\frac{1}{2}}(\Gamma) \times \mathcal(H)^{1}(\Gamma)$. 
-We choose $U_{n}=v_{n} V_{n}(1, \phi)$, $\theta_{n}=w_{n} e^{i n \phi}$, $p_{n}=l_{n} e^{i n \phi}$ 
-of \(\mathcal{H}^{-\frac{1}{2}}(\Gamma)\) and \(\mathcal{H}^{1}(\Gamma)\) respectively, where
-\begin{align} 
-    v_{n}=\frac{1}{\sqrt{2 \pi\left(\tilde \kappa^2+n^{2}\right)}\left|J_{n}\left(\sqrt{\frac{c_{i}}{c_{o}}} \kappa\right)\right|}, V_{n}=J_{n}\left(\sqrt{\frac{c_{i}}{c_{o}}} \kappa r\right) e^{i n \phi} \nonumber \\
-    w_{n}=\frac{\left(\tilde \kappa^2+n^{2}\right)^{\frac{1}{4}}}{\sqrt{2 \pi}} \label{eq:coefficients}\\
-    l_{n}=\frac{1}{\sqrt{2 \pi\left(\tilde \kappa^2+n^{2}\right)}} \nonumber
+The following proposition helps reducing our solution space.
+\begin{proposition}
+    \label{prop:reduced_operator}
+    There exists an operator 
+    $A: H^{\frac{1}{2}}(\Gamma) \times H^{-\frac{1}{2}}(\Gamma) \times H^{1}(\Gamma)
+    \rightarrow \mathbb{C}^3$ such that 
+    the left hand side operator of eq. \ref{eq:variational_formulation} evaluated at $(U, \theta, p) \in H^{\frac{1}{2}}(\Gamma) \times H^{-\frac{1}{2}}(\Gamma) \times H^{1}(\Gamma)$ 
+    is equal to $A(\gamma_D^- U, \theta, p)$ if $U$ solves the Helmholtz equation. 
+\end{proposition}
+The following lemma is required for the proof.
+\begin{lemma}\label{lem:reduced_q}
+    Let $U, V \in H^{1}(\Omega^-)$ such that $U$ solves the Helmholtz equation. 
+    Then $q_\kappa(U, V) = \int_{ \partial \Omega^-} \overline{V} \nabla U  \cdot nd {S}$ with normal vector $n$.
+\end{lemma}
+\begin{proof}
+    Greens first formula 
+    \(\int\limits_{U}(\psi \Delta \varphi+\nabla \psi \cdot \nabla \varphi) dx=
+    \oint_{\partial U} \psi \nabla \varphi \cdot n dS\) with normal vector $n$
+    implies 
+\begin{align}
+    q_\kappa(U, V) &= \int_{\Omega^-} ( \nabla U \nabla \overline{V} -  \tilde c\kappa^2U \overline{V})dx \nonumber \\
+    &= \int_{ \partial \Omega^-} \overline{V} \nabla U \cdot nd {S} - \int_{\Omega^{-}} {( \tilde c\kappa^2 U + \Delta U)}\overline{V} \cdot nd{S}  \nonumber  \\
+    &= \int_{ \partial \Omega^-} \overline{V} \nabla U \cdot nd {S} \nonumber
 \end{align}
-CITE MEURY 
+    where we used the Helmholtz equation in the third equation.
+\end{proof}
+\begin{proof}[Proof of proposition \ref{prop:reduced_operator}]
+    The previous lemma \ref{lem:reduced_q} already concluded this proof: 
+    Consider the operator $A$ identical to the operator on the left hand side of eq. \ref{eq:variational_formulation}
+    except $q_\kappa(U, V)$ being replaced by 
+    $\int_{ \partial \Omega^-} \overline{V} \nabla U  \cdot nd {S}$.
+    Then all entries of $A$ only depend on $\gamma_D^- U, \theta, p$
+\end{proof}
 
 
 
@@ -267,19 +289,59 @@ $f_1= \sum\limits_{j = -N}^N \frac{1}{2\pi}f_1^j e^{i j \theta}$ and $f_2= \sum\
 \\Define $\vec{C}_n = (C^U_n, C^\theta_n, C^p_n)$.
 \\Let's introduce a few new constants before deriving the Galerkin Matrix. 
 
+
+\begin{lemma}
+    $q_\kappa(U_l, U_m) = 2 \pi  \delta_{lm}|v_l|^2\kappa  \frac{J_l'(\kappa )}{J_l(\kappa )} =: \alpha_l$.
+\end{lemma}
+\begin{proof}[Proof of Lemma]
+    Greens first formula 
+    \(\int\limits_{U}(\psi \Delta \varphi+\nabla \psi \cdot \nabla \varphi) dx=\oint_{\partial U} \psi \nabla \varphi \cdot n dS\) with normal vector $n$
+    implies 
+\begin{align}
+    q_\kappa(U_l, U_m) &= \int_{\Omega^-} ( \nabla U_l \nabla \overline{U_m} -  \tilde c\kappa^2U_l \overline{U_m})dx \nonumber \\
+        &= \int_{ \partial \Omega^-} \overline{U_m} \nabla U_l \cdot nd {S} - \int_{\Omega^{-}} \underbrace{( \tilde c\kappa^2 U_l + \Delta U_l)}_{=0} \overline{U_m} \cdot nd{S}  \nonumber \\
+        &= \delta_{lm}\int_{ \partial \Omega^-} \overline{U_l} \nabla U_l \cdot nd {S} \nonumber \\
+        &= \delta_{lm}|v_l|^2 \sqrt{ \tilde c} \kappa  \frac{J_l'(\sqrt{ \tilde c}\kappa )}{J_l(\sqrt{ \tilde c}\kappa )}
+          \int_{\partial \Omega^-} e^{in\phi}  e^{-in\phi} dS \nonumber \\
+        &= \delta_{lm}2\pi |v_l|^2\kappa \sqrt{ \tilde c} \frac{J_l'(\sqrt{ \tilde c} \kappa )}{J_l(\sqrt{ \tilde c}\kappa )}.\nonumber
+\end{align}
+\end{proof}
+
+\begin{remark}
+    In the previous proof $U_n$ is integrated over $\Omega^-$, while $U_n$ is technically only defined on $\Gamma$. 
+    However, note that, knowing the coefficients of $U_n$, it is straightforward to extend $U$ to $\Omega^-$ using our basis vectors $V_n$. 
+    Also, the end result only depends on the restriction to $\Gamma$.
+    \footnote{These two points is what justified the restriction of $U_n$ to $\Gamma$ in the first place.}
+\end{remark}
+
+\begin{lemma}
+    $b(p_n, p_m) =  (p_n, p_m)_{H^1(\Gamma)} = \frac{(1 + n^2)}{\tilde \kappa^2 + n^2}$
+\end{lemma}
+\begin{proof}
+    $p_n\frac{\tilde \kappa^2 + n^2}{1 + n^2}$ is orthogonal w.r.t $(-, -)_{H^1(\Gamma)}$.
+\end{proof}
+We note that, within the variational formulation, $U$ is only evaluated on the boundary $\Gamma$\footnote{This is actually not clear for the term $\mathrm{q}_{\kappa}$. However, we will prove this assumption later.}, 
+so that we can restrict $U$ to $H^{\frac{1}{2}}(\Gamma)$, which simplifies our problem. \\
+Now we can can define a complete orthogonal system $\mathcal(H)^{\frac{1}{2}}(\Gamma) \times \mathcal(H)^{-\frac{1}{2}}(\Gamma) \times \mathcal(H)^{1}(\Gamma)$. 
+We choose $U_{n}=v_{n} e^{in\phi}$, $\theta_{n}=w_{n} e^{i n \phi}$, $p_{n}=l_{n} e^{i n \phi}$ 
+of \(\mathcal{H}^{-\frac{1}{2}}(\Gamma)\) and \(\mathcal{H}^{1}(\Gamma)\) respectively, where
+\begin{align} 
+    v_{n}&=\frac{1}{\sqrt{2 \pi\left(\tilde \kappa^2+n^{2}\right)}} \nonumber \\
+    w_{n}&=\frac{\left(\tilde \kappa^2+n^{2}\right)^{\frac{1}{4}}}{\sqrt{2 \pi}} \label{eq:coefficients}\\
+    l_{n}&=\frac{1}{\sqrt{2 \pi\left(\tilde \kappa^2+n^{2}\right)}} \nonumber
+\end{align}
 \begin{definition}
     Define the notation $P^{ab}_n = (a_n, b_n)_\Gamma$ where $a_n, b_n \in L^2(\Gamma)$. 
     In particular, the following values will be helpful: 
     \begin{itemize}
-        \item $P^{UU}_n = 2\pi |\tilde v_n|^2$
-        \item $P^{\theta U}_n = 2\pi w_n \overline{\tilde v_n}$
+        \item $P^{UU}_n = 2\pi | v_n|^2$
+        \item $P^{\theta U}_n = 2\pi w_n \overline{ v_n}$
         \item $P^{U\theta}_n = \overline{P^{\theta U}_n}$
         \item $P^{\theta \theta}_n = 2 \pi |w_n|^2$
         \item $P^{p \theta}_n = 2\pi l_n\overline{w_n}$
-        \item $P^{Up}_n = 2\pi \tilde v_n \overline{l_n}$
-        \item $P^{\theta p}_n = \overline{P^{p\theta}_n }$
+        \item $P^{Up}_n = 2\pi  v_n \overline{l_n}$
+        \item $P^{\theta p}_n = \overline{P^{p\theta}_n }$.
     \end{itemize}
-    where $\tilde v_n = J_n(\sqrt{\tilde c}\kappa )v_n$.
 \end{definition}
 Let's introduce the following matrix and vector: 
 \begin{definition}
@@ -302,20 +364,20 @@ Let's introduce the following matrix and vector:
     \end{bmatrix}
     = 
     \begin{bmatrix}
-        - \overline{\tilde{v_n}} f_2^n - \lambda_n^{(W)} \overline{\tilde{v_n}} f_1^n \\
+        - \overline{{v_n}} f_2^n - \lambda_n^{(W)} \overline{{v_n}} f_1^n \\
         (\lambda_n^{(K)} - 0.5)  \overline{w_n} f_1^n\\
         \lambda_n^{(W)} \overline{l_n} f_1^n
     \end{bmatrix}
 = f_1^n 
 \underbrace{
 \begin{bmatrix}
-- \lambda_n^{(W)} \overline{\tilde{v_n}} \\
+- \lambda_n^{(W)} \overline{{v_n}} \\
 (\lambda_n^{(K)} - 0.5) \overline{w_n}  \\
 \lambda_n^{(W)} \overline{l_n}
 \end{bmatrix}}_{\vec{x_1}}
 + f_2^n
 \underbrace{\begin{bmatrix}
-    - \overline{\tilde{v_n}} \\
+    - \overline{{v_n}} \\
     0 \\
     0
 \end{bmatrix}}_{\vec{x_1}}
@@ -342,43 +404,6 @@ Before we proof this we need the following Lemma from P. Meury doctoral thesis:
     $$
     in particular these eigenvalue equations are satisfied for $U_n, \theta_n, p_n$.
 \end{lemma}
-The following formulas will also be helpful for the proof.
-\begin{lemma}
-    $q_\kappa(U_n, U_m) = 2 \pi  \delta_{nm}|v_n|^2\kappa  J_n(\kappa ) J_n'(\kappa ) =: \alpha_n$.
-\end{lemma}
-
-
-\begin{proof}[Proof of Lemma]
-    We start by using Greens first formula 
-    \(\int\limits_{U}(\psi \Delta \varphi+\nabla \psi \cdot \nabla \varphi) d V=\oint_{\partial U} \psi \nabla \varphi \cdot d \mathbf{S}\)
-    to see that $$q_\kappa(U_n, U_m) = \int_{\Omega^-} ( \div U_n \div \overline{U_m} -  \tilde c\kappa^2U_n \overline{U_m}) $$
-    $$
-        = \int_{ \partial \Omega^-} \overline{U_m} \div U_n d \vec{S} - \int_{\Omega^{-}} \underbrace{( \tilde c\kappa^2 U_n + \Delta U_n)}_{=0} \overline{U_m} d \vec{S} 
-    $$
-    $$
-        = \delta_{nm}\int_{ \partial \Omega^-} \overline{U_n} \div U_n d \vec{S}
-    $$
-    $$
-        = \delta_{nm}|v_n|^2 \sqrt{ \tilde c} \kappa  J_n(\sqrt{ \tilde c}\kappa ) J_n'(\sqrt{ \tilde c}\kappa )  \int_{\partial \Omega^-} e^{in\phi}  e^{-in\phi} dS
-    $$
-    $$
-        = \delta_{nm}2\pi |v_n|^2\kappa \sqrt{ \tilde c} J_n(\sqrt{ \tilde c} \kappa ) J_n'(\sqrt{ \tilde c} \kappa )
-    $$
-\end{proof}
-
-\begin{remark}
-    In the previous proof $U_n$ is integrated over $\Omega^-$, while $U_n$ is technically only defined on $\Gamma$. 
-    However, note that, knowing the coefficients of $U_n$, it is straightforward to extend $U$ to $\Omega^-$ using our basis vectors $V_n$. 
-    Also, the end result only depends on the restriction to $\Gamma$.
-    \footnote{These two points is what justified the restriction of $U_n$ to $\Gamma$ in the first place.}
-\end{remark}
-
-\begin{lemma}
-    $b(p_n, p_m) =  (p_n, p_m)_{H^1(\Gamma)} = \frac{(1 + n^2)}{\tilde \kappa^2 + n^2}$
-\end{lemma}
-\begin{proof}
-    $p_n\frac{\tilde \kappa^2 + n^2}{1 + n^2}$ is orthogonal w.r.t $(-, -)_{H^1(\Gamma)}$.
-\end{proof}
    
 Now we can proof theorem \ref{def:galerkin_matrix}.
 \begin{proof}[Proof of theorem \ref{def:galerkin_matrix}]
