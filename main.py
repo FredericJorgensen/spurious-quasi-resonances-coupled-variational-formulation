@@ -70,9 +70,6 @@ def validateProjector(selectedScenario):
 
 
 if __name__ == "__main__":
-    simulateScenario(4)
-    simulateScenario(5)
-    simulateScenario(6)
+    # simulateScenario(6)
     validateSimpleSol(2)
-    validateProjector(2)
 

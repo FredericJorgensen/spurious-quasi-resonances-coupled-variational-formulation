@@ -7,6 +7,8 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=[rgb]{0,0,1}, citecolor=[rgb]{0,0,1}}
 \usepackage{graphicx}
 \usepackage{lmodern}
 \usepackage{physics}
@@ -77,28 +79,18 @@ singlelinecheck=false % <-- important
 
 \title{Spurious Quasi-Resonances for Stabilized BIE-Volume Formulations for Helmholtz Transition Problem}
 
-\author{Frederic Jørgensen}
-
-% TODO: Next steps:
-% 1. Herleitung nochmal durchgehen und sehen dass alles richtig formulieren
-% 2. Code mit Herleitung vergleichen 
-% 3. Validation completen
-%     a. Residuum A * sol - b plotten 
-%     b. Calc scenario with general n in sol;ution e^in * phi 
-%     c. Bestimmen von der p-Sache
-% 4. Ergebnisse an Hiptmair
+\author{Frederic Jørgensen. \textit{\today}}
 
 
 
-%\IEEEtitleabstractindextext{%
 
-%\begin{abstract}
+\IEEEtitleabstractindextext{%
+\begin{abstract}
+    tbd 
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+\end{abstract}
+}
 
-%\end{abstract}
-
-% Note that keywords are not normally used for peerreview papers.
-%\begin{IEEEkeywords}
-%...\end{IEEEkeywords}}
 
 
 \maketitle
@@ -106,209 +98,107 @@ singlelinecheck=false % <-- important
 \IEEEdisplaynontitleabstractindextext
 \IEEEpeerreviewmaketitle
 
-\begin{comment}
-\section{Theoretical Background}
-
-\subsubsection{Lipschitz Domain}
-%Another source : https://cloudflare-ipfs.com/ipfs/bafykbzacedngw4fznskrifjbxzdjkgixzzu7mwmb4sqvsywfkq3a7mdyjclfs?filename=William%20McLean%20-%20Strongly%20Elliptic%20Systems%20and%20Boundary%20Integral%20Equations%20%20-Cambridge%20University%20Press%20%282000%29.pdf 
-%Wikipedia 
 
 
-\begin{remark}
-Henceforth we shall require that, roughly speaking that \(\Omega\)  is locally the set of points located above the graph of some Lipschitz function and the boundary is this graph. 
-\end{remark}
+\section{Introduction}
+Let \(\Omega^- \subset \mathbb{R}^d, d > 0\) be a bounded Lipschitz domain and 
+define \(\Omega^{+}:=\mathbb{R}^{d} \backslash \overline{\Omega^{-}}\), 
+\(\Gamma := \partial \Omega^-\).
+For any function $f$ on $\mathbb{R}^d$ define $f^\pm :=f|_{\Omega^{\pm}}$. 
+Consider the Neumann and Dirichlet trace operators 
+\begin{align}
+    \gamma_{D}^{\pm}: & H_{\mathrm{loc}}^{1}\left(\Omega^{\pm}\right) \rightarrow H^{\frac{1}{2}}(\Gamma), \left(\gamma_{D}^{\pm} f\right)({x}):=f({x}) \nonumber \\
+    \gamma_{N}^{\pm}: & H_{\mathrm{loc}}\left(\Delta, \Omega^{\pm}\right) \rightarrow H^{-\frac{1}{2}}(\Gamma), \left(\gamma_{N}^{\pm} f\right)({x}):=\nabla f({x}) \cdot \mathbf{n}({x}) \nonumber
+\end{align}
+where \(H_{\mathrm{loc}}^{1}\left(\Omega^{\pm}\right)\),
+\(H_{\mathrm{loc}}\left(\Delta, \Omega^{\pm}\right)\), 
+\(H^{\frac{1}{2}}(\Gamma)\), and \(H^{-\frac{1}{2}}(\Gamma)\)
+are defined in chapter 3 of  \cite{mclean2000strongly}.
+Now, the Cauchy trace is \(\gamma_{C}^{\pm}: H_{\mathrm{loc}}^{1}\left(\Omega^{\pm}, \Delta\right) \rightarrow H^{1 / 2}(\Gamma) \times H^{-1 / 2}(\Gamma)\) with values given 
+by \(\gamma_{C}^{\pm}:=\left(\gamma_{D}^{\pm}, \gamma_{N}^{\pm}\right)\). 
+This concludes all required definitions to formulate the Helmholtz transmission problem.
 
-
-
-\begin{definition}[Lipschitz domain]
-Let \(n \in \mathbb{N} .\) Let \(\Omega\) be a domain of \(\mathbb{R}^{n}\) and let \(\partial \Omega\) denote the boundary of \(\Omega .\) Then \(\Omega\) is called a Lipschitz domain if for every point \(p \in \partial \Omega\) there exists a hyperplane \(H\) of dimension \(n-1\) through \(p\), a Lipschitz-continuous function \(g: H \rightarrow \mathbb{R}\) over that hyperplane, and reals \(r>0\) and \(h>0\) such that
-\begin{itemize}
-    \item \(\Omega \cap C=\left\{x+y \vec{n} \mid x \in B_{r}(p) \cap H,-h<y<g(x)\right\}\)
-    \item \((\partial \Omega) \cap C=\left\{x+y \vec{n} \mid x \in B_{r}(p) \cap H, g(x)=y\right\}\)
-\end{itemize}
-where \(\vec{n}\) is a unit vector that is normal to \(H\) and \(C:=\left\{x+y \vec{n} \mid x \in B_{r}(p) \cap H,-h<y<h\right\}\).
-\end{definition}
-
-
-\subsubsection{Sobolev Space}
-\begin{definition}[$H^1$]
-For a bounded domain \(\Omega \subset \mathbb{R}^{d}, d \in \mathbb{N}\), we define the Sobolev space \(H^{1}(\Omega):=\left\{v \in L^{2}(\Omega): \int_{\Omega}|\operatorname{grad} v(x)|^{2} \mathrm{~d} x<\infty\right\}\) as a Hilbert space with norm \(\|v\|_{H^{1}(\Omega)}^{2}:=\|v\|_{L^{2}(\Omega)}^{2}+|v|_{H^{1}(\Omega)}^{2}, \quad|v|_{H^{1}(\Omega)}^{2}:=\int_{\Omega}|\operatorname{grad} v(x)|^{2} \mathrm{~d} x\)
-\end{definition}
-
-
-
-
-
-
-\begin{definition}[$H^{1/2}$]
-
-\end{definition}
-
-\begin{definition}[$H^k_{loc}$]
-
-\end{definition}
-
-\subsubsection{Trace operators}
-\begin{definition}[Trace operator]
-A trace operator is a linear mapping from a function space on the volume domain \(\Omega\) to a function space on (parts of) the boundary \(\partial \Omega .\)
-\end{definition}
-
-
-\begin{definition}[(Layer) potential]
-A (layer) potential is a linear mapping from a function space on \(\partial \Omega\) into a function space on the
-volume domain \(\Omega .\)
-\end{definition}
-
-
-\begin{definition}[Dirichlet Trace]
-The Dirichlet trace (operator) \(\mathrm{T}_{D}\) boils down to pointwise restriction for smooth functions:
-$$
-\left(\mathrm{T}_{D} w\right)(\boldsymbol{x}):=w(\boldsymbol{x}) \quad \forall \boldsymbol{x} \in \Gamma, \quad w \in C^{\infty}(\bar{\Omega}).
-$$
-\end{definition}
-\begin{definition}[Dirichlet trace space]
-The Dirichlet trace space \(H^{\frac{1}{2}}(\Gamma)\) is the Hilbert space obtained by completion of \(\left.C^{\infty}(\bar{\Omega})\right|_{\Gamma}\) with
-respect to the energy norm 
-$$\|\mathfrak{u}\|_{H^{\frac{1}{2}}(\Gamma)}:=\inf \left\{\|v\|_{H^{1}(\Omega)}: v \in C^{\infty}(\bar{\Omega}), \top_{D} v=\mathfrak{u}\right\},\left.\quad \mathfrak{u} \in C^{\infty}(\bar{\Omega})\right|_{\Gamma}.$$
-\end{definition}
-
-\begin{theorem}
-The Dirichlet trace \(\mathrm{T}_{D}\) according can be extended to a continuous and surjective linear
-operator \(\mathrm{T}_{D}: H^{1}(\Omega) \rightarrow H^{\frac{1}{2}}(\Gamma)\)
-\end{theorem}
-
-\begin{definition}[Neumann Trace]
-For smooth functions the Neumann trace (operator) \(\mathrm{T}_{N}\) is defined by
-$$
-\left(\mathrm{T}_{N} w\right)(\boldsymbol{x}):=\operatorname{grad} w \cdot \boldsymbol{n}(\boldsymbol{x}) \quad \forall \boldsymbol{x} \in \Gamma, w \in C^{\infty}(\bar{\Omega}).
-$$
-\end{definition}
-
-\begin{definition}[Neumann Trace Space]
-The Neumann trace space \(H^{-\frac{1}{2}}(\Gamma)\) is the Hilbert space obtained by the completion of \(C^{0}(\Gamma)\) with respect to the norm $$\|\phi\|_{H^{-\frac{1}{2}}(\Gamma)}:=\|\widetilde{\phi}\|_{\widetilde{H}^{-1}(\Omega)}$$ where  \(\widetilde{\phi}\) is the
-"extension by zero to \(\mathbb{R}^{d \text { " }}\) of \(\phi .\)
-We have the definition \(\|\rho\|_{\widetilde{H}^{-1}(\Omega)}:=|u|_{H^{1}\left(\mathbb{R}^{3}\right)} \quad\) where \(u\) solves \(\quad\left\{\begin{array}{c}-\Delta u=\widetilde{\rho} \text { in } \mathbb{R}^{3} \\ u \text { satisfies decay conditions }\end{array}\right.\). 
-\end{definition}
-
-\begin{definition}[Space of function with square-integrable Laplacian]
-We define the Hilbert space
-$$
-H(\Delta, \Omega):=\left\{v \in H^{1}(\Omega): \Delta v \in L^{2}(\Omega)\right\}
-$$
-with norm
-$$
-\|u\|_{H(\Delta, \Omega)}^{2}:=\|u\|_{H^{1}(\Omega)}^{2}+\|\Delta u\|_{L^{2}(\Omega)}^{2}, \quad u \in H(\Delta, \Omega).
-$$
-\end{definition}
-
-\begin{theorem}
-The Neumann trace \(\mathrm{T}_{N}\) can be extended to a continuous mapping \(\mathrm{T}_{N}: H(\Delta, \Omega) \rightarrow H^{-\frac{1}{2}}(\Gamma)\).
-\end{theorem}
-
-\begin{definition}[\(C_{\mathrm{comp}}^{\infty}\left(\mathbb{R}^{d}\right)\)]
-
-\end{definition}
-
-
-\subsubsection{Notations}
-\begin{itemize}
-    \item Consider a bounded Lipschitz open set $\Omega^{-} \subset \mathbb{R}^{d}$, $d=2,3$.
-    \item \(\Omega^{+}:=\mathbb{R}^{d} \backslash \overline{\Omega^{-}}\)
-    \item \(\Gamma:=\partial \Omega^{-}=\partial \Omega^{+}\)
-    \item \(\mathbf{n}\) is the unit normal vector field on \(\Gamma\) pointing from \(\Omega^{-}\)into \(\Omega^{+}\)
-    \item For any \(\varphi \in L_{\text {loc }}^{2}\left(\mathbb{R}^{d}\right)\), we let \(\varphi^{-}:=\left.\varphi\right|_{\Omega^{-}}\)and \(\varphi^{+}:=\left.\varphi\right|_{\Omega^{+}}\)
-    \item \(H_{\text {loc }}^{1}\left(\Omega^{\pm}, \Delta\right):=\left\{v: \chi v \in H^{1}\left(\Omega^{\pm}\right), \Delta(\chi v) \in L^{2}\left(\Omega^{\pm}\right)\right.\)for all \(\left.\chi \in C_{\text {comp }}^{\infty}\left(\mathbb{R}^{d}\right)\right\}\)
-    \item Dirichlet and Neumann trace operators\footnote{The Dirichlet trace operator boils down to pointwise restriction.}: \(\gamma_{D}^{\pm}: H_{\mathrm{loc}}^{1}\left(\Omega_{\pm}\right) \rightarrow H^{1 / 2}(\Gamma) \quad\) and \(\quad \gamma_{N}^{\pm}: H_{\mathrm{loc}}^{1}\left(\Omega_{\pm}, \Delta\right) \rightarrow H^{-1 / 2}(\Gamma)\) with \(\gamma_{D}^{\pm} v:=\left.v^{\pm}\right|_{\Gamma}\) and \(\gamma_{N}^{\pm}\)such that if \(v \in H_{\mathrm{loc}}^{2}\left(\Omega_{\pm}\right)\)then \(\gamma_{N}^{\pm} v=\mathbf{n} \cdot \gamma_{D}^{\pm}(\nabla v)\)
-    \item Cauchy trace: \(\gamma_{C}^{\pm}: H_{\mathrm{loc}}^{1}\left(\Omega^{\pm}, \Delta\right) \rightarrow H^{1 / 2}(\Gamma) \times H^{-1 / 2}(\Gamma)\), \(\gamma_{C}^{\pm}:=\left(\gamma_{D}^{\pm}, \gamma_{N}^{\pm}\right)\)
-    \item Sommerfeld radiation condition: \(\varphi \in C^{1}\left(\mathbb{R}^{d} \backslash B_{R}\right)\), for some ball \(B_{R}:=\{|\mathbf{x}|<R\}\), and \(\kappa>0\) satisfies this condition if \(\lim _{r \rightarrow \infty} r^{\frac{d-1}{2}}\left(\frac{\partial \varphi(\mathbf{x})}{\partial r}-\mathrm{i} \kappa \varphi(\mathbf{x})\right)=0\) in all directions. We then write \(\varphi \in \operatorname{SRC}(\kappa)\)
-%\footnote{From Wikipedia: The Sommerfeld radiation condition is used to solve uniquely the Helmholtz equation. It makes sure that \"the sources must be sources, not sinks of energy. The energy which is radiated from the sources must scatter to infinity; no energy may be radiated from infinity into ... the field.\"}
-\end{itemize}
-
-\begin{theorem}[Green's first formula]
-    (From Wikipedia)
-    \(\int_{U}\left(\phi \nabla^{2} \psi+\nabla \phi \cdot \nabla \psi\right) \mathrm{d} U=\int_{\partial U} \phi \frac{\partial \psi}{\partial n} \mathrm{~d} S\)
-\end{theorem}
-\end{comment}
-
-\section{Problem }
-We start by formulating the problem. We want to investigate the occurence of spurious quasi-resonances in the variational formulation of the following Helmholtz transition problem.
-
-\begin{definition}[Helmholtz Transmission Problem]
-Find \(u \in H_{\operatorname{loc}}^{1}\left(\mathbb{R}^{d} \backslash \Gamma\right) \cap \operatorname{SRC}\left(k \sqrt{c_{o}}\right)\) 
+\begin{definition}[Helmholtz transmission problem]
+For $\tilde \kappa, c_i, c_o > 0$ and \(\mathbf{f} \in H^{1 / 2}(\Gamma) \times H^{-1 / 2}(\Gamma)\) find \(u \in H_{\operatorname{loc}}^{1}\left(\mathbb{R}^{d} \backslash \Gamma\right)\) 
 such that
 
 \begin{align}
-    \left(\Delta+\tilde\kappa^{2} c_{i}\right) u^{-} &=0 & & \text { in } \Omega^{-}  \nonumber
-    \\\left(\Delta+\tilde\kappa^{2} c_{o}\right) u^{+} &=0 & & \text { in } \Omega^{+} \label{eq:helmholtz}
-    \\ \gamma_{C}^{+} u^{+} &=\gamma_{C}^{-} u^{-}+\mathbf{f} & & \text { on } \Gamma. \nonumber
+    \left(\Delta+\tilde\kappa^{2} c_{i}\right) U^{-} &=0  \quad \text { in } \Omega^{-}  \nonumber \\
+    \left(\Delta+\tilde\kappa^{2} c_{o}\right) U^{+} &=0  \quad \text { in } \Omega^{+} \label{eq:helmholtz} \\
+    \gamma_{C}^{+} U^{+} - \gamma_{C}^{-} U^{-} &=\mathbf{f} \quad  \text { on } \Gamma. \nonumber 
 \end{align}
+Additionally, $u$ must satisfy the Sommerfeld radiation condition 
+\(\lim\limits_{r \rightarrow \infty} r^{\frac{d-1}{2}}\left(\frac{\partial U(x)}{\partial r}-i \sqrt{c_o} \tilde \kappa U(x)\right)=0\) 
+where $r$ refers to the radial spherical coordinate. 
+\end{definition} 
+This problem is well-posed and the solution is unique as shown in Lemma 2.2 in \cite{moiola2019acoustic}.\\
+Hiptmair et al. considered the \textit{single-trace formulations} (STF) of this problem  \cite{hiptmair2021spurious}. 
+This is a reformulation of this problem in terms of \textit{boundary integral equations} (BIEs). 
+When investigating the case $c_i < c_o$ they found that the involved  \textit{boundary integral operators} (BIOs) as a
+ function of $\tilde \kappa$ exposed a nonphysical resonanace behavior. 
+More specifically, the operator norm of the STF BIOs was found to have resonances (called \textit{spurious quasi-resonances})
+that the norm of the solution operator did not.
+Formally, Hiptmair et al. defined the solution operator as follows \cite{hiptmair2021spurious}.
+\begin{definition}
+    Given positive real numbers \(k, c_{i}\), and \(c_{o}\), 
+    $S: H^{\frac{1}{2}}(\Gamma) \times H^{-\frac{1}{2}}(\Gamma) \rightarrow  H^{\frac{1}{2}}(\Gamma) \times H^{-\frac{1}{2}}(\Gamma)$ is the solution operator if 
+     \(S\left(c_{i}, c_{o}\right) \mathbf{f}:=\gamma_{C}^{-} u\)
+    where \(u\) solves eq \ref{eq:helmholtz}.
+\end{definition}
+Hiptmair et al. were able to remove these \textit{spurious quasi-resonances} 
+using an augmented formulation of the BIEs.  \\
+The goal of this paper is to investigate the occurence of \textit{spurious quasi-resonance}
+in the  \textit{regularized variational formulation} of the Helmholtz transmission problem 
+as proposed in P. Meury's doctoral thesis \cite{meury2007stable}. 
+For easier notation let $\kappa = \tilde \kappa \sqrt{c_o}$ on the following pages.
+\newpage
+\begin{definition}[Regularized variational formulation]
+    Find \(U \in H^{1}(\Omega), \theta \in H^{-1 / 2}(\Gamma)\) and \(p \in H^{1}(\Gamma)\) such that for all \(V \in H^{1}(\Omega), \varphi \in H^{-1 / 2}(\Gamma)\)
+    and \(q \in H^{1}(\Gamma)\) there holds
+
+    \begin{align}
+        \mathrm{q}_{\kappa}(U, V)+\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), \gamma_{D}^{-} V\right)_{\Gamma}-\left((\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa}^{\prime})(\theta), \gamma_{D}^{-} V\right)_{\Gamma} &=g_1(V) \nonumber\\
+        \left((\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa})\left(\gamma_{D}^{-} U\right), \varphi\right)_{\Gamma}+\left(\mathrm{V}_{\kappa}(\theta), \varphi\right)_{\Gamma}+i \overline{\eta}(p, \varphi)_{\Gamma} &=\overline{g_2(\varphi)} \label{eq:variational_formulation}\\
+        -\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), q\right)_{\Gamma}-\left((\mathrm{K}_{\kappa}^{\prime}+\frac{1}{2} \mathrm{Id})(\theta), q\right)_{\Gamma}+\mathrm{b}(p, q) &=g_3(q). \nonumber
+    \end{align}
+
+    where we have 
+    $$
+    \begin{aligned} 
+        g_1(V) &:=(f, V)_{\Omega}-\left(g_{N}, \gamma_{D}^{-} V\right)_{\Gamma}-\left(\mathrm{W}_{\kappa}\left(g_{D}\right), \gamma_{D}^{-} V\right)_{\Gamma} \\ 
+        g_2(V)(\varphi) &:=\left(\varphi,\left(\mathrm{K}_{\kappa}-\frac{1}{2} \mathrm{ld}\right)\left(g_{D}\right)\right)_{\Gamma} \\ 
+        g_3(V)(q) &:=\left(\mathrm{W}_{\kappa}\left(g_{D}\right), q\right)_{\Gamma} \\ 
+        \mathrm{q}_{\kappa}(U, V)& :=\int_{\Omega} \operatorname{grad} U \cdot \operatorname{grad} \bar{V}-\kappa^{2} n(\mathbf{x}) U \bar{V} \mathrm{~d} \mathbf{x} \\
+        \mathrm{b}(p, q)& :=\left(\operatorname{grad}_{\Gamma} p, \operatorname{grad}_{\Gamma} q\right)_{\Gamma}+(p, q)_{\Gamma}.
+    \end{aligned}
+    $$
 
 \end{definition}
-
-\subsection{Deriving the variational formulation}
-We will now state the variational formulation of the problem in $\Omega^-$. \\
-Integration by parts in $\Omega^-$ using Green's first formula implies 
-$$
-a(U, V) - \left(\gamma_{1}^{-} U, \gamma_{0}^{-} V\right)_{\Gamma}=0 \quad \forall v \in H^{1}\left(\Omega^{-}\right)
-$$
-
-This variational equation can be coupled to the transmission conditions using the BIE. 
-As the problem is equivalent to the problem in the doctoral thesis of P. Meury (section 3) with $U_i = 0, f = 0, n(x) = c_i / c_o, 
-\kappa = \tilde \kappa \sqrt{c_o}$, 
-we can use the same formulation.\\
+This formulation is derived from the Helmholtz transmission problem by partially integrating the Helmholtz equation, 
+applying Green's first formula, coupling the resulting variational problem to 
+the BIEs using Dirichlet-to-Neumann maps, and transforming the Cauchy trace \cite{meury2007stable} 
+\footnote{The formulation here is equivalent to the case 
+ $U_i = 0, f = 0, n(x) = c_i / c_o$ in section 3 of \cite{meury2007stable}.}.
 \begin{remark}
-    From here on, we will use the constant $\tilde c := \frac{c_i}{c_o}$ for two reasons. This reduces the amount of parameters we have to consider and
-    makes it more clear that the resonance behavior depends only on the ratio and not the scaling
+    From here on, we will use the constant $\tilde c := \frac{c_i}{c_o}$. This reduces the amount of parameters 
+    to consider. Moreover,
+    it makes more clear that the resonance behavior 
+    depends on the ratio and not the scaling
     of the refractive indices.
 \end{remark}
-The formulation is: 
-Find \(U \in H^{1}(\Omega), \theta \in H^{-1 / 2}(\Gamma)\) and \(p \in H^{1}(\Gamma)\) such that for all \(V \in H^{1}(\Omega), \varphi \in H^{-1 / 2}(\Gamma)\)
-and \(q \in H^{1}(\Gamma)\) there holds
+To investigate the occurence of spurious quasi-resonances, 
+we consider the simple example where $d = 2$ and $\Omega^- = B_1(0)$ in the following chapters if not mentioned otherwise. 
+\section{Constructing the Galerkin Matrix}
+A numerical solution of the regularized variational formulation requires the 
+construction of the Galerkin matrix of eq. \ref{eq:variational_formulation}. 
+To proceed with this, we must first construct an
+ orthonormal basis of the solution spaces. 
+Orthonormality is required since the representation matrix 
+of an endomorphism is orthogonal if and only if the representation basis is orthogonal. 
+As our goal is to approximate operator norms discretely, we must choose a orthonormal basis, 
+allowing us to use an SVD for this\footnote{How we will do this will be defined more specifically on the following pages.}.
 
-\begin{align}
-    \mathrm{q}_{\kappa}(U, V)+\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), \gamma_{D}^{-} V\right)_{\Gamma}-\left((\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa}^{\prime})(\theta), \gamma_{D}^{-} V\right)_{\Gamma} &=g_1(V) \nonumber\\
-    \left((\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa})\left(\gamma_{D}^{-} U\right), \varphi\right)_{\Gamma}+\left(\mathrm{V}_{\kappa}(\theta), \varphi\right)_{\Gamma}+i \overline{\eta}(p, \varphi)_{\Gamma} &=\overline{g_2(V)}(\varphi) \label{eq:variational_formulation}\\
-    -\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), q\right)_{\Gamma}-\left((\mathrm{K}_{\kappa}^{\prime}+\frac{1}{2} \mathrm{Id})(\theta), q\right)_{\Gamma}+\mathrm{b}(p, q) &=g_3(V)(q). \nonumber
-\end{align}
 
-where we have 
-$$
-\begin{aligned} 
-    g_1(V) &:=(f, V)_{\Omega}-\left(g_{N}, \gamma_{D}^{-} V\right)_{\Gamma}-\left(\mathrm{W}_{\kappa}\left(g_{D}\right), \gamma_{D}^{-} V\right)_{\Gamma} \\ 
-    g_2(V)(\varphi) &:=\left(\varphi,\left(\mathrm{K}_{\kappa}-\frac{1}{2} \mathrm{ld}\right)\left(g_{D}\right)\right)_{\Gamma} \\ 
-    g_3(V)(q) &:=\left(\mathrm{W}_{\kappa}\left(g_{D}\right), q\right)_{\Gamma}, 
-\end{aligned}
-$$
-\(\mathrm{q}_{\kappa}(U, V):=\int_{\Omega} \operatorname{grad} U \cdot \operatorname{grad} \bar{V}-\kappa^{2} n(\mathbf{x}) U \bar{V} \mathrm{~d} \mathbf{x}\) and 
-\(\mathrm{b}(p, q):=\left(\operatorname{grad}_{\Gamma} p, \operatorname{grad}_{\Gamma} q\right)_{\Gamma}+(p, q)_{\Gamma}\).
-
-\begin{comment}
-\section{How to investigate Stability}
-To figure out how stable this formulation is, we use the inf-sup constant
-\begin{theorem}
-    Existence and uniqueness of discrete solutions \(u_{h} \in V_{h}\) and the convergence \(u_{h} \rightarrow u\) can only
-hold if the sesquilinear form a satisfies a discrete inf-sup condition, cf. [89, Eq. 2.3.6]: There
-exists a constant \(\gamma>0\) such that for all \(v_{h} \in V_{h}\) and the whole family \(V_{h}\) with \(h \rightarrow 0\), there
-holds
-$$
-\sup _{0 \neq w_{h} \in V_{h}} \frac{\left|\mathrm{a}\left(v_{h}, w_{h}\right)\right|}{\left\|w_{h}\right\|_{V}} \geq \gamma\left\|v_{h}\right\|_{V}
-$$ (from P.Meury thesis).
-\end{theorem}
-We will now investgate the reliability of the variational formulation by investigating the inf-sup constant of the sesquilinear form on the left side of the variational problem. 
-\begin{definition}
-$$
-\gamma = \inf_{0 \neq v_h \in V_h}\sup _{0 \neq w_{h} \in V_{h}} \frac{\left|\mathrm{a}\left(v_{h}, w_{h}\right)\right|}{\left\|w_{h}\right\|_{V}\left\|v_{h}\right\|_{V}} 
-$$ 
-\end{definition}
-\begin{remark}
-    We can estimate the inf-sup constant from the minimum singular value of the Galerkin matrix (proven in P.Meury thesis).
-\end{remark}
-
-So we now derive the Galerkin Matrix to find the inf-sup constant. 
-\end{comment}
-
-\section{Galerkin Matrix}
-\subsection{Constructing an orthonormal basis}
 Before we can derive the Galerkin matrix, we have to define an orthonormal basis of a finite subspace $H^{1}(\Omega)\times H^{-\frac{1}{2}}(\Gamma) \times H^1(\Gamma)$, 
 so that we can formulate the problem in terms of finding the coefficients with respect to this basis. \\ 
 To simplify the following derivations, we will consider the following space 
@@ -626,10 +516,7 @@ As we see in fig \ref{fig:p_validation}, this is satisfied which is another vali
 
 \section{Constructing the Solution Operator}
 For better comparability, we construct the discretized solution operator for the considered problem.
-\begin{definition}
-    Given positive real numbers \(k, c_{i}\), and \(c_{o}\), let \(S\left(c_{i}, c_{o}\right) \mathbf{f}:=\gamma_{C}^{-} u\)
-    be the solution operator where \(u\) solves eq \ref{eq:helmholtz}.
-\end{definition}
+
 Plugging the Fourier ansatz into eq. \ref{eq:helmholtz} and imposing convergence at the origin and 
 the Sommerfeld radiation condition results in
 \begin{align}
@@ -711,12 +598,155 @@ Finally, let's consider the ratio of the minimum and maximum singular value (fig
 \end{figure}
 We see that in the case $c_i = 1, c_o =3$, where the solution operator has weaker resonances resonances, 
 the resonances from our matrix operator or also less strong 
-than in the case $c_i = 3, c_o =1$.
+than in the case $c_i = 3, c_o =1$. \cite{hiptmair2021spurious}
 
+Use word quasi-resonances (f.e. used in Hiptmair) for peaks of sol operator 
+Remark \(1.5 .\) The physical reason for the existence of quasi-resonances when \(n_{i}>n_{o}\) is that, in
+this case, geometric-optic rays can undergo total internal reflection when hitting \(\Gamma\) from \(\Omega^{-}\). Rays
+"hugging" the boundary via a large number of bounces with total internal reflection correspond
+to solutions of the transmission problem localised near \(\Gamma\); in the asymptotic-analysis literature
+these solutions are known as "whispering gallery" modes; see, e.g., \([3,4]\). The existence of quasi-
+resonances of the transmission problem has only been rigorously established when \(\Omega^{-}\)is smooth
+and convex with strictly positive curvature. The understanding above via rays suggests that such
+quasi-resonances and quasimodes do not exist for polyhedral \(\Omega^{-}\)(since sharp corners prevent rays
+from moving parallel to the boundary), although solutions with localisation qualitatively similar to
+that of quasimodes can be seen when \(\Omega^{-}\)is a pentagon \([20\), Figure 13\(]\) or a hexagon \([6\), Figure 23\(] .\)
 
-%
-%\bibliography{bib}
-%\bibliographystyle{ieeetr}
+Interpretation: da $sigma_min$ stabil ist Verfahren stabil 
+
+\section{Appendix}
+resonances roots besselfunctions (Plots mit Roots in Anhang)
+
+Weitere Werte von $c_i, c_o, nu$ testen um zu sehen ob aehnliches Ergebnis 
+
+\bibliography{references}
+\bibliographystyle{ieeetr}
+
+\section*{Symbols}
+In this section we provide a definitions of all symbols used that are not defined in the text below. 
+
+\begin{comment}
+    \subsubsection{Lipschitz Domain}
+    %Another source : https://cloudflare-ipfs.com/ipfs/bafykbzacedngw4fznskrifjbxzdjkgixzzu7mwmb4sqvsywfkq3a7mdyjclfs?filename=William%20McLean%20-%20Strongly%20Elliptic%20Systems%20and%20Boundary%20Integral%20Equations%20%20-Cambridge%20University%20Press%20%282000%29.pdf 
+    %Wikipedia 
+    
+    
+    \begin{remark}
+    Henceforth we shall require that, roughly speaking that \(\Omega\)  is locally the set of points located above the graph of some Lipschitz function and the boundary is this graph. 
+    \end{remark}
+    
+    
+    
+    \begin{definition}[Lipschitz domain]
+    Let \(n \in \mathbb{N} .\) Let \(\Omega\) be a domain of \(\mathbb{R}^{n}\) and let \(\partial \Omega\) denote the boundary of \(\Omega .\) Then \(\Omega\) is called a Lipschitz domain if for every point \(p \in \partial \Omega\) there exists a hyperplane \(H\) of dimension \(n-1\) through \(p\), a Lipschitz-continuous function \(g: H \rightarrow \mathbb{R}\) over that hyperplane, and reals \(r>0\) and \(h>0\) such that
+    \begin{itemize}
+        \item \(\Omega \cap C=\left\{x+y \vec{n} \mid x \in B_{r}(p) \cap H,-h<y<g(x)\right\}\)
+        \item \((\partial \Omega) \cap C=\left\{x+y \vec{n} \mid x \in B_{r}(p) \cap H, g(x)=y\right\}\)
+    \end{itemize}
+    where \(\vec{n}\) is a unit vector that is normal to \(H\) and \(C:=\left\{x+y \vec{n} \mid x \in B_{r}(p) \cap H,-h<y<h\right\}\).
+    \end{definition}
+    
+    
+    \subsubsection{Sobolev Space}
+    \begin{definition}[$H^1$]
+    For a bounded domain \(\Omega \subset \mathbb{R}^{d}, d \in \mathbb{N}\), we define the Sobolev space \(H^{1}(\Omega):=\left\{v \in L^{2}(\Omega): \int_{\Omega}|\operatorname{grad} v(x)|^{2} \mathrm{~d} x<\infty\right\}\) as a Hilbert space with norm \(\|v\|_{H^{1}(\Omega)}^{2}:=\|v\|_{L^{2}(\Omega)}^{2}+|v|_{H^{1}(\Omega)}^{2}, \quad|v|_{H^{1}(\Omega)}^{2}:=\int_{\Omega}|\operatorname{grad} v(x)|^{2} \mathrm{~d} x\)
+    \end{definition}
+    
+    
+    
+    
+    
+    
+    \begin{definition}[$H^{1/2}$]
+    
+    \end{definition}
+    
+    \begin{definition}[$H^k_{loc}$]
+    
+    \end{definition}
+    
+    \subsubsection{Trace operators}
+    \begin{definition}[Trace operator]
+    A trace operator is a linear mapping from a function space on the volume domain \(\Omega\) to a function space on (parts of) the boundary \(\partial \Omega .\)
+    \end{definition}
+    
+    
+    \begin{definition}[(Layer) potential]
+    A (layer) potential is a linear mapping from a function space on \(\partial \Omega\) into a function space on the
+    volume domain \(\Omega .\)
+    \end{definition}
+    
+    
+    \begin{definition}[Dirichlet Trace]
+    The Dirichlet trace (operator) \(\mathrm{T}_{D}\) boils down to pointwise restriction for smooth functions:
+    $$
+    \left(\mathrm{T}_{D} w\right)(\boldsymbol{x}):=w(\boldsymbol{x}) \quad \forall \boldsymbol{x} \in \Gamma, \quad w \in C^{\infty}(\bar{\Omega}).
+    $$
+    \end{definition}
+    \begin{definition}[Dirichlet trace space]
+    The Dirichlet trace space \(H^{\frac{1}{2}}(\Gamma)\) is the Hilbert space obtained by completion of \(\left.C^{\infty}(\bar{\Omega})\right|_{\Gamma}\) with
+    respect to the energy norm 
+    $$\|\mathfrak{u}\|_{H^{\frac{1}{2}}(\Gamma)}:=\inf \left\{\|v\|_{H^{1}(\Omega)}: v \in C^{\infty}(\bar{\Omega}), \top_{D} v=\mathfrak{u}\right\},\left.\quad \mathfrak{u} \in C^{\infty}(\bar{\Omega})\right|_{\Gamma}.$$
+    \end{definition}
+    
+    \begin{theorem}
+    The Dirichlet trace \(\mathrm{T}_{D}\) according can be extended to a continuous and surjective linear
+    operator \(\mathrm{T}_{D}: H^{1}(\Omega) \rightarrow H^{\frac{1}{2}}(\Gamma)\)
+    \end{theorem}
+    
+    \begin{definition}[Neumann Trace]
+    For smooth functions the Neumann trace (operator) \(\mathrm{T}_{N}\) is defined by
+    $$
+    \left(\mathrm{T}_{N} w\right)(\boldsymbol{x}):=\operatorname{grad} w \cdot \boldsymbol{n}(\boldsymbol{x}) \quad \forall \boldsymbol{x} \in \Gamma, w \in C^{\infty}(\bar{\Omega}).
+    $$
+    \end{definition}
+    
+    \begin{definition}[Neumann Trace Space]
+    The Neumann trace space \(H^{-\frac{1}{2}}(\Gamma)\) is the Hilbert space obtained by the completion of \(C^{0}(\Gamma)\) with respect to the norm $$\|\phi\|_{H^{-\frac{1}{2}}(\Gamma)}:=\|\widetilde{\phi}\|_{\widetilde{H}^{-1}(\Omega)}$$ where  \(\widetilde{\phi}\) is the
+    "extension by zero to \(\mathbb{R}^{d \text { " }}\) of \(\phi .\)
+    We have the definition \(\|\rho\|_{\widetilde{H}^{-1}(\Omega)}:=|u|_{H^{1}\left(\mathbb{R}^{3}\right)} \quad\) where \(u\) solves \(\quad\left\{\begin{array}{c}-\Delta u=\widetilde{\rho} \text { in } \mathbb{R}^{3} \\ u \text { satisfies decay conditions }\end{array}\right.\). 
+    \end{definition}
+    
+    \begin{definition}[Space of function with square-integrable Laplacian]
+    We define the Hilbert space
+    $$
+    H(\Delta, \Omega):=\left\{v \in H^{1}(\Omega): \Delta v \in L^{2}(\Omega)\right\}
+    $$
+    with norm
+    $$
+    \|u\|_{H(\Delta, \Omega)}^{2}:=\|u\|_{H^{1}(\Omega)}^{2}+\|\Delta u\|_{L^{2}(\Omega)}^{2}, \quad u \in H(\Delta, \Omega).
+    $$
+    \end{definition}
+    
+    \begin{theorem}
+    The Neumann trace \(\mathrm{T}_{N}\) can be extended to a continuous mapping \(\mathrm{T}_{N}: H(\Delta, \Omega) \rightarrow H^{-\frac{1}{2}}(\Gamma)\).
+    \end{theorem}
+    
+    \begin{definition}[\(C_{\mathrm{comp}}^{\infty}\left(\mathbb{R}^{d}\right)\)]
+    
+    \end{definition}
+    
+    
+    \subsubsection{Notations}
+    \begin{itemize}
+        \item Consider a bounded Lipschitz open set $\Omega^{-} \subset \mathbb{R}^{d}$, $d=2,3$.
+        \item \(\Omega^{+}:=\mathbb{R}^{d} \backslash \overline{\Omega^{-}}\)
+        \item \(\Gamma:=\partial \Omega^{-}=\partial \Omega^{+}\)
+        \item \(\mathbf{n}\) is the unit normal vector field on \(\Gamma\) pointing from \(\Omega^{-}\)into \(\Omega^{+}\)
+        \item For any \(\varphi \in L_{\text {loc }}^{2}\left(\mathbb{R}^{d}\right)\), we let \(\varphi^{-}:=\left.\varphi\right|_{\Omega^{-}}\)and \(\varphi^{+}:=\left.\varphi\right|_{\Omega^{+}}\)
+        \item \(H_{\text {loc }}^{1}\left(\Omega^{\pm}, \Delta\right):=\left\{v: \chi v \in H^{1}\left(\Omega^{\pm}\right), \Delta(\chi v) \in L^{2}\left(\Omega^{\pm}\right)\right.\)for all \(\left.\chi \in C_{\text {comp }}^{\infty}\left(\mathbb{R}^{d}\right)\right\}\)
+        \item Dirichlet and Neumann trace operators\footnote{The Dirichlet trace operator boils down to pointwise restriction.}: \(\gamma_{D}^{\pm}: H_{\mathrm{loc}}^{1}\left(\Omega_{\pm}\right) \rightarrow H^{1 / 2}(\Gamma) \quad\) and \(\quad \gamma_{N}^{\pm}: H_{\mathrm{loc}}^{1}\left(\Omega_{\pm}, \Delta\right) \rightarrow H^{-1 / 2}(\Gamma)\) with \(\gamma_{D}^{\pm} v:=\left.v^{\pm}\right|_{\Gamma}\) and \(\gamma_{N}^{\pm}\)such that if \(v \in H_{\mathrm{loc}}^{2}\left(\Omega_{\pm}\right)\)then \(\gamma_{N}^{\pm} v=\mathbf{n} \cdot \gamma_{D}^{\pm}(\nabla v)\)
+        \item Cauchy trace: \(\gamma_{C}^{\pm}: H_{\mathrm{loc}}^{1}\left(\Omega^{\pm}, \Delta\right) \rightarrow H^{1 / 2}(\Gamma) \times H^{-1 / 2}(\Gamma)\), \(\gamma_{C}^{\pm}:=\left(\gamma_{D}^{\pm}, \gamma_{N}^{\pm}\right)\)
+        \item Sommerfeld radiation condition: \(\varphi \in C^{1}\left(\mathbb{R}^{d} \backslash B_{R}\right)\), for some ball \(B_{R}:=\{|\mathbf{x}|<R\}\), and \(\kappa>0\) satisfies this condition if \(\lim _{r \rightarrow \infty} r^{\frac{d-1}{2}}\left(\frac{\partial \varphi(\mathbf{x})}{\partial r}-\mathrm{i} \kappa \varphi(\mathbf{x})\right)=0\) in all directions. We then write \(\varphi \in \operatorname{SRC}(\kappa)\)
+    %\footnote{From Wikipedia: The Sommerfeld radiation condition is used to solve uniquely the Helmholtz equation. It makes sure that \"the sources must be sources, not sinks of energy. The energy which is radiated from the sources must scatter to infinity; no energy may be radiated from infinity into ... the field.\"}
+    \end{itemize}
+    
+    \begin{theorem}[Green's first formula]
+        (From Wikipedia)
+        \(\int_{U}\left(\phi \nabla^{2} \psi+\nabla \phi \cdot \nabla \psi\right) \mathrm{d} U=\int_{\partial U} \phi \frac{\partial \psi}{\partial n} \mathrm{~d} S\)
+    \end{theorem}
+\end{comment}
+    
 
 
 \end{document}

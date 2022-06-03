@@ -1,0 +1,23 @@
+\begin{thebibliography}{1}
+
+\bibitem{mclean2000strongly}
+W.~McLean and W.~C.~H. McLean, {\em Strongly elliptic systems and boundary
+  integral equations}.
+\newblock Cambridge university press, 2000.
+
+\bibitem{moiola2019acoustic}
+A.~Moiola and E.~A. Spence, ``Acoustic transmission problems:
+  wavenumber-explicit bounds and resonance-free regions,'' {\em Mathematical
+  Models and Methods in Applied Sciences}, vol.~29, no.~02, pp.~317--354, 2019.
+
+\bibitem{hiptmair2021spurious}
+R.~Hiptmair, A.~Moiola, and E.~A. Spence, ``Spurious quasi-resonances in
+  boundary integral equations for the helmholtz transmission problem,'' {\em
+  arXiv preprint arXiv:2109.08530}, 2021.
+
+\bibitem{meury2007stable}
+P.~E. Meury, {\em Stable finite element boundary element Galerkin schemes for
+  acoustic and electromagnetic scattering}.
+\newblock PhD thesis, ETH Zurich, 2007.
+
+\end{thebibliography}
