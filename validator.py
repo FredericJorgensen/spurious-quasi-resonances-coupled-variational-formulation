@@ -73,14 +73,15 @@ class SimpleSolValidator:
         self.eta = eta
 
     def getBoundCoeffs(self, c_i, c_o, kappa, n):
-        c_tilde = sqrt(c_i / c_o)
-        f_1n = 2 * pi * (hankel1(n, kappa) - jv(n, kappa * c_tilde))
-        f_2n = 2 * pi * (kappa * h1vp(n, kappa) - c_tilde *
-                         kappa * jvp(n, kappa * c_tilde))
+        c_tilde = c_i / c_o
+        f_1n = 2 * pi * (hankel1(n, kappa) - jv(n, kappa * sqrt(c_tilde)))
+        f_2n = 2 * pi * (kappa * h1vp(n, kappa) - sqrt(c_tilde) *
+                         kappa * jvp(n, kappa * sqrt(c_tilde)))
         return f_1n, f_2n
 
     def anaSol(self, c_i, c_o, kappa, n, N=100):
-        s1 = 1 / self.model.v(kappa, c_i, c_o, n)
+        c_tilde = c_i / c_o
+        s1 = 1 / self.model.v(kappa, c_i, c_o, n) * jv(n, kappa * sqrt(c_tilde))
         s2 = 1 / self.model.w(kappa, c_i, c_o, n) * kappa * h1vp(n, kappa)
         s3 = 0
 

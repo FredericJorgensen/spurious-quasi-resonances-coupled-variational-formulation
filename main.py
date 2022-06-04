@@ -1,19 +1,21 @@
 from simulator import Simulator
 from validator import PValidator, SimpleSolValidator
+from numpy import *
 
 
 def simulateScenario(selectedScenario):
     assert(type(selectedScenario) == int and 1 <= selectedScenario
-           and 6 >= selectedScenario)
+           and 7 >= selectedScenario)
     scenario1 = [1.0, 3.0, 1.0]
     scenario2 = [3.0, 1.0, 1.0]
     scenario3 = [1.0, 10.0, 1.0]
     scenario4 = [10.0, 1.0, 1.0]
     scenario5 = [1.0, 3.0, 100.0]
     scenario6 = [1.0, 3.0, 10]
+    scenario7 = [1.0, 3.0, 5.0]
 
     scenarios = [scenario1, scenario2, scenario3, scenario4, scenario5,
-                 scenario6]
+                 scenario6, scenario7]
 
 
     scenario = scenarios[selectedScenario - 1]
@@ -27,8 +29,34 @@ def simulateScenario(selectedScenario):
 
     simulator = Simulator(model="variational", eta=eta)
     simulator.plotScenario(
-        "InvertedMinimumSingularValue", c_i, c_o, N=100,  plotBesselRoots=False,
+        "InvertedMinimumSingularValue", c_i, c_o, N=N,  plotBesselRoots=True,
         plotRange=kappaRange)
+
+def convergenceTest(selectedScenario):
+    assert(type(selectedScenario) == int and 1 <= selectedScenario
+           and 7 >= selectedScenario)
+    scenario1 = [1.0, 3.0, 1.0]
+    scenario2 = [3.0, 1.0, 1.0]
+    scenario3 = [1.0, 10.0, 1.0]
+    scenario4 = [10.0, 1.0, 1.0]
+    scenario5 = [1.0, 3.0, 100.0]
+    scenario6 = [1.0, 3.0, 10]
+    scenario7 = [1.0, 3.0, 5.0]
+
+    scenarios = [scenario1, scenario2, scenario3, scenario4, scenario5,
+                 scenario6, scenario7]
+
+    scenario = scenarios[selectedScenario - 1]
+
+    # define parameters
+    c_i = scenario[0]
+    c_o = scenario[1]
+    eta = scenario[2]
+    NRange = range(1, 100)
+    kappa =  8.2387434 #zero of Bessel function
+
+    simulator = Simulator(model="variational", eta=eta)
+    simulator.convergenceTest(kappa, c_i, c_o, NRange)
 
 
 def validateSimpleSol(selectedScenario):
@@ -70,6 +98,7 @@ def validateProjector(selectedScenario):
 
 
 if __name__ == "__main__":
-    # simulateScenario(6)
-    validateSimpleSol(2)
+    #validateSimpleSol(1)
+    convergenceTest(1)
+    #simulateScenario(1)
 

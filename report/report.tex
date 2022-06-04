@@ -291,9 +291,9 @@ $f_1= \sum\limits_{j = -N}^N \frac{1}{2\pi}f_1^j e^{i j \theta}$ and $f_2= \sum\
 
 
 \begin{lemma}
-    $q_\kappa(U_l, U_m) = 2 \pi  \delta_{lm}|v_l|^2\kappa  \frac{J_l'(\kappa )}{J_l(\kappa )} =: \alpha_l$.
+    $q_\kappa(U_l, U_m) = 2 \pi  \delta_{lm}|v_l|^2\kappa  \frac{J_l'(\sqrt{ \tilde c}\kappa )}{J_l(\sqrt{ \tilde c}\kappa )} =: \alpha_l$.
 \end{lemma}
-\begin{proof}[Proof of Lemma]
+\begin{proof}
     Greens first formula 
     \(\int\limits_{U}(\psi \Delta \varphi+\nabla \psi \cdot \nabla \varphi) dx=\oint_{\partial U} \psi \nabla \varphi \cdot n dS\) with normal vector $n$
     implies 
@@ -315,7 +315,7 @@ $f_1= \sum\limits_{j = -N}^N \frac{1}{2\pi}f_1^j e^{i j \theta}$ and $f_2= \sum\
 \end{remark}
 
 \begin{lemma}
-    $b(p_n, p_m) =  (p_n, p_m)_{H^1(\Gamma)} = \frac{(1 + n^2)}{\tilde \kappa^2 + n^2}$
+    $b(p_n, p_m) =  (p_n, p_m)_{H^1(\Gamma)} = 2 \pi(1 + n^2)|l_n|^2$
 \end{lemma}
 \begin{proof}
     $p_n\frac{\tilde \kappa^2 + n^2}{1 + n^2}$ is orthogonal w.r.t $(-, -)_{H^1(\Gamma)}$.
@@ -449,7 +449,7 @@ $$
 \vec{f} = 
 \begin{bmatrix}
     H_n^{(1)}(\kappa) -  J_n(\sqrt{\tilde c} \kappa ) \\
-    H_n^{\prime (1)}(\kappa) - J_n^{\prime}(\sqrt{\tilde c} \kappa )\\
+    \kappa H_n^{\prime (1)}(\kappa) - \sqrt{\tilde c} \kappa J_n^{\prime}(\sqrt{\tilde c} \kappa )\\
 \end{bmatrix} e^{i n \phi}
 $$
 where $n =-N, -N+1, ..., N$ \\
@@ -464,18 +464,26 @@ Note that the discretized problem will yield the same solution as the original o
 \end{remark}
 \begin{proposition}
     \label{prop:anasol}
-    With regards to our chosen basis, the analytical solution can be written as $(U, \theta, p) = (\frac{1}{v_n} U_n, \frac{1}{w_n} \kappa H_n^{\prime(1)}(\kappa)\theta_n, 0)$. \\
+    With regards to our chosen basis, the analytical solution can be written as 
+    $(U, \theta, p) =
+     \left(\frac{J_n(\sqrt{\tilde c}\kappa)}{v_n} U_n, \frac{\kappa H_n^{\prime(1)}(\kappa)}{w_n} \theta_n, 0\right)$. \\
     So the solution vector should be
     $$
-        C_j^U = \delta_{nj}  \frac{1}{v_n}, C_j^\theta = \delta_{nj}  \frac{1}{w_n} \kappa H_n^{\prime(1)}(\kappa), C_j^p = 0, \forall j.
+        C_j^U = \delta_{nj}  \frac{J_n(\sqrt{\tilde c}\kappa)}{v_n}, \quad
+        C_j^\theta = \delta_{nj} \frac{\kappa H_n^{\prime(1)}(\kappa)}{w_n}, \quad 
+        C_j^p = 0, \quad
+        \forall j.
     $$
 \end{proposition}
 \begin{proof}
-    \textit{still to be written out, but the main point is:} $\theta = \partial_r(u_{\Omega^+})_{|\Gamma} = - \frac{1}{w_0} \kappa_o H_1^{(1)}(\kappa_o) \theta_0 $ and $p = 0$, (from page 33 Thesis P. Meury).
+    \textit{still to be written out, but the main point is:} 
+    $\theta = \partial_r(u_{\Omega^+})_{|\Gamma} = \frac{\kappa H_n^{\prime(1)}(\kappa)}{w_n}  \theta_n $ and $p = 0$, (from page 33 Thesis P. Meury).
 \end{proof}
-Let's validate whether we get the same numerical solution using our matrix $A_n$. We just use the $\vec{b}_n$ as computed above,
-with $f_1^j =  \delta_{nj} 2\pi (J_n(\sqrt{\tilde c} \kappa) - H_n^{(1)}(\kappa)), 
-f_2^j = \delta_{nj} 2\pi (\sqrt{\tilde c} \kappa J_1^{\prime}(\sqrt{\tilde c}\kappa) - \kappa H_n^{\prime(1)}(\kappa))$.\\
+Let's validate whether we get the same numerical solution using our matrix $A_n$. 
+We just use the $\vec{b}_n$ as computed above,
+with $f_1^j =  \delta_{nj} 2\pi \left(H_n^{(1)}(\kappa) -  J_n(\sqrt{\tilde c} \kappa)  \right), 
+f_2^j = \delta_{nj} 2\pi \left(\kappa H_n^{\prime(1)}(\kappa)
+- \sqrt{\tilde c} \kappa J_n^{\prime}(\sqrt{\tilde c}\kappa) \right)$.\\
 \\
 To measure how good the solution is, let's introduce the $\zeta$-number: 
 \begin{definition}[ $\zeta$-number]
@@ -491,8 +499,8 @@ To measure how good the solution is, let's introduce the $\zeta$-number:
 As seen in fig. \ref{fig:sol_validation}, the $\zeta$-number is negligible across all values of $\kappa$ and $n$ which validates our derivation of $A_n$ and $b_n$.
 \begin{figure}
     \label{fig:sol_validation}
-    \includegraphics[width=0.5\textwidth]{scenario1SolVal.pdf}
-    \includegraphics[width=0.5\textwidth]{scenario2SolVal.pdf}
+    \includegraphics[width=0.5\textwidth]{validate_sol_c_i1,0c_o3,0N_100plotRangeStart_0,5plotRangeEnd_15,0.pdf}
+    %\includegraphics[width=0.5\textwidth]{scenario2SolVal.pdf}
     \caption{Maximum relative residuum of the numerical solution by wave number. 
     On the left plot we have $\tilde c = 1/3$ (f.e.$c_i = 1, c_o = 3$)
     and on the right plot we have $\tilde c = 3/1$.
@@ -528,8 +536,8 @@ by calculating the euclidian matrix norm of $A$ for a range of $\kappa$ values.
 As we see in fig \ref{fig:p_validation}, this is satisfied which is another validation of our matrix $A$.
 
 \begin{figure}
-    \includegraphics[width=0.5\textwidth]{scenario1PVal.pdf}
-    \includegraphics[width=0.5\textwidth]{scenario2PVal.pdf}
+    \includegraphics[width=0.5\textwidth]{validate_p_c_i1,0c_o3,0N_100plotRangeStart_0,5plotRangeEnd_15,0.pdf}
+    \includegraphics[width=0.5\textwidth]{validate_p_c_i3,0c_o1,0N_100plotRangeStart_0,5plotRangeEnd_15,0.pdf}
     \caption{Euclidian matrix norm of composed matrix  $P_3A_n^{-1}P_{V_{\vec{b}}}$. 
      On the left plot we have $\tilde c = 1/3$ (f.e.$c_i = 1, c_o = 3$)
     and on the right plot we have $\tilde c = 3/1$.
@@ -590,35 +598,20 @@ that maps the Fourier coefficients of $\vec{f}$ in the complete orthonormal syst
 
 \section{Numerical Results}
 Now let's investigate maximal singular value of $A = diag(A_{-N}, A_{-N + 1}, ..., A_{N})$. 
-Again, we look at the scenarios where $c_i = 1, c_o = 3$ and vice versa (fig. \ref{fig:max_sing_val})
+Again, we look at the scenarios where $c_i = 1, c_o = 3$ and vice versa 
 We see that the peaks often coincide with the zeros of the Bessel function. 
 
-\begin{figure}
-    \includegraphics[width=0.5\textwidth]{scenario1MaximumSingVal.pdf}
-    \includegraphics[width=0.5\textwidth]{scenario2MaximumSingVal.pdf}
-    \caption{Maximum singular value of the matrix $diag(A_n)$ by wave number $\kappa$. 
-     On the left plot we have $\tilde c = 1/3$ (f.e.$c_i = 1, c_o = 3$)
-    and on the right plot we have $\tilde c = 3/1$. } The vertical dashed lines correspond to zeros of the Bessel functions. 
-   \label{fig:max_sing_val}
-\end{figure}
 We can also consider the minimum singular value (fig. \ref{fig:min_sing_val}).
 \begin{figure}
-    \includegraphics[width=0.5\textwidth]{scenario1MinimumSingVal.pdf}
-    \includegraphics[width=0.5\textwidth]{scenario2MinimumSingVal.pdf}
-    \caption{Maximum singular value of the matrix $diag(A_n)$ by wave number $\kappa$. 
+    \includegraphics[width=0.5\textwidth]{InvertedMinimumSingularValuec_i1,0c_o3,0N_100eta1,0plotRangeStart_0,5plotRangeEnd_15,0indexrange_-4,0-0,0_y_0_49,358659709912466.pdf}
+    \includegraphics[width=0.5\textwidth]{InvertedMinimumSingularValuec_i3,0c_o1,0N_100eta1,0plotRangeStart_0,5plotRangeEnd_15,0indexrange_-22,0-0,0_y_0_48,55939584304106.pdf}
+    \caption{Minimum singular value of the matrix $diag(A_n)$ by wave number $\kappa$. 
      On the left plot we have $\tilde c = 1/3$ (f.e.$c_i = 1, c_o = 3$)
     and on the right plot we have $\tilde c = 3/1$.  Again, the vertical dashed lines correspond to zeros of the Bessel functions. }
    \label{fig:min_sing_val}
 \end{figure}
 Finally, let's consider the ratio of the minimum and maximum singular value (fig. \ref{fig:ratio_sing_val}).
-\begin{figure}
-    \includegraphics[width=0.5\textwidth]{scenario1Ratio.pdf}
-    \includegraphics[width=0.5\textwidth]{scenario2Ratio.pdf}
-    \caption{Ratio of Maximum and Minimum singular value of the matrix $diag(A_n)$ by wave number $\kappa$. 
-     On the left plot we have $\tilde c = 1/3$ (f.e.$c_i = 1, c_o = 3$)
-    and on the right plot we have $\tilde c = 3/1$.  The vertical dashed lines correspond to zeros of the Bessel functions. }
-   \label{fig:ratio_sing_val}
-\end{figure}
+
 We see that in the case $c_i = 1, c_o =3$, where the solution operator has weaker resonances resonances, 
 the resonances from our matrix operator or also less strong 
 than in the case $c_i = 3, c_o =1$. \cite{hiptmair2021spurious}
@@ -641,6 +634,26 @@ Interpretation: da $sigma_min$ stabil ist Verfahren stabil
 resonances roots besselfunctions (Plots mit Roots in Anhang)
 
 Weitere Werte von $c_i, c_o, nu$ testen um zu sehen ob aehnliches Ergebnis 
+
+\begin{figure}
+    \includegraphics[width=0.5\textwidth]{InvertedMinimumSingularValuec_i1,0c_o3,0N_100eta10plotRangeStart_0,5plotRangeEnd_15,0indexrange_-4,0-0,0_y_0_49,583049675703265.pdf}
+    \includegraphics[width=0.5\textwidth]{InvertedMinimumSingularValuec_i1,0c_o3,0N_100eta100,0plotRangeStart_0,5plotRangeEnd_15,0indexrange_-4,0-0,0_y_0_60,25228495804688.pdf}
+    \caption{Inverted minimum singular value of the matrix $diag(A_n)$ by wave number $\kappa$. 
+     In both plots we have $\tilde c = 1/3$ (f.e.$c_i = 1, c_o = 3$).
+     Left $\eta = 10$, right $\eta = 100$.
+    }
+     \label{fig:vary_eta}
+\end{figure}
+
+\begin{figure}
+    \includegraphics[width=0.5\textwidth]{InvertedMinimumSingularValuec_i1,0c_o10,0N_100eta1,0plotRangeStart_0,5plotRangeEnd_15,0indexrange_-2,0-0,0_y_0_49,44632486992498.pdf}
+    \includegraphics[width=0.5\textwidth]{InvertedMinimumSingularValuec_i10,0c_o1,0N_100eta1,0plotRangeStart_0,5plotRangeEnd_15,0indexrange_-41,0-0,0_y_0_48,34921191495979.pdf}
+    \caption{Inverted minimum singular value of the matrix $diag(A_n)$ by wave number $\kappa$. 
+     In both plots we have $\tilde c = 1/3$ (f.e.$c_i = 1, c_o = 3$).
+     Left $c_i = 1, c_o = 10$, right  $c_o = 10, c_o = 1$
+    }
+     \label{fig:vary_cs}
+\end{figure}
 
 \bibliography{references}
 \bibliographystyle{ieeetr}

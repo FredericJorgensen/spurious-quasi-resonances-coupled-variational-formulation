@@ -35,7 +35,17 @@ class MatrixModel:
         a_31 = - self.lambdaW(n, kappa) * self.P("U", "p", kappa, c_i, c_o, n)
         a_32 = - (self.lambdaK__adjoint(n, kappa) + 0.5) * \
             self.P("theta", "p", kappa, c_i, c_o, n)
-        a_33 = 1
+        a_33 = self.beta(kappa, c_i, c_o, n)
+        # SIMPLIFIED VERSION FOR CONVERGENCE TESTING 
+        # a_11 = self.P("U", "U", kappa, c_i, c_o, n)
+        # a_12 = self.P("theta", "U", kappa, c_i, c_o, n)
+        # a_13 = 0
+        # a_21 = self.P("U", "theta", kappa, c_i, c_o, n)
+        # a_22 = 1
+        # a_23 = 0
+        # a_31 = 0
+        # a_32 = 0
+        # a_33 = 10
         return array([[a_11, a_12, a_13],
                       [a_21, a_22, a_23],
                       [a_31, a_32, a_33]])
@@ -62,9 +72,9 @@ class MatrixModel:
 
     def P(self, a: str, b: str, kappa: float, c_i: float, c_o, n: int):
         if(a == "U" and b == "U"):
-            return 2 * pi * abs(self.v_tilde(kappa, c_i, c_o, n)) ** 2
+            return 2 * pi * abs(self.v(kappa, c_i, c_o, n)) ** 2
         elif(a == "theta" and b == "U"):
-            return 2 * pi * self.w(kappa, c_i, c_o, n) * conj(self.v_tilde(kappa, c_i, c_o, n))
+            return 2 * pi * self.w(kappa, c_i, c_o, n) * conj(self.v(kappa, c_i, c_o, n))
         elif(a == "U" and b == "theta"):
             return conj(self.P("theta", "U", kappa, c_i, c_o, n))
         elif(a == "theta" and b == "theta"):
@@ -72,7 +82,7 @@ class MatrixModel:
         elif(a == "p" and b == "theta"):
             return 2 * pi * self.l(kappa, c_i, c_o, n) * conj(self.w(kappa, c_i, c_o, n))
         elif(a == "U" and b == "p"):
-            return 2 * pi * self.v_tilde(kappa, c_i, c_o, n) * conj(self.l(kappa, c_i, c_o, n))
+            return 2 * pi * self.v(kappa, c_i, c_o, n) * conj(self.l(kappa, c_i, c_o, n))
         elif(a == "theta" and b == "p"):
             return conj(self.P("p", "theta", kappa, c_i, c_o, n))
         else:
@@ -80,29 +90,32 @@ class MatrixModel:
 
     def kappa_tilde(self, kappa, c_i, c_o, n):
         return kappa_tilde(kappa, c_i, c_o, n)
-
+    
     def v(self, kappa, c_i, c_o, n):
-        denominator = sqrt(2 * pi * (self.kappa_tilde(kappa, c_i, c_o, n) ** 2 + n ** 2)) * \
-            abs(jv(n, kappa * sqrt(c_i/c_o)))
+        denominator = sqrt(2 * pi * (self.kappa_tilde(kappa, c_i, c_o, n) ** 2 + n ** 2))
         return 1 / denominator
-
-    def v_tilde(self, kappa, c_i, c_o, n):
-        # avoid unnecessary 0 / 0
-        # if(abs(jv(n, kappa * sqrt(c_i)) < 1e-280)):
-        #    return 1 / sqrt(2 * pi * (1 + n ** 2))
-        return self.v(kappa, c_i, c_o, n) * jv(n, kappa * sqrt(c_i/c_o))
 
     def w(self, kappa, c_i, c_o, n):
         return (self.kappa_tilde(kappa, c_i, c_o, n) ** 2 + n ** 2) ** (1/4) / sqrt(2 * pi)
 
     def l(self, kappa, c_i, c_o, n):
-        return 1/sqrt(2 * pi * (self.kappa_tilde(kappa, c_i, c_o, n) ** 2 + n ** 2))
+        denominator = sqrt(2 * pi * (self.kappa_tilde(kappa, c_i, c_o, n) ** 2 + n ** 2))
+        return 1 / denominator
 
+    # non weighted basis coefficients 
+    # def v(self, kappa, c_i, c_o, n):
+    #     denominator = sqrt(2 * pi * (1 + n ** 2))
+    #     return 1 / denominator
+
+    # def w(self, kappa, c_i, c_o, n):
+    #     return (1 + n ** 2) ** (1/4) / sqrt(2 * pi)
+
+    # def l(self, kappa, c_i, c_o, n):
+    #     return 1/sqrt(2 * pi * (1 + n ** 2))
     def alpha(self, kappa, c_i, c_o, n):
         z = kappa * sqrt(c_i/c_o)
         # this looks weird, but it avoids overflow problem if v is very large:
-        return 2 * pi * z * abs(self.v(kappa, c_i, c_o, n)) * jv(n, z) * abs(self.v(kappa, c_i, c_o, n)) * jvp(n, z)
+        return 2 * pi * z * abs(self.v(kappa, c_i, c_o, n)) *  jvp(n, z) / jv(n, z) * abs(self.v(kappa, c_i, c_o, n))
 
-    def alpha1(self, kappa, c_i, c_o, n):
-        z = kappa * sqrt(c_i)
-        return jvp(n, z) / jv(n, z) * z
+    def beta(self, kappa, c_i, c_o, n):
+        return 2 * pi * (1 + n ** 2) * abs(self.l(kappa, c_i, c_o, n)) ** 2

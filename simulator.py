@@ -1,7 +1,7 @@
 from matrix_model import MatrixModel
 from numpy import *
 import matplotlib.pyplot as plt
-from scipy.special import jn_zeros, jv, jvp, hankel1, h1vp
+from scipy.special import jn_zeros, jv, jvp, hankel1, h1vp, jnjnp_zeros, jnp_zeros
 from sol_model import SolModel
 
 
@@ -56,7 +56,7 @@ class Simulator:
         minIndex = -N
         for n in range(-N, N + 1):
             s = self.getSingularValueOfBlock(kappa, c_i, c_o, n)
-            if(minSigma < s.min()):
+            if(minSigma > s.min()):
                 minIndex = n
             minSigma = min(minSigma, s.min())
         return minSigma, minIndex
@@ -67,7 +67,7 @@ class Simulator:
         minIndex = -N
         for n in range(-N, N + 1):
             s = self.getSingularValueOfBlock(kappa, c_i, c_o, n)
-            if(minSigma < s.min()):
+            if(minSigma > s.min()):
                 minIndex = n
             minSigma = min(minSigma, s.min())
         return 1 / minSigma, minIndex
@@ -87,17 +87,17 @@ class Simulator:
                  index=None, plotRange=[2.0, 10.0]):
         kappaVals = linspace(plotRange[0], plotRange[1], 1000)
         sVals = zeros_like(kappaVals)
-        maximumIndices = zeros_like(kappaVals)
+        extremalIndices = zeros_like(kappaVals)
 
         for (i, kappa) in enumerate(kappaVals):
             if(N):
-                sVals[i], maximumIndices[i] = scenarioMethod(
+                sVals[i], extremalIndices[i] = scenarioMethod(
                     kappa, c_i, c_o, N)
             else:
                 raise Exception("Invalid arguments")
             # elif(n):
                 # sVals[i] = scenarioMethod(kappa, c_i, c_o, n, index)
-        return kappaVals, sVals, maximumIndices
+        return kappaVals, sVals, extremalIndices
 
     def plotScenario(self, scenarioName, c_i, c_o,  n=None, N=None, plotRange=[2.0, 10.0],
                      index=None, plotBesselRoots=False):
@@ -124,11 +124,11 @@ class Simulator:
 
         kappaVals, sVals, selectedIndices = self.simulate(
             scenarioMethod, c_i, c_o, n, N, index, plotRange)
-
+        #print(selectedIndices)
         kappaVals, sol, selectedIndices = self.simulate(
             self.getMaximumEuclidianNorm, c_i, c_o, n, N, index, plotRange)
-
         yLabelName = yLabelNameOf[scenarioName]
+        #print(selectedIndices)
 
         yshift = sVals[0] - sol[0]
         plt.figure()
@@ -173,3 +173,11 @@ class Simulator:
             plotName += "plotRangeStart_" + \
                 str(plotRange[0]) + "plotRangeEnd_" + str(plotRange[1])
         return plotName
+
+    def convergenceTest(self, kappa, c_i, c_o, NRange):
+        sVals = zeros_like(NRange)
+        for (i, N) in enumerate(NRange):
+            sVals[i], index = self.getInvertedMinimumSingularValue(kappa, c_i, c_o, N)
+            print(index)
+        plt.figure()
+        self.plot(NRange, sVals, r"$N$", r"$\frac{1}{\sigma_{min}}$")
