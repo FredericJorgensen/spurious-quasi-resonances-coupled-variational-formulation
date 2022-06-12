@@ -151,6 +151,8 @@ The goal of this paper is to investigate the occurence of \textit{spurious quasi
 in the  \textit{regularized variational formulation} of the Helmholtz transmission problem 
 as proposed in P. Meury's doctoral thesis \cite{meury2007stable}. 
 For easier notation let $\kappa = \tilde \kappa \sqrt{c_o}$ on the following pages.
+
+f = 0, g = 0
 \newpage
 \begin{definition}[Regularized variational formulation]
     Find \(U \in H^{1}(\Omega), \theta \in H^{-1 / 2}(\Gamma)\) and \(p \in H^{1}(\Gamma)\) such that for all \(V \in H^{1}(\Omega), \varphi \in H^{-1 / 2}(\Gamma)\)
@@ -188,18 +190,9 @@ the BIEs using Dirichlet-to-Neumann maps, and transforming the Cauchy trace \cit
 \end{remark}
 To investigate the occurence of spurious quasi-resonances, 
 we consider the simple example where $d = 2$ and $\Omega^- = B_1(0)$ in the following chapters if not mentioned otherwise. 
-\section{Constructing the Galerkin Matrix}
-A numerical solution of the regularized variational formulation requires the 
-construction of the Galerkin matrix of eq. \ref{eq:variational_formulation}. 
-To proceed with this, we must first construct a
- basis of a subspace of the the solution space $H^{1}(\Omega)\times H^{-\frac{1}{2}}(\Gamma) \times H^1(\Gamma)$. 
-Orthonormality is required since the representation matrix 
-of an endomorphism is orthogonal if and only if the representation basis is orthogonal. 
-As our goal is to approximate operator norms discretely, we must choose a orthonormal basis, 
-allowing us to use an SVD for this\footnote{How we will do this will be defined more specifically on the following pages.}.\\
-Before we can derive the Galerkin matrix, we have to define an orthonormal basis of a finite subspace $H^{1}(\Omega)\times H^{-\frac{1}{2}}(\Gamma) \times H^1(\Gamma)$, 
-so that we can formulate the problem in terms of finding the coefficients with respect to this basis. \\ 
-To simplify the following derivations, we will consider the following space 
+
+\section{Simplification of the problem}
+To simplify the following derivations, we will consider the following solution space instead
 \begin{definition} 
     For \(0 \leq s<\infty\) the space \(\mathcal{H}^{s}_{\tilde \kappa}(X)\) is defined as the subspace of all functions $\varphi \in L^{2}(X)$
     such that
@@ -212,7 +205,21 @@ To simplify the following derivations, we will consider the following space
     $$
 \end{definition}
 A justification for this definition is given in Meury (lemma 3.22) and the norm is introduced in (2021 Spurious resonances).
-\\
+ADD LEMMA LATER.
+
+
+\section{Constructing the Galerkin Matrix}
+A numerical solution of the regularized variational formulation requires the 
+construction of the Galerkin matrix of eq. \ref{eq:variational_formulation}. 
+To proceed with this, we must first construct a
+ basis of a subspace of the the solution space $H^{1}(\Omega)\times H^{-\frac{1}{2}}(\Gamma) \times H^1(\Gamma)$. 
+Orthonormality is required since the representation matrix 
+of an endomorphism is orthogonal if and only if the representation basis is orthogonal. 
+As our goal is to approximate operator norms discretely, we must choose a orthonormal basis, 
+allowing us to use an SVD for this\footnote{How we will do this will be defined more specifically on the following pages.}.\\
+Before we can derive the Galerkin matrix, we have to define an orthonormal basis of a finite subspace $H^{1}(\Omega)\times H^{-\frac{1}{2}}(\Gamma) \times H^1(\Gamma)$, 
+so that we can formulate the problem in terms of finding the coefficients with respect to this basis. \\ 
+
 The following proposition helps reducing our solution space.
 \begin{proposition}
     \label{prop:reduced_operator}
