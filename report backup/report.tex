@@ -192,44 +192,6 @@ To investigate the occurence of spurious quasi-resonances,
 we consider the simple example where $d = 2$ and $\Omega^- = B_1(0)$ in the following chapters if not mentioned otherwise. 
 
 \section{Simplification of the problem}
-As a first step we rewrite the expressions for $q_\kappa$ and $b$. 
-\begin{lemma}\label{lem:reduced_q}
-    Let $U, V \in H^{1}(\Omega^-)$ such that $U$ solves the Helmholtz equation. 
-    Then $q_\kappa(U, V) = (\mathrm{DtN}_{\kappa}^{-}U, V)_{\Gamma}$ with the
-     Dirichlet-to-Neumann map $\mathrm{DtN}_{\kappa}^{-}$.
-\end{lemma}
-\begin{proof}
-    Greens first formula 
-    \(\int\limits_{U}(\psi \Delta \varphi+\nabla \psi \cdot \nabla \varphi) dx=
-    \oint_{\partial U} \psi \nabla \varphi \cdot n dS\) with normal vector $n$
-    implies 
-\begin{align}
-    q_\kappa(U, V) &= \int_{\Omega^-} ( \nabla U \nabla \overline{V} -  \tilde c\kappa^2U \overline{V})dx \nonumber \\
-    &= \int_{ \partial \Omega^-} \overline{V} \nabla U \cdot nd {S} - \int_{\Omega^{-}} {( \tilde c\kappa^2 U + \Delta U)}\overline{V} \cdot nd{S}  \nonumber  \\
-    &= \int_{ \partial \Omega^-} \overline{V} \nabla U \cdot nd {S} \nonumber
-\end{align}
- with normal vector $n$ where we used the Helmholtz equation in the third equation.
- Plugging in the definition for $\Gamma$ and the Dirichlet-to-Neumann map yields the result.
-\end{proof}
-
-\begin{lemma}
-    There exists a unique adjoint map such that 
-    $\left( p, \operatorname{grad}_{\Gamma} q\right)_{\Gamma} = 
-    \left( \operatorname{grad}^*_{\Gamma} p, q\right)_{\Gamma}$ 
-    for all $p \in L^2(\Gamma), q \in H^1(\Gamma)$.
-\end{lemma}
-\begin{proof}
-    The gradient operator is bounded since \(\|\nabla q\|_{\Gamma} \leq \|\nabla q\|_{\Gamma} + \| q\|_{\Gamma} = \|q\|_{H^{1}(\Omega)}\)
-    write out ... 3
-    It is certainly true that for any bounded linear operator \(A: H \rightarrow H\), the adjoint map exists. It's
-really the same as for Banach spaces: define the linear operator \(A^{*}\) on \(H^{*}\) via \(A^{*} f=f \circ A\), and
-then use the Riesz representation theorem to identify \(H^{*}\) with \(H\).
-More explicitly: for each \(y \in H\), the map \(x \mapsto\langle A x, y\rangle\) is a continuous linear functional on \(H\). By
-the Riesz representation theorem, there exists a unique \(z_{y} \in H\) such that \(\langle A x, y\rangle=\left\langle x, z_{y}\right\rangle\).
-Define \(A^{*}\) as the map taking \(y\) to this uniquely determined \(z_{y}\). Then it is an easy verification that
-\(A^{*}\) is linear and bounded, and \(\langle A x, y\rangle=\left\langle x, A^{*} y\right\rangle\) holds by construction.
-\end{proof}
-
 To simplify the following derivations, we will consider the following solution space instead
 \begin{definition} 
     For \(0 \leq s<\infty\) the space \(\mathcal{H}^{s}_{\tilde \kappa}(X)\) is defined as the subspace of all functions $\varphi \in L^{2}(X)$
@@ -267,7 +229,23 @@ The following proposition helps reducing our solution space.
     the left hand side operator of eq. \ref{eq:variational_formulation} evaluated at $(U, \theta, p) \in H^{\frac{1}{2}}(\Gamma) \times H^{-\frac{1}{2}}(\Gamma) \times H^{1}(\Gamma)$ 
     is equal to $A(\gamma_D^- U, \theta, p)$ if $U$ solves the Helmholtz equation. 
 \end{proposition}
-
+The following lemma is required for the proof.
+\begin{lemma}\label{lem:reduced_q}
+    Let $U, V \in H^{1}(\Omega^-)$ such that $U$ solves the Helmholtz equation. 
+    Then $q_\kappa(U, V) = \int_{ \partial \Omega^-} \overline{V} \nabla U  \cdot nd {S}$ with normal vector $n$.
+\end{lemma}
+\begin{proof}
+    Greens first formula 
+    \(\int\limits_{U}(\psi \Delta \varphi+\nabla \psi \cdot \nabla \varphi) dx=
+    \oint_{\partial U} \psi \nabla \varphi \cdot n dS\) with normal vector $n$
+    implies 
+\begin{align}
+    q_\kappa(U, V) &= \int_{\Omega^-} ( \nabla U \nabla \overline{V} -  \tilde c\kappa^2U \overline{V})dx \nonumber \\
+    &= \int_{ \partial \Omega^-} \overline{V} \nabla U \cdot nd {S} - \int_{\Omega^{-}} {( \tilde c\kappa^2 U + \Delta U)}\overline{V} \cdot nd{S}  \nonumber  \\
+    &= \int_{ \partial \Omega^-} \overline{V} \nabla U \cdot nd {S} \nonumber
+\end{align}
+    where we used the Helmholtz equation in the third equation.
+\end{proof}
 \begin{proof}[Proof of proposition \ref{prop:reduced_operator}]
     The previous lemma \ref{lem:reduced_q} already concluded this proof: 
     Consider the operator $A$ identical to the operator on the left hand side of eq. \ref{eq:variational_formulation}

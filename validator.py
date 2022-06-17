@@ -30,20 +30,21 @@ class PValidator:
         return acc
 
     def simulate(self, c_i, c_o, plotRange=[4.0, 8.0], N=100):
-        kappaVals = linspace(plotRange[0], plotRange[1], N)
+        kappaTildeVals = linspace(plotRange[0], plotRange[1], N)
+        kappaVals = kappaTildeVals * sqrt(c_o)
         nVals = zeros_like(kappaVals)
 
         for (i, kappa) in enumerate(kappaVals):
             nVals[i] = self.getNormOfComposedMatrix(kappa, c_i, c_o, N)
 
-        return kappaVals, nVals
+        return kappaTildeVals, nVals
 
     def plotValidator(self, c_i, c_o, plotRange=[4.0, 8.0], N=100):
         # it is a matrix with (2N + 1) blocks, so in total there are
-        kappaVals, nVals = self.simulate(
+        kappaTildeVals, nVals = self.simulate(
             c_i, c_o, plotRange=plotRange, N=N)
 
-        self.plot(kappaVals, nVals, r"$\kappa$", "Matrix Norm")
+        self.plot(kappaTildeVals, nVals, r"$\tilde{\kappa}$", "Matrix Norm")
 
         plotName = self.getPlotName(c_i, c_o, N, plotRange)
         plt.savefig("./figures/p_validation/" + plotName + ".pdf")
@@ -74,14 +75,15 @@ class SimpleSolValidator:
 
     def getBoundCoeffs(self, c_i, c_o, kappa, n):
         c_tilde = c_i / c_o
-        f_1n = 2 * pi * (hankel1(n, kappa) - jv(n, kappa * sqrt(c_tilde)))
-        f_2n = 2 * pi * (kappa * h1vp(n, kappa) - sqrt(c_tilde) *
-                         kappa * jvp(n, kappa * sqrt(c_tilde)))
+        f_1n = (hankel1(n, kappa) - jv(n, kappa * sqrt(c_tilde)))
+        f_2n = (kappa * h1vp(n, kappa) - sqrt(c_tilde) *
+                kappa * jvp(n, kappa * sqrt(c_tilde)))
         return f_1n, f_2n
 
     def anaSol(self, c_i, c_o, kappa, n, N=100):
         c_tilde = c_i / c_o
-        s1 = 1 / self.model.v(kappa, c_i, c_o, n) * jv(n, kappa * sqrt(c_tilde))
+        s1 = 1 / self.model.v(kappa, c_i, c_o, n) * \
+            jv(n, kappa * sqrt(c_tilde))
         s2 = 1 / self.model.w(kappa, c_i, c_o, n) * kappa * h1vp(n, kappa)
         s3 = 0
 
@@ -92,7 +94,7 @@ class SimpleSolValidator:
         return sol
 
     def numSol(self, c_i, c_o, kappa, n,  N=100):
-        A = self.model.getBlockMatrix(kappa, c_i, c_o, N)
+        A = self.model.getFullMatrix(kappa, c_i, c_o, N)
 
         baseLength = 2 * N + 1
         f_1n = zeros((baseLength, ), dtype=complex)
@@ -114,14 +116,15 @@ class SimpleSolValidator:
             vals[index] = residualNorm
         return(vals.max())
 
-    def plotScenario(self, c_i, c_o, N=100, plotRange=[4.0, 8.0]):
+    def plotScenario(self, c_i, c_o, N=100, plotRange=[4.0, 8.0], numberOfValues=100):
         # plotRange is referring to kappa
-        baseLength = N
-        kappaVals = linspace(plotRange[0], plotRange[1], 100)
+        kappaTildeVals = linspace(plotRange[0], plotRange[1], numberOfValues)
+        kappaVals = kappaTildeVals * sqrt(c_o)
+        kappaLength = len(kappaVals)
         residualVals = zeros_like(kappaVals)
         for (i, kappa) in enumerate(kappaVals):
             residualVals[i] = self.getResidualOfScenario(c_i, c_o, kappa, N)
-            print("Completed i:", i, " of ", N)
+            print("Completed i:", i + 1, " of ", kappaLength)
             print("With result resVal: ", residualVals[i])
 
         plotName = self.getPlotName(c_i, c_o,  N,
@@ -130,7 +133,8 @@ class SimpleSolValidator:
         savetxt("./figures/s_validation/" + plotName +
                 "__residualVals.csv", residualVals, delimiter=",")
 
-        self.plot(kappaVals, residualVals, r"$\kappa$", r"$\zeta(\kappa)$")
+        self.plot(kappaTildeVals, residualVals,
+                  r"$\tilde \kappa$", r"$\zeta(\kappa)$")
         plt.savefig("./figures/s_validation/" + plotName + ".pdf")
 
     def plot(self, x, y, xLabelName, yLabelName):
