@@ -72,6 +72,22 @@ class MatrixModel:
         assert(shape(A) == (3 * baseSize, 3 * baseSize))
         return A
 
+
+    # v_n
+    def v(self, kappa, c_i, c_o, n):
+        kappa_tilde = self.kappa_tilde(kappa, c_i, c_o, n)
+        return (kappa_tilde ** 2 + n ** 2) ** (-1/4)
+
+    # w_n
+    def w(self, kappa, c_i, c_o, n):
+        kappa_tilde = self.kappa_tilde(kappa, c_i, c_o, n)
+        return (kappa_tilde ** 2 + n ** 2) ** (1/4)
+
+    # l_n
+    def l(self, kappa, c_i, c_o, n):
+        kappa_tilde = self.kappa_tilde(kappa, c_i, c_o, n)
+        return(kappa_tilde ** 2 + n ** 2) ** (-1/4)
+
     # mathematical helper functions imported from utils.py
 
     def c(self, kappa, c_i, c_o, n):
