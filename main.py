@@ -66,7 +66,7 @@ def convergenceTest(selectedScenario):
     nRange = range(1, 50)
     kappa = 1.0 
 
-    simulator = Simulator(model="variational", eta=eta)
+    simulator = Simulator(eta=eta)
     simulator.convergenceTest(kappa, c_i, c_o, nRange)
 
 # method to validate the Galerkin matrix of the regularised operator by comparing its numerical to its analytical solution
@@ -116,21 +116,37 @@ def validateProjector(selectedScenario):
 
 # this method includes the simulations required to generate all plots used in the paper
 def paperSimulations():
-    validateSimpleSol(1)
-    validateSimpleSol(2)
+    print("starting numerical solution validation for scenario 1 (section 6)")
+    #validateSimpleSol(1)
+    print("starting numerical solution validation for scenario 2 (section 6)")
+    #validateSimpleSol(2)
+    print("starting p = 0 validation for scenario 1 (section 6)")
     validateProjector(1)
+    print("starting p = 0 validation for scenario 2 (section 6)")
     validateProjector(2)
+    print("starting simulation inverse operator norms scenario 1 (section 7, 9)")
     simulateScenario(1)
+    print("starting simulation inverse operator norms scenario 2 (section 7, 9)")
     simulateScenario(2)
+    print("starting simulation inverse operator norms scenario 3 (section 7, 9)")
     simulateScenario(3)
+    print("starting simulation inverse operator norms scenario 4 (section 7, 9)")
     simulateScenario(4)
+    print("starting simulation inverse operator norms scenario 5 (section 7, 9)")
     simulateScenario(5)
+    print("starting simulation inverse operator norms scenario 6 (section 7, 9)")
     simulateScenario(6)
+    print("starting simulation inverse operator norms scenario 7 (section 7, 9)")
     simulateScenario(7)
+    print("starting simulation inverse operator norms scenario 8 (section 7, 9)")
     simulateScenario(8)
+    print("starting simulation inverse operator norms scenario 9 (section 7, 9)")
     simulateScenario(9)
+    print("starting simulation inverse augmented operator norms scenario 1 (section 9)")
     simulateScenario(1, shiftFirstValue= False, removeResonances = True)
+    print("starting simulation inverse augmented operator norms scenario 2 (section 9)")
     simulateScenario(2, shiftFirstValue= False, removeResonances = True)
+    print("starting convergence test of inverse augmented operator norms (section 9)")
     convergenceTest(4)
 
 if __name__ == "__main__":

@@ -28,7 +28,6 @@ class Simulator:
         u, s, vh = linalg.svd(matrixBlock)
         if(index != None):
             return s[index]
-        print(matrixBlock)
         return s
 
     # returns ratio of maximum and minimum singular value of regularised operator A^{num}
@@ -107,7 +106,6 @@ class Simulator:
                 raise Exception("Invalid arguments")
             # elif(n):
                 # sVals[i] = scenarioMethod(kappa, c_i, c_o, n, index)
-        print(sVals)
         return kappaTildeVals, sVals, extremalIndices
 
     # plots (kappa,  inverse regularized operator norm)
