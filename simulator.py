@@ -1,36 +1,42 @@
 from matrix_model import MatrixModel
 from numpy import *
 import matplotlib.pyplot as plt
-from scipy.special import jn_zeros, jv, jvp, hankel1, h1vp
+from scipy.special import jn_zeros, jv, jvp, hankel1, h1vp, jnjnp_zeros, jnp_zeros
 from sol_model import SolModel
 
+numberOfValues = 1000
 
+# class to compute inverse operator of regularised formulation
 class Simulator:
-    def __init__(self, model="variational", eta=None) -> None:
+    def __init__(self, eta=None) -> None:
 
         self.matrixModel = MatrixModel(eta)
         self.solutionModel = SolModel()
-        self.modelName = model
+        self.modelName = "variational"
         self.eta = eta
 
-    # define scenarios
-
-    def getEuclidianNormOfBlock(self, kappa, c_i, c_o, n):
+    # returns euclidian of nth block of solution operator 
+    def getEuclidianNormOfBlock(self, kappa, c_i, c_o, n, removeResonances=False):
         matrixBlock = self.solutionModel.getBlock(kappa, c_i, c_o, n)
         return linalg.norm(matrixBlock)
 
-    def getSingularValueOfBlock(self, kappa, c_i, c_o, n, index=None):
+    # returns singular values of nth block of regularised operator A_n^{num}
+    def getSingularValueOfBlock(self, kappa, c_i, c_o, n, index=None, removeResonances=False):
         # returns singular values of matrixBlock
-        matrixBlock = self.matrixModel.getBlock(kappa, c_i, c_o, n)
+        matrixBlock = self.matrixModel.getBlock(
+            kappa, c_i, c_o, n, removeResonances=removeResonances)
         u, s, vh = linalg.svd(matrixBlock)
         if(index != None):
             return s[index]
+        print(matrixBlock)
         return s
 
+    # returns ratio of maximum and minimum singular value of regularised operator A^{num}
     def ratioMaximumMinimumSingularValue(self, kappa, c_i, c_o, N):
         return self.getMaximumSingularValue(kappa, c_i, c_o, N) / self.getMinimumSingularValue(kappa, c_i, c_o, N), 0
 
-    def getMaximumEuclidianNorm(self, kappa, c_i, c_o, N):
+    # returns maximum euclidian norms of all blocks of solution operator
+    def getMaximumEuclidianNorm(self, kappa, c_i, c_o, N, removeResonances=False):
         maxNorm = 0
         maxIndex = -N
         for n in range(-N, N + 1):
@@ -40,6 +46,7 @@ class Simulator:
             maxNorm = max(maxNorm, newNorm)
         return maxNorm, maxIndex
 
+    # returns maximum singular value of regularised operator A^{num}
     def getMaximumSingularValue(self, kappa, c_i, c_o, N):
         maxSigma = 0
         maxIndex = -N
@@ -50,57 +57,62 @@ class Simulator:
             maxSigma = max(maxSigma, s.max())
         return maxSigma, maxIndex
 
+    # returns minimum singular value of regularised operator A^{num}
     def getMinimumSingularValue(self, kappa, c_i, c_o, N):
         # returns minimum singular value of matrices matrixBlock_n with n in [-N, N]
         minSigma = float(inf)
         minIndex = -N
         for n in range(-N, N + 1):
             s = self.getSingularValueOfBlock(kappa, c_i, c_o, n)
-            if(minSigma < s.min()):
+            if(minSigma > s.min()):
                 minIndex = n
             minSigma = min(minSigma, s.min())
         return minSigma, minIndex
 
-    def getInvertedMinimumSingularValue(self, kappa, c_i, c_o, N):
+     # returns inverted minimum singular value of regularised operator A^{num}
+    def getInvertedMinimumSingularValue(self, kappa, c_i, c_o, N, removeResonances=False):
         # returns minimum singular value of matrices matrixBlock_n with n in [-N, N]
         minSigma = float(inf)
         minIndex = -N
         for n in range(-N, N + 1):
-            s = self.getSingularValueOfBlock(kappa, c_i, c_o, n)
-            if(minSigma < s.min()):
+            s = self.getSingularValueOfBlock(
+                kappa, c_i, c_o, n, removeResonances=removeResonances)
+            if(minSigma > s.min()):
                 minIndex = n
             minSigma = min(minSigma, s.min())
         return 1 / minSigma, minIndex
 
-    # bessel roots
+    # returns bessel roots from interval (a,b) for first ten orders
     def getBesselRootsFromInterval(self, a, b, N):
         roots = array([])
-        for i in range(0, 5):
+        for i in range(-10, 10):
             rootsTemp = array([])
             rootsTemp = jn_zeros(i, 10)
             roots = concatenate((roots, rootsTemp))
         return roots[logical_and(roots < b, roots > a)]
 
-    # plotting of scenarios
-
+     # method to call norm computing method for a range of kappa 
     def simulate(self, scenarioMethod, c_i, c_o,  n=None, N=None,
-                 index=None, plotRange=[2.0, 10.0]):
-        kappaVals = linspace(plotRange[0], plotRange[1], 1000)
+                 index=None, plotRange=[2.0, 10.0], removeResonances=False):
+        kappaTildeVals = linspace(plotRange[0], plotRange[1], numberOfValues)
+        kappaVals = kappaTildeVals * sqrt(c_o)
         sVals = zeros_like(kappaVals)
-        maximumIndices = zeros_like(kappaVals)
+        extremalIndices = zeros_like(kappaVals)
 
         for (i, kappa) in enumerate(kappaVals):
             if(N):
-                sVals[i], maximumIndices[i] = scenarioMethod(
-                    kappa, c_i, c_o, N)
+                sVals[i], extremalIndices[i] = scenarioMethod(
+                    kappa, c_i, c_o, N, removeResonances=removeResonances)
             else:
                 raise Exception("Invalid arguments")
             # elif(n):
                 # sVals[i] = scenarioMethod(kappa, c_i, c_o, n, index)
-        return kappaVals, sVals, maximumIndices
+        print(sVals)
+        return kappaTildeVals, sVals, extremalIndices
 
+    # plots (kappa,  inverse regularized operator norm)
     def plotScenario(self, scenarioName, c_i, c_o,  n=None, N=None, plotRange=[2.0, 10.0],
-                     index=None, plotBesselRoots=False):
+                     index=None, plotBesselRoots=False, shiftFirstValue=True, removeResonances=False):
 
         scenarioMethodOf = {"getSingularValueOfBlock": self.getSingularValueOfBlock,
                             "ratioMaximumMinimumSingularValue": self.ratioMaximumMinimumSingularValue,
@@ -120,20 +132,29 @@ class Simulator:
         scenarioMethod = scenarioMethodOf[scenarioName]
 
         plotName = self.getPlotName(scenarioName, c_i, c_o, n, N,
-                                    index, plotBesselRoots, plotRange)
+                                    index, plotBesselRoots, plotRange, shiftFirstValue, removeResonances)
 
-        kappaVals, sVals, selectedIndices = self.simulate(
-            scenarioMethod, c_i, c_o, n, N, index, plotRange)
-
-        kappaVals, sol, selectedIndices = self.simulate(
+        kappaTildeVals, sVals, selectedIndices = self.simulate(
+            scenarioMethod, c_i, c_o, n, N, index, plotRange, removeResonances=removeResonances)
+       
+        kappaTildeVals, sol, _ = self.simulate(
             self.getMaximumEuclidianNorm, c_i, c_o, n, N, index, plotRange)
-
-        yLabelName = yLabelNameOf[scenarioName]
-
-        yshift = sVals[0] - sol[0]
+        yLabelName = ""
+        if(removeResonances):
+            yLabelName = r"$\left\|A_{\mathcal{S}}^{-1}L_{\varepsilon}\right\|_{o p}$"
+        else:
+            yLabelName = r"$\left\|A_{\mathcal{S}}^{-1}\right\|_{o p}$"
+        if(shiftFirstValue):
+            yLabelName += r"$ -  y_0$"
+       
+        if(shiftFirstValue):
+            yshift = sVals[0] - sol[0]
+        else:
+            yshift = 0
         plt.figure()
-        plt.semilogy(kappaVals, sol, label=r"$\|S_{io}\|$")
-        self.plot(kappaVals, sVals - yshift, r"$\kappa$", yLabelName)
+        plt.semilogy(kappaTildeVals, sol, label=r"$\|S\|$")
+        self.plot(kappaTildeVals, sVals - yshift,
+                  r"$\tilde\kappa$", yLabelName)
 
         if(plotBesselRoots):
             if(N == None):
@@ -147,17 +168,16 @@ class Simulator:
         plt.savefig("./figures/" + self.modelName + "/" + plotName +
                     "indexrange_" + str(selectedIndices.min()) + "-" + str(selectedIndices.max()) + "_y_0_" + str(yshift) + ".pdf")
 
-    # methods for plotting
-
     def plot(self, x, y, xLabelName, yLabelName):
-        plt.semilogy(x, y, 'r', label=yLabelName + r"$ -  y_0$")
+        plt.semilogy(
+            x, y, 'r', label=yLabelName)
         plt.xlabel(xLabelName)
         plt.ylabel("Operator Norm")
         plt.grid(True)
         plt.legend()
 
     def getPlotName(self, scenarioName, c_i, c_o, n, N, index,
-                    plotBesselRoots, plotRange):
+                    plotBesselRoots, plotRange, shiftFirstValue, removeResonances):
         plotName = scenarioName + "c_i" + str(c_i) + "c_o" + str(c_o)
         if(n):
             plotName += "n_" + str(n)
@@ -172,4 +192,21 @@ class Simulator:
         if(plotRange[0] != 2.0 or plotRange[1] != 10.0):
             plotName += "plotRangeStart_" + \
                 str(plotRange[0]) + "plotRangeEnd_" + str(plotRange[1])
+        plotName += "shiftFirstValue_" + str(shiftFirstValue)
+        plotName += "removeResonances_" + str(removeResonances)
         return plotName
+
+
+    # method to plot the convergence of the operator norm of the inverse regularised operator as a function of the Fourier mode
+    def convergenceTest(self, kappa, c_i, c_o, nRange):
+        sVals = zeros_like(nRange, dtype=float)
+        for (i, N) in enumerate(nRange):
+            invertedSingularValue = float(1/(self.getSingularValueOfBlock(
+                kappa, c_i, c_o, N).min()))
+            sVals[i] = invertedSingularValue
+        plt.figure()
+
+        self.plot(nRange, sVals, r"$n$",
+                  r"$\left\|(A^{num}_{n})^{-1}\right\|_{o p}$")
+        plt.savefig("./figures/convergence_test/convergenceTest_c_i" +
+                    str(c_o) + "c_o_" + str(c_o) + "kappa_" + str(kappa) + ".pdf")
