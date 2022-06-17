@@ -165,7 +165,7 @@ we consider the simple representational example $d = 2$ and $\Omega^- = B_1(0)$.
 We review some basic definitions which are necessary in the coming sections.
 The following definition was introduced in \cite{meury2007stable}.
 \begin{definition}[Interior Dirichlet-to-Neumann map]
-    The interior Interior Dirichlet-to-Neumann map  \(\operatorname{DtN}_{\kappa}^{-}: H^{\frac{1}{2}}(\Gamma) \times H^{-\frac{1}{2}}(\Gamma)\) is the operator that returns $\gamma_NU$ if $U$ solves the Dirichlet problem defined by a vector in $ H^{\frac{1}{2}}(\Gamma)$. 
+    The interior Dirichlet-to-Neumann map  \(\operatorname{DtN}_{\kappa}^{-}: H^{\frac{1}{2}}(\Gamma) \times H^{-\frac{1}{2}}(\Gamma)\) is the operator that returns $\gamma_NU$ if $U$ solves the Dirichlet problem defined by a vector in $ H^{\frac{1}{2}}(\Gamma)$. 
 \end{definition}
 \noindent
 Moreover, we will need the following BIOs defined in \cite{costabel1988boundary} \cite{meury2007stable}.
@@ -281,10 +281,10 @@ Let \(s \in \mathbb{R}\). Then the space \(\mathcal{H}^{s}(\Gamma)_{\tilde \kapp
     and $c_1 =1, c_2 =\tilde \kappa^s$ for $\tilde\kappa < 1, s < 0$. \\
     Completeness of $\mathcal{H}^{s}_{\tilde \kappa}(\Gamma)$ is implied by completeness of $\mathcal{H}^{s}_{1}(\Gamma)$:   $\mathcal{H}^{s}_{1}(\Gamma)$ and $\mathcal{H}^{s}_{\tilde \kappa}(\Gamma)$ have the same Cauchy sequences because of equivalence of their norms. Since the spaces are equal, if the Cauchy sequence converges in one it does in the other. $\mathcal{H}^{s}_{1}(\Gamma)$ is complete, so  $\mathcal{H}^{s}_{\tilde \kappa}(\Gamma)$ is also as their norms are equivalent and they contain the same vectors.
 \end{proof}  \noindent
-This isomorphism between the Hilbert spaces $\mathcal{H}_{\tilde \kappa}^{s}$ and $\mathcal{H}^{s}$ justifies the use of the lemmata \ref{lem:reduced_q} and \ref{lem:b_simplify} for the spaces $\mathcal{H}_\kappa^{s}$.
+This isomorphism between the Hilbert spaces $\mathcal{H}_{\tilde \kappa}^{s}$ and ${H}^{s}$ justifies the use of the lemmata \ref{lem:reduced_q} and \ref{lem:b_simplify} for the spaces $\mathcal{H}_\kappa^{s}$.
 Using these results, we can rewrite the formulation in eq. \ref{eq:variational_formulation} in an operational formulation:  Define the operator 
 \begin{align*}
-A: \mathcal{H}^1(\Omega) \times \mathcal{H}^{-\frac{1}{2}}(\Gamma) \times \mathcal{H}^{1}(\Gamma) \rightarrow \mathcal{H}^{-\frac{1}{2}}(\Gamma) \times \mathcal{H}^{\frac{1}{2}}(\Gamma) \times \mathcal{H}^{-\frac{1}{2}}(\Gamma) \\
+A: \mathcal{H}_{\tilde \kappa}^1(\Omega) \times \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}}(\Gamma) \times \mathcal{H}_{\tilde \kappa}^{1}(\Gamma) \rightarrow \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}}(\Gamma) \times \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}}(\Gamma) \times \mathcal{H}^{-\frac{1}{2}}(\Gamma) \\
     A = \begin{pmatrix}
             (\mathrm{DtN}_{\tilde \kappa}^{-} + W_{\tilde \kappa}) \gamma_D^- & - (\frac{1}{2} - K^\prime_{\tilde \kappa}) & 0 \\
             (\frac{1}{2} - K_{\tilde \kappa})\gamma_D^- & V_{\tilde \kappa} & i \overline{\eta} \\
@@ -307,9 +307,9 @@ If \(U \in \mathcal{H}^{1}(\Omega), \theta \in \mathcal{H}^{-1 / 2}(\Gamma)\) an
     \begin{equation}
     \label{eq:operator_formulation}
         \begin{pmatrix}
-            (\mathrm{DtN}_{\tilde \kappa}^{-} + W_{\tilde \kappa}) \gamma_D^- & - (\frac{1}{2} - K^\prime_{\tilde \kappa}) & 0 \\
-            (\frac{1}{2} - K_{\tilde \kappa})\gamma_D^- & V_{\tilde \kappa} & i \overline{\eta} \\
-            - W_{\tilde \kappa}\gamma_D^- & - (K^\prime_{\tilde \kappa} + \frac{1}{2}) & 1 + \operatorname{grad}_{\Gamma}^\prime \hat{\phi}\operatorname{grad}_{\Gamma} 
+            (\mathrm{DtN}_{ \kappa}^{-} + W_{ \kappa}) \gamma_D^- & - (\frac{1}{2} - K^\prime_{ \kappa}) & 0 \\
+            (\frac{1}{2} - K_{ \kappa})\gamma_D^- & V_{ \kappa} & i \overline{\eta} \\
+            - W_{ \kappa}\gamma_D^- & - (K^\prime_{ \kappa} + \frac{1}{2}) & 1 + \operatorname{grad}_{\Gamma}^\prime \hat{\phi}\operatorname{grad}_{\Gamma} 
         \end{pmatrix}
         \begin{pmatrix}
             U \\ \theta\\ p 
@@ -323,7 +323,7 @@ If \(U \in \mathcal{H}^{1}(\Omega), \theta \in \mathcal{H}^{-1 / 2}(\Gamma)\) an
 \begin{proof}
     We start our proof from the equations presented in eq. \ref{eq:variational_formulation}. After plugging in the results presented in lemma \ref{lem:reduced_q} and \ref{lem:b_simplify} for $q_\kappa$ and $b$, we have to show that for arbitrary $V \in \mathcal{H}^1(\Gamma)$, $\varphi \in \mathcal{H}^{-\frac{1}{2}}(\Gamma)_{\tilde \kappa}, p \in H^{1}_{\tilde \kappa}(\Gamma)$ eq. \ref{eq:operator_formulation} implies 
     \begin{align}
-        (\mathrm{DtN}_{\tilde \kappa}^{-}U, V)_\Gamma +\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), \gamma_{D}^{-} V\right)_{\Gamma}-\left((\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa}^{\prime})(\theta), \gamma_{D}^{-} V\right)_{\Gamma} &=g_1(V) \nonumber \\
+        (\mathrm{DtN}_{ \kappa}^{-}U, V)_\Gamma +\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), \gamma_{D}^{-} V\right)_{\Gamma}-\left((\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa}^{\prime})(\theta), \gamma_{D}^{-} V\right)_{\Gamma} &=g_1(V) \nonumber \\
         \left((\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa})\left(\gamma_{D}^{-} U\right), \varphi\right)_{\Gamma}+\left(\mathrm{V}_{\kappa}(\theta), \varphi\right)_{\Gamma}+i \overline{\eta}(p, \varphi)_{\Gamma} &={g_2}(\varphi) \nonumber  \\
         -\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), q\right)_{\Gamma}-\left((\mathrm{K}_{\kappa}^{\prime}+\frac{1}{2} \mathrm{Id})(\theta), q\right)_{\Gamma} + (\operatorname{grad}_{\Gamma}^{\prime} \hat{\phi} \operatorname{grad}_{\Gamma}p, q)_\Gamma +(p, q)_{\Gamma} &=g_3(q). \nonumber
     \end{align}
@@ -389,7 +389,7 @@ The following lemma from Theorem 2 of \cite{amini1998preconditioned} establishes
     $$
 \end{lemma}
 \noindent
-Furthermore, we have to find explicit expressions for \(\mathrm{DtN}_{\tilde \kappa}^{-}\) and \(\operatorname{grad}_{\Gamma}^{\prime} \hat{\phi} \operatorname{grad}_{\Gamma}\). 
+Furthermore, we have to find explicit expressions for \(\mathrm{DtN}_{ \kappa}^{-}\) and \(\operatorname{grad}_{\Gamma}^{\prime} \hat{\phi} \operatorname{grad}_{\Gamma}\). 
 \begin{lemma}
     We have \(\mathrm{DtN}_{ \kappa}^{-} v_l e^{il\phi} = \alpha_l v_l e^{il\phi}\) and \(\operatorname{grad}_{\Gamma}^{\prime} \hat{\phi} \operatorname{grad}_{\Gamma} v_l e^{il\phi}= \beta_l v_l e^{il\phi}\) where 
     \begin{align}
@@ -529,7 +529,7 @@ To measure how good the solution is, we introduce the $\zeta$-number:
     \label{fig:sol_validation}
 \end{figure}
 \noindent
-As seen in fig. \ref{fig:sol_validation}, the $\zeta$-number is negligible across all values of $\kappa$ and $n$. This validates our derivation of $A_n^{num}$ and $g_n^{num}$.
+As seen in fig. \ref{fig:sol_validation}, the $\zeta$-number is negligible across all values of $\kappa$ and $n$ as deviations from $0$ are in the magnitude of computer precision. This validates our derivation of $A_n^{num}$ and $g_n^{num}$.
 \subsection{Projector Properties}
 \label{subsection:projector_properties}
 We validate our matrix $A$ with another method. As mentioned earlier, we must have \(p=0\), if \((U, \theta)\) solves the problem according to \cite{meury2007stable}. 
@@ -618,7 +618,7 @@ Assume that $L_\varepsilon$ is invertible and consider the operator $L_\varepsil
    \label{fig:regularised_results}
 \end{figure}
 \noindent
-As fig. \ref{fig:regularised_results} shows, the irregular resonance  behavior is indeed removed in the case $c_i = 1$, $c_o = 3$ while in the case $c_i = 3$, $c_o = 1$ the resonance behavior still agrees. This implies that the spurious quasi-resonances of the considered regularised formulation operator in eq. \ref{eq:operator_formulation} were indeed caused by the operator applied to the boundary data on the right hand side of the problem.
+As fig. \ref{fig:regularised_results} shows, the irregular resonance  behavior is indeed removed in the case $c_i = 1$, $c_o = 3$ while in the case $c_i = 3$, $c_o = 1$ the resonance behavior still agrees. This implies that the spurious quasi-resonances of the considered regularised formulation operator in eq. \ref{eq:operator_formulation} were indeed caused by the operator applied to the boundary data on the right hand side of the problem. \\
 However, we did not prove the invertibility of $L_\varepsilon$ for general $\Omega^-$. In particular, we did not provide an explicit expression for this inverse.\footnote{While a formal inverse (treating the entries of $L_\varepsilon$ as matrix entries) can be computed symbolically, expressions in the symbolic results may not be well-defined.} Future investigations into this area could include other augmentations of the considered operator that remove these spurious quasi-resonances while also being explicitly expressed for general bounded Lipschitz domains $\Omega^- \subset \mathbb{R}^d$. 
 
 
@@ -660,23 +660,22 @@ Lastly, we will justify the introduction of a cutoff $N$ for the Fourier modes. 
    \label{fig:eta_other_results}
 \end{figure}
 \noindent
-There is also a simple theoretical explanation to justify the cutoff in $n$: consider the matrix $A^{num}_n$ as defined in eq. \ref{eq:galerkin_matrix}. We have the integral representation $J_{n}(x)=\frac{1}{2 \pi i^{n}} \int_{-\pi}^{\pi} e^{i(n \tau-x \sin \tau)} d \tau$ \cite{temme1996special}. 
-This directly implies $\alpha_n = O(n)$ as we can switch partial derivative and integral according to the Leibniz integral rule.
+There is also a simple theoretical explanation to justify the cutoff in $n$: consider the matrix $A^{num}_n$ as defined in eq. \ref{eq:galerkin_matrix}. We have the approximate form \(J_{n}(x) \sim \frac{1}{\Gamma(n+1)}\left(\frac{x}{2}\right)^{n}\) for \(x \ll \sqrt{n+1}\) \cite{abramowitz1972abramowitz}. This implies that $\lim\limits_{n \rightarrow \infty}\frac{\alpha_n}{n} = 1$
 Moreover, we know that $\beta_n = O(n^2)$. The following limits can be validated numerically or symbolically:\footnote{Note that the $n$-dependence is not written out explicitly.}
 \begin{align}
     \lim\limits_{n \rightarrow \infty} \lambda_n^{(V)} = \frac{1}{2} \nonumber \\
     \lim\limits_{n \rightarrow \infty} \lambda_n^{(K)} = 0 \nonumber \\
-    \lim\limits_{n \rightarrow \infty} \frac{\lambda_n^{(W)}}{n} = \frac{1}{2} \nonumber \\
-\end{align} and the Bessel and Hankel functions and their derivatives vanish for big enough $n$ and otherwise constant parameters. Therefore, the matrix $A^{num}_n$ behaves the following for big $N$:
+    \lim\limits_{n \rightarrow \infty} \frac{\lambda_n^{(W)}}{n} = \frac{1}{2}. \nonumber
+\end{align} Therefore, the matrix $A^{num}_n$ behaves the following for big $n$:
 $$
     A^{num}_n {\sim} 
     \begin{pmatrix}
-        c_\alpha + \frac{1}{2} & - \frac{1}{2} & 0 \\
+        1 + \frac{1}{2} & - \frac{1}{2} & 0 \\
         \frac{1}{2} & \frac{1}{2} & i \overline{\eta} \\
         - \frac{1}{2} & -\frac{1}{2} & O(n)
-    \end{pmatrix} \text { for } n \rightarrow \infty 
+    \end{pmatrix} \text { for } n \rightarrow \infty.
 $$
-where $c_\alpha := \lim\limits_{n\rightarrow \infty} \frac{\alpha_n}{n}$. The smallest singular value of this matrix is given by $\inf\limits_{|x| = 1} \|A^{num}_n x\| $. Since one of the entries in the third column has order $n$, The extremal value of $x$ must have the form $(x^1_n, x^2_n, 0)$. However, the matrix in the first two columns converges, implying convergence of the minimal singular value.
+ The smallest singular value of this matrix is given by $\inf\limits_{|x| = 1} \|A^{num}_n x\| $. Since one of the entries in the third column has order $n$, The extremal value of $x$ must have the form $(x^1_n, x^2_n, 0)$. However, the matrix in the first two columns converges, implying convergence of the minimal singular value.
 
 \subsection{Constructing the Solution Operator}
 Plugging the Fourier ansatz into eq. \ref{eq:helmholtz} and imposing convergence at the origin and 
@@ -686,7 +685,7 @@ the Sommerfeld radiation condition results in
     u^+ = \sum\limits_{n = -\infty}^\infty u_n^+ \frac{H_n(\sqrt{ c_o} \tilde \kappa r)}{H_n(\sqrt{ c_o} \tilde \kappa)} e^{i n \phi} \nonumber
 \end{align}
 where $u_n^-$ and $u_n^+$ are the restrictions of $u$ to $\Omega^-$ und $\Omega^+$.\\
-Extend $f_i = \sum\limits_{n = -\infty}^\infty f_i^n e^{in\phi}$ for $i=1,2$. The transmission condition $\gamma_{C}^{+} u^{+}=\gamma_{C}^{-} u^{-}+f$ implies 
+Extend $f^i = \sum\limits_{n = -\infty}^\infty f^i_n e^{in\phi}$ for $i=1,2$. The transmission condition $\gamma_{C}^{+} u^{+}=\gamma_{C}^{-} u^{-}+f$ implies 
 \begin{align}
     \begin{pmatrix}
         1 & -1 \\
@@ -711,7 +710,7 @@ where $\zeta := \frac{1}{\sqrt{c_i} \tilde \kappa J_n^\prime(\sqrt{c_i} \tilde \
 }$.
 This presents the solution operator, as we get $\gamma_D^-$ from restriction to the boundary.
 $\gamma_N^-$ can be directly obtained by restriction of the normal derivative of $u_n^-$ to the boundary 
-which is equivalent to multiplying the Fourier coefficients by $\sqrt{c_i \tilde \kappa}\frac{J_n^\prime(\sqrt{c_i}\tilde \kappa)}{J_n(\sqrt{c_i}\tilde \kappa)}$.
+which is equivalent to multiplying the Fourier coefficients by $\sqrt{c_i} \tilde \kappa\frac{J_n^\prime(\sqrt{c_i}\tilde \kappa)}{J_n(\sqrt{c_i}\tilde \kappa)}$.
 After rescaling the $u_n$, $f_i^n$ to the complete orthonormal system defined in eq. \ref{eq:basis},
 we obtain the solution operator matrix: 
 \begin{equation}
@@ -725,7 +724,7 @@ we obtain the solution operator matrix:
     \end{pmatrix}
 \end{equation}
 \noindent
-that maps the Fourier coefficients of $\vec{f}$ in the complete orthonormal system for $\mathcal{H}^{\frac{1}{2}}\times \mathcal{H}^{-\frac{1}{2}}$
+that maps the Fourier coefficients of $f$ in the complete orthonormal system for $\mathcal{H}^{\frac{1}{2}}\times \mathcal{H}^{-\frac{1}{2}}$
  to the Fouier coefficients of $\gamma_C^-u$ in the same basis.
 
 \newpage
