@@ -92,29 +92,13 @@ class MatrixModel:
     def kappa_tilde(self, kappa, c_i, c_o, n):
         return kappa_tilde(kappa, c_i, c_o, n)
 
-    def v(self, kappa, c_i, c_o, n):
-        kappa_tilde = self.kappa_tilde(kappa, c_i, c_o, n)
-        return (kappa_tilde ** 2 + n ** 2) ** (-1/4)
+    #eigenvalues of bilinear forms as defined in section 5
 
-    def w(self, kappa, c_i, c_o, n):
-        kappa_tilde = self.kappa_tilde(kappa, c_i, c_o, n)
-        return (kappa_tilde ** 2 + n ** 2) ** (1/4)
-
-    def l(self, kappa, c_i, c_o, n):
-        kappa_tilde = self.kappa_tilde(kappa, c_i, c_o, n)
-        return(kappa_tilde ** 2 + n ** 2) ** (-1/4)
-
+    # alpha_n
     def alpha(self, kappa, c_i, c_o, n):
         z = kappa * sqrt(c_i/c_o)
         return z * jvp(n, z) / jv(n, z)
-
+        
+    # beta_n
     def beta(self, kappa, c_i, c_o, n):
         return n ** 2
-
-    # def alpha(self, kappa, c_i, c_o, n):
-    #     z = kappa * sqrt(c_i/c_o)
-    #     # this looks weird, but it avoids overflow problem if v is very large:
-    #     return 2 * pi * z * abs(self.v(kappa, c_i, c_o, n)) *  jvp(n, z) / jv(n, z) * abs(self.v(kappa, c_i, c_o, n))
-
-    # def beta(self, kappa, c_i, c_o, n):
-    #     return 2 * pi * (1 + n ** 2) * abs(self.l(kappa, c_i, c_o, n)) ** 2

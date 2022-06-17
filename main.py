@@ -69,7 +69,7 @@ def convergenceTest(selectedScenario):
     simulator = Simulator(model="variational", eta=eta)
     simulator.convergenceTest(kappa, c_i, c_o, nRange)
 
-# method to validate the Galerking matrix of the regularised operator by comparing its numerical to its analytical solution
+# method to validate the Galerkin matrix of the regularised operator by comparing its numerical to its analytical solution
 # used to generate plots in section 6
 def validateSimpleSol(selectedScenario):
     assert(type(selectedScenario) == int and 1 <= selectedScenario
@@ -93,7 +93,7 @@ def validateSimpleSol(selectedScenario):
                                     numberOfValues=numberOfValues)
 
 
-# method to validate the Galerking matrix of the regularised operator by checking whether p = 0 is satisfied for the solution
+# method to validate the Galerkin matrix of the regularised operator by checking whether p = 0 is satisfied for the solution
 # used to generate plots in section 6
 def validateProjector(selectedScenario):
     assert(type(selectedScenario) == int and 1 <= selectedScenario
