@@ -18,19 +18,20 @@ class MatrixModel:
     # T_1
     def T1(self, kappa, c_i, c_o, n):
         c_n = self.c(kappa, c_i, c_o, n)
-        return diag(array([1/sqrt(c_n), sqrt(c_n), 1/sqrt(c_n)]))
+        return diag(array([1/sqrt(c_n), sqrt(c_n), 1/(c_n)]))
 
     # T_2
     def T2(self, kappa, c_i, c_o, n):
         c_n = self.c(kappa, c_i, c_o, n)
-        return diag(array([1/sqrt(c_n), sqrt(c_n), 1/sqrt(c_n)]))
+        return diag(array([1/sqrt(c_n), sqrt(c_n), 1/(c_n)]))
 
     # method that returns A_n^num as defined in section 5 OR L_eps^{-1} A_n^num as in section 7 (if input parameter removeResonances = True)
-    def getBlock(self, kappa, c_i, c_o, n, removeResonances=False):
 
+    def getBlock(self, kappa, c_i, c_o, n, removeResonances=False, scaleLastEquation=1):
         if(self.eta == None):
             raise Exception(
                 "Missing argument: The second argument is missing. There was no input provided for eta.")
+
         a_11 = self.alpha(kappa, c_i, c_o, n) + self.lambdaW(n, kappa)
         a_12 = -(0.5 - self.lambdaK__adjoint(n, kappa))
         a_13 = 0
@@ -41,9 +42,10 @@ class MatrixModel:
         a_32 = - (self.lambdaK__adjoint(n, kappa) + 0.5)
         a_33 = 1 + self.beta(kappa, c_i, c_o, n)
 
-        A_B0 = array([[a_11, a_12, a_13],
+        A_B0 = array([[a_11, a_12,  a_13],
                       [a_21, a_22, a_23],
-                      [a_31, a_32, a_33]])
+                      [scaleLastEquation * a_31, scaleLastEquation * a_32, scaleLastEquation * a_33]])
+
         T1 = self.T1(kappa, c_i, c_o, n)
         T2 = self.T2(kappa, c_i, c_o, n)
 
@@ -57,7 +59,7 @@ class MatrixModel:
         eps = 0.01
         lambdaW = self.lambdaW(n, kappa)
         lambdaK = self.lambdaK(n, kappa)
-        return array([[-1, -lambdaW, 0], [0, lambdaK - 1/2, 0], [0, lambdaW, eps]])
+        return array([[-lambdaW, -1, 0], [lambdaK - 1/2, 0, 0], [lambdaW, 0, eps]])
 
     # P_{V_b}
     def P_b(self, kappa, c_i, c_o, n):
@@ -72,8 +74,8 @@ class MatrixModel:
         assert(shape(A) == (3 * baseSize, 3 * baseSize))
         return A
 
-
     # v_n
+
     def v(self, kappa, c_i, c_o, n):
         kappa_tilde = self.kappa_tilde(kappa, c_i, c_o, n)
         return (kappa_tilde ** 2 + n ** 2) ** (-1/4)
@@ -104,17 +106,17 @@ class MatrixModel:
 
     def lambdaW(self, n, kappa):
         return lambdaW(n, kappa)
-    
+
     def kappa_tilde(self, kappa, c_i, c_o, n):
         return kappa_tilde(kappa, c_i, c_o, n)
 
-    #eigenvalues of bilinear forms as defined in section 5
+    # eigenvalues of bilinear forms as defined in section 5
 
     # alpha_n
     def alpha(self, kappa, c_i, c_o, n):
         z = kappa * sqrt(c_i/c_o)
         return z * jvp(n, z) / jv(n, z)
-        
+
     # beta_n
     def beta(self, kappa, c_i, c_o, n):
         return n ** 2

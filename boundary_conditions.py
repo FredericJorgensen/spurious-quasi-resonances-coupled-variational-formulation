@@ -29,9 +29,14 @@ class BoundaryConditions:
         lambdaK = self.lambdaK(n, kappa)
         c_n = self.c(kappa, c_i, c_o, n)
 
+        # x_1 = array([-(c_n)**(-0.5) * lambdaW,
+        #              (c_n) ** (0.5) * (lambdaK - 0.5),
+        #              (c_n)**(-0.5) * lambdaW])[newaxis].T
+
+        # New one
         x_1 = array([-(c_n)**(-0.5) * lambdaW,
                      (c_n) ** (0.5) * (lambdaK - 0.5),
-                     (c_n)**(-0.5) * lambdaW])[newaxis].T
+                     (c_n)**(-1) * lambdaW])[newaxis].T
         return x_1
 
     
