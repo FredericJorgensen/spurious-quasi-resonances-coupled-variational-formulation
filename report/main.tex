@@ -91,7 +91,7 @@ singlelinecheck=false % <-- important
 \begin{abstract}
 \noindent 
 A particular \textit{regularised variational formulation} of the Helmholtz transmission problem is studied on a two-dimensional disk for varying frequencies. In particular, the operator norm of its associated inverse operator is investigated.
-In scenarios where the inner refractive index is bigger than the outer one, the operator norm associated with the considered formulation resonates and grows as a function of the wave number. The solution operator did not expose this resonance and growth behavior. This behavior, studied in previous research for other operators, is called \textit{spurious quasi-resonances}. The occurring resonances, however, were much weaker in the formulation considered here than in others. The origin of these resonances  is explained.
+In scenarios where the inner refractive index is bigger than the outer one, the operator norm associated with the considered formulation exhibits pronounced spikes associated with quasi-resonances. The solution operator did not expose this resonance and growth behavior. This behavior, studied in previous research for other operators, is called \textit{spurious quasi-resonances}. The origin of these resonances  is explained.
 \end{abstract}}
 
 
@@ -109,14 +109,14 @@ In scenarios where the inner refractive index is bigger than the outer one, the 
 define \(\Omega^{+}:=\mathbb{R}^{d} \backslash \overline{\Omega^{-}}\), 
 \(\Gamma := \partial \Omega^-\).
 For any function $f$ on $\mathbb{R}^d$ define $f^\pm :=f|_{\Omega^{\pm}}$. \\
-Let \(H_{\text {loc }}^{1}\left(\Omega^{\pm}, \Delta\right):=\left\{v: \chi v \in H^{1}\left(\Omega^{\pm}\right), \Delta(\chi v) \in L^{2}\left(\Omega^{\pm}\right) \text{ for} \forall\chi \in C_{\text {comp }}^{\infty}\left(\mathbb{R}^{d}\right)\right\}\), as defined in \cite{hiptmair2021spurious}.
+Let \(H_{\text {loc }}^{1}\left(\Omega^{\pm}, \Delta\right):=\left\{v: \chi v \in H^{1}\left(\Omega^{\pm}\right), \Delta(\chi v) \in L^{2}\left(\Omega^{\pm}\right) \text{ for } \forall\chi \in C_{\text {comp }}^{\infty}\left(\mathbb{R}^{d}\right)\right\}\), as defined in \cite{hiptmair2021spurious}.
 Consider the Neumann and Dirichlet trace operators 
 \begin{align}
     \gamma_{D}^{\pm}: & H_{\mathrm{loc}}^{1}\left(\Omega^{\pm}\right) \rightarrow H^{\frac{1}{2}}(\Gamma), \left(\gamma_{D}^{\pm} f\right)({x}):=f({x}) \nonumber \\
-    \gamma_{N}^{\pm}: & H_{\mathrm{loc}}^1\left(\Omega^{\pm}, \Delta\right) \rightarrow H^{-\frac{1}{2}}(\Gamma), \left(\gamma_{N}^{\pm} f\right)({x}):=\operatorname{grad} f({x}) \cdot \mathbf{n}({x}) \nonumber
+    \gamma_{N}^{\pm}: & H_{\mathrm{loc}}^1\left(\Omega^{\pm}, \Delta\right) \rightarrow H^{-\frac{1}{2}}(\Gamma), \left(\gamma_{N}^{\pm} f\right)({x}):=\operatorname{grad} f({x}) \cdot {n}({x}) \nonumber
 \end{align}
 where \(H_{\mathrm{loc}}^{1}\left(\Omega^{\pm}\right)\),
-\(H_{\mathrm{loc}}\left(\Delta, \Omega^{\pm}\right)\), 
+\(H^1_{\mathrm{loc}}\left(\Delta, \Omega^{\pm}\right)\), 
 \(H^{\frac{1}{2}}(\Gamma)\), and \(H^{-\frac{1}{2}}(\Gamma)\)
 are defined in chapter 3 of  \cite{mclean2000strongly}.
 Now, the Cauchy trace is \(\gamma_{C}^{\pm}: H_{\mathrm{loc}}^{1}\left(\Omega^{\pm}, \Delta\right) \rightarrow H^{1 / 2}(\Gamma) \times H^{-1 / 2}(\Gamma)\) with values given 
@@ -165,12 +165,12 @@ we consider the simple representational example $d = 2$ and $\Omega^- = B_1(0)$.
 We review some basic definitions which are necessary in the coming sections.
 The following definition was introduced in \cite{meury2007stable}.
 \begin{definition}[Interior Dirichlet-to-Neumann map]
-    The interior Dirichlet-to-Neumann map  \(\operatorname{DtN}_{\kappa}^{-}: H^{\frac{1}{2}}(\Gamma) \times H^{-\frac{1}{2}}(\Gamma)\) is the operator that returns $\gamma_NU$ if $U$ solves the Dirichlet problem defined by a vector in $ H^{\frac{1}{2}}(\Gamma)$. 
+    The interior Dirichlet-to-Neumann map  \(\operatorname{DtN}_{\kappa}^{-}: H^{\frac{1}{2}}(\Gamma) \times H^{-\frac{1}{2}}(\Gamma)\) is the operator that returns $\gamma^-_NU$ if $U$ solves the Dirichlet problem. 
 \end{definition}
 \noindent
 Moreover, we will need the following BIOs defined in \cite{costabel1988boundary} \cite{meury2007stable}.
 \begin{definition}
-Let \(\left\{\gamma_{i} V\right\}_{\Gamma}:=\frac{1}{2}\left(\gamma_{i}^{+} V+\gamma_{i}^{-} V\right)\) for $i = D, N$. Moreover, introduce the single and double layer potential \(\Psi_{\mathrm{SL}}^{\kappa}(\vartheta)(\mathbf{x}):=\int_{\Gamma} G_{\kappa}(|\mathbf{x}-\mathbf{y}|) \vartheta(\mathbf{y}) \mathrm{d} S(\mathbf{y})\) and \(\Psi_{\mathrm{DL}}^{\kappa}(v)(\mathbf{x}):=\int_{\Gamma} \frac{\partial G_{\kappa}(|\mathbf{x}-\mathbf{y}|)}{\partial \mathbf{n}(\mathbf{y})} v(\mathbf{y}) \mathrm{d} S(\mathbf{y})\) with \(G_{\kappa}(z):=\frac{1}{4 \pi} \frac{\exp (i \kappa z)}{z}\). 
+Let \(\left\{\gamma_{i} V\right\}_{\Gamma}:=\frac{1}{2}\left(\gamma_{i}^{+} V+\gamma_{i}^{-} V\right)\) for $i = D, N$. Moreover, introduce the single and double layer potential $$\Psi_{\mathrm{SL}}^{\kappa}(\vartheta)({x}):=\int\limits_{\Gamma} G_{\kappa}(|{x}-{y}|) \vartheta({y}) \mathrm{d} S \text{ and }  \Psi_{\mathrm{DL}}^{\kappa}(v)({x}):=\int\limits_{\Gamma} \frac{\partial G_{\kappa}(|{x}-{y}|)}{\partial {n}({y})} v({y}) \mathrm{d} S$$ with \(G_{\kappa}(z):=\frac{1}{4 \pi} \frac{\exp (i \kappa z)}{z}\). 
 Then for $|s| < \frac{1}{2}$ we define four BIOs:
 \begin{align} 
 \mathrm{V}_{\kappa}: H^{s-\frac{1}{2}}(\Gamma) \rightarrow H^{s+\frac{1}{2}}(\Gamma), & \quad \mathrm{V}_{\kappa}:=\left\{\gamma_{D} \Psi_{\mathrm{SL}}^{\kappa}\right\}_{\Gamma} \nonumber\\ \mathrm{K}_{\kappa}: H^{s+\frac{1}{2}}(\Gamma) \rightarrow H^{s+\frac{1}{2}}(\Gamma), & \quad \mathrm{K}_{\kappa}:=\left\{\gamma_{D} \Psi_{\mathrm{DL}}^{\kappa}\right\}_{\Gamma} \nonumber \\ \mathrm{K}_{\kappa}^{\prime}: H^{s-\frac{1}{2}}(\Gamma) \rightarrow H^{s-\frac{1}{2}}(\Gamma), & \quad \mathrm{K}_{\kappa}^{\prime}:=\left\{\gamma_{N} \Psi_{\mathrm{SL}}^{\kappa}\right\}_{\Gamma} \nonumber\\ \mathrm{W}_{\kappa}: H^{s+\frac{1}{2}}(\Gamma) \rightarrow H^{s-\frac{1}{2}}(\Gamma), & \quad \mathrm{W}_{\kappa}:=-\left\{\gamma_{N} \Psi_{\mathrm{DL}}^{\kappa}\right\}_{\Gamma}. \nonumber
@@ -180,19 +180,18 @@ Then for $|s| < \frac{1}{2}$ we define four BIOs:
 
 \section{Regularized Variational Formulation}
 \label{section:regularized_variational_formulation}
-
-P. Meury provides a \textit{regularized variational formulation} of the Helmholtz tranmission problem as follows \cite{meury2007stable}.\footnote{The formulation provided here is equivalent to the case 
+We define the inner product $(\vartheta, \varphi)_{\Gamma}:=\int\limits_{\Gamma} \bar{\vartheta} \varphi \mathrm{d} S$ whenever this integral is defined for complex-valued $\vartheta$ and $\varphi$.
+P. Meury provides a \textit{regularized variational formulation} of the Helmholtz transmission problem as follows \cite{meury2007stable}.\footnote{The formulation provided here is equivalent to the case 
  $U_i = 0, f = 0, n(x) = c_i / c_o$ in section 3 of \cite{meury2007stable}.}
 \begin{definition}[Regularized variational formulation]
     Find \(U \in H^{1}(\Omega), \theta \in H^{-1 / 2}(\Gamma)\) and \(p \in H^{1}(\Gamma)\) such that for all \(V \in H^{1}(\Omega), \varphi \in H^{-1 / 2}(\Gamma)\)
     and \(q \in H^{1}(\Gamma)\) there holds
 
     \begin{align}
-        \mathrm{q}_{\kappa}(U, V)+\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), \gamma_{D}^{-} V\right)_{\Gamma}-\left((\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa}^{\prime})(\theta), \gamma_{D}^{-} V\right)_{\Gamma} &=g_1(V) \nonumber\\
-        \left((\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa})\left(\gamma_{D}^{-} U\right), \varphi\right)_{\Gamma}+\left(\mathrm{fV}_{\kappa}(\theta), \varphi\right)_{\Gamma}+i \overline{\eta}(p, \varphi)_{\Gamma} &={g_2(\varphi)} \label{eq:variational_formulation}\\
-        -\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), q\right)_{\Gamma}-\left((\mathrm{K}_{\kappa}^{\prime}+\frac{1}{2} \mathrm{Id})(\theta), q\right)_{\Gamma}+\mathrm{b}(p, q) &=g_3(q). \nonumber
+        \mathrm{q}_{\kappa}(U, V)+\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), \gamma_{D}^{-} V\right)_{\Gamma}-\left(\left(\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa}^{\prime}\right)\left(\theta\right), \gamma_{D}^{-} V\right)_{\Gamma} &=g_1(V) \nonumber\\
+        \left(\left(\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa}\right)\left(\gamma_{D}^{-} U\right), \varphi\right)_{\Gamma}+\left(\mathrm{V}_{\kappa}\left(\theta\right), \varphi\right)_{\Gamma}+i \overline{\eta}(p, \varphi)_{\Gamma} &={g_2(\varphi)} \label{eq:variational_formulation}\\
+        -\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), q\right)_{\Gamma}-\left(\left(\mathrm{K}_{\kappa}^{\prime}+\frac{1}{2} \mathrm{Id}\right)(\theta), q\right)_{\Gamma}+\mathrm{b}(p, q) &=g_3(q). \nonumber
     \end{align}
-
     where we have 
     $$
     \begin{aligned} 
@@ -211,11 +210,71 @@ the BIEs using Dirichlet-to-Neumann maps, and transforming the Cauchy trace \cit
 
 %ToDO: mention eta stuff 
 
+\section{Solvability of Linear Variational Problem and the Operator Formulation}
+\label{section:solvability}
+Before we proceed with investigating the regularized variational formulation provided in the last section, we state some general regularity results regarding linear variational problems. The theory  in this section will justify the investigation of the regularized variational problem in an operator formulation.
+\\ 
+Consider a Hilbert space $H$, a sesquilinear form $a: H \times H \rightarrow \mathbb{C}$ (antilinear in the first argument), and a continuous linear form $b \in H^*$. A linear variational problem (LVP) is a problem of the form: find $u \in H$ such that
+$$
+a(u, v) = b(v) \text{ } \forall v \in H. 
+$$
+Note that eq. \ref{eq:variational_formulation} is exactly such a problem with $H = H^{1}(\Omega) \times H^{\frac{1}{2}}(\Gamma) \times H^{\frac{1}{2}}(\Gamma)$\footnote{To compute $a$, simply add all left sides of the equations in eq. \ref{eq:variational_formulation} and for $b$ do the same for the right side. \\ Then $a(u, v) = b(v) \text{ }\forall v \in H$. It is equivalent, as each equation in eq. \ref{eq:variational_formulation} can be recovered by using $v \in H$ where all but one components vanish.}. \\
+Now, define the inf-sup constant
+$$
+\gamma = \inf\limits_{u\in H \backslash \{0\}}\sup\limits_{v\in H\backslash \{0\}} \frac{|a(u, v)|}{\|u\|_H \|v\|_H}.
+$$
+We can investigate the well-posedness of the problem using this constant, as the following theorem shows.\footnote{Note that we already made the assumptions that $a$ and $b$ are continuous and do not explicitly repeat this in the theorem.}
+\begin{theorem}
+\label{thm:variational_perspective}
+If $0 < \gamma < \infty$ and $$\sup\limits_{u \in H \backslash\{0\}} \frac{|{a}(u, v)|}{\|u\|_{H}}>0 \text{ } \forall v \in H \backslash \{0\} \quad \mathrm{ (C2)}$$ then the solution operator $S_{var}: H^* \rightarrow H, Sb = u$ of the linear variational problem
+$$
+a(u,v) = b(v)\text{ }  \forall v \in H \quad \mathrm{ (LVP)}
+$$
+is well-defined and satisfies 
+$$
+\|S_{var}\|_{H^* \rightarrow H}=1 / \gamma.
+$$
+\end{theorem}
+\noindent The proof of this theorem can be found in the appendix. We formulate the following Lemma here already, as it is important for the understanding of the following sections.
 
-\section{Operator Formulation}
+\begin{lemma}[Operator formulation]
+\label{lem:operator_formulation}
+    There exists a unique linear operator $A: H \rightarrow H$ and a unique vector $w \in H$ such that $$(Au, v)_H = {a(u,v)}, (w, v)_H  = {b(v)} \text{ } \forall v \in H.$$ $u \in H$ satisfies $Au = w$ iff it solves the LVP. We call this the operator formulation.
+\end{lemma}
+
+\begin{proof}
+    According to the Riesz representation theorem, there is a unique $w \in H$ such that ${l(v)} = (w,v)_H$. Similarly, as \(v \mapsto {a(u, v})\) is a continuous linear form, this induces a map $A: H \rightarrow H$ such that \({a(u, v)}=( A u, v)_H\). This map is linear as the first arguments of the sesquilinear form and the inner product are antilinear respectively. The LVP is equivalent to 
+    $$
+        Au = w
+    $$
+    because two vectors in a Hilbert space are equal iff all their coefficients are. 
+    \end{proof}
+    
+\noindent The condition C2 in theorem \ref{thm:variational_perspective} is weaker and generally easier to verify than $\gamma >0$. Therefore, the more important condition to investigate the well-posedness of the problem is the parameter $\gamma$.
+We can relate $\gamma$ to the operator norm in the operator formulation. 
+\begin{proposition}
+\label{prop:inf-sup-operator}
+Let ${A}: H \rightarrow H$ be the linear map from the operator formulation (Lemma \ref{lem:operator_formulation}).
+Then $\|A^{-1}\|_{H\rightarrow H} =\frac{1}{\gamma}$. Note: we already showed invertibility in theorem \ref{thm:variational_perspective}.
+\end{proposition}
+\begin{proof}
+ \begin{align*}
+    \|A^{-1}\|_{H \rightarrow H} & = 
+    \sup\limits_{u \in H} \frac{\|A^{-1}v\|_{H}}{\|v\|_{H}} = 
+    \sup\limits_{u \in H} \frac{\|u\|_{H}}{\|Au\|_{H}} = 
+    \sup\limits_{u \in H} \frac{\|u\|_{H} \|Au\|_{H}}{(Au, Au)_{H}} \\
+    &= \sup\limits_{u \in H} \inf\limits_{v \in H} \frac{\|u\|_{H} \|v\|_{H}}{|(Au, v)_{H}|} 
+    =  \sup\limits_{u \in H} \inf\limits_{v \in H} \frac{\|u\|_{H} \|v\|_{H}}{|a(u,v)|} 
+    = \frac{1}{\gamma}.
+    \end{align*}
+    In the second equation we substituted, using bijectivity of $A$. In the third equation, we used the definition of the norm of a Hilbert space. In the  fourth equation, we used the Cauchy-Schwarz inequality: for a fixed $u$, we have $\frac{|(Au, v)_H|}{\|v\|} \leq \|Au\|_H$ and we have equality iff $v = Au$.
+\end{proof}
+\noindent We conclude that we can compute $\gamma$ from the operator norm of the operator formulation. In the next section, we derive this operator for the considered problem. For completeness, we note that we could have also computed $\gamma$ from the inverse least singular value of the Galerkin matrix $a(b_i,b_j)$ where $\{b_1, b_2, ...\}$ is an orthonormed system of $H$. \footnote{The results will be exactly the same of course as the numerical matrices considered are equal.}
+
+\section{Deriving the Operator Formulation}
 \label{section:operator_formulation}
-The form of the variational problem in eq. \ref{eq:variational_formulation} can be rewritten in a simpler  operator formulation. 
-We start by rewriting the expressions for $q_\kappa$ and $b$. 
+We will rewrite the  variational problem in eq. \ref{eq:variational_formulation} explicitly in an  operator formulation as described in Lemma \ref{lem:operator_formulation}. 
+First, we rewrite the expressions for $q_\kappa$ and $b$. 
 \begin{lemma}\label{lem:reduced_q}
     Let $U, V \in H^{1}(\Omega^-)$ such that $U$ solves the Helmholtz equation. 
     Then $q_\kappa(U, V) = (\mathrm{DtN}_{ \kappa}^{-}\gamma_D^-U, V)_{\Gamma}$ with the
@@ -223,11 +282,11 @@ We start by rewriting the expressions for $q_\kappa$ and $b$.
 \end{lemma}
 \begin{proof}
     Greens first formula 
-    \(\int\limits_{U}(\psi \operatorname{grad} \varphi+\operatorname{grad} \psi \cdot \operatorname{grad} \varphi) dx=
+    \(\int\limits_{U}(\psi \operatorname{grad} \varphi+\operatorname{grad} \psi \cdot \operatorname{grad} \varphi) dV=
     \oint\limits_{\partial U} \psi \operatorname{grad} \varphi \cdot n dS\) with normal vector $n$
     implies 
 \begin{align}
-    q_\kappa(U, V) &= \int\limits_{\Omega^-} ( \operatorname{grad} U \operatorname{grad} \overline{V} -  \tilde c\kappa^2U \overline{V})dx \nonumber \\
+    q_\kappa(U, V) &= \int\limits_{\Omega^-} ( \operatorname{grad} U \operatorname{grad} \overline{V} -  \tilde c\kappa^2U \overline{V})dV \nonumber \\
     &= \int\limits_{ \partial \Omega^-} \overline{V} \operatorname{grad} U \cdot nd {S} - \int\limits_{\Omega^{-}} {( \tilde c\kappa^2 U + \Delta U)}\overline{V} \cdot nd{S}  \nonumber  \\
     &= \int\limits_{ \partial \Omega^-} \overline{V} \operatorname{grad} U \cdot nd {S} \nonumber
 \end{align}
@@ -241,7 +300,7 @@ We start by rewriting the expressions for $q_\kappa$ and $b$.
     There exists a unique adjoint map $\operatorname{grad}_{\Gamma}^\prime$ such that 
     $\left( \hat{\phi} p, \operatorname{grad}_{\Gamma} q\right)_{\Gamma} = 
     \left( \operatorname{grad}^\prime_{\Gamma} p, q\right)_{\Gamma}$ 
-    for all $p \in H^1(\Gamma)$, $q \in H^1(\Gamma)$.
+    for all $p \in H^0(\Gamma)$, $q \in H^1(\Gamma)$.
 \end{lemma}
 \begin{proof}
 We will start by proving boundedness of the  operator $\hat{\phi}\operatorname{grad}_{\Gamma}$.
@@ -254,23 +313,23 @@ Note that for $q \in H^1(\Gamma)$ we have
 So in particular $\hat{\phi}\operatorname{grad}_{\Gamma}$ is a map $H^1(\Gamma) \rightarrow L^2(\Gamma)$. We have $$\|\hat{\phi}\operatorname{grad}_{\Gamma}q\|_{L^2(\Gamma)} \leq \sqrt{\|\hat{\phi}\operatorname{grad}_{\Gamma}q\|_{L^2(\Gamma)}^2 + \|q\|_{L^2(\Gamma)}^2} = \|u\|_{H^1(\Gamma)},$$ so $\hat{\phi} \operatorname{grad}_{\Gamma}$ is bounded. \\
 As $\hat{\phi}\operatorname{grad}_{\Gamma}$ is bounded, according to the Riesz representation theorem \cite{rudin2008function}, for every $p$ there exists a unique $p^\prime$ such that for the functional $q \mapsto (p, \hat{\phi}\operatorname{grad}_{\Gamma}q)$ we have $(p, \hat{\phi}\operatorname{grad}_{\Gamma}q) = (p^\prime, q)$. Therefore $\operatorname{grad}_{\Gamma}^\prime: p \mapsto p^\prime$ is the unique adjoint operator. 
 \end{proof}  \noindent
-We define Fourier spaces  $\mathcal{H}^s$ to the spaces ${H}^s$ similar to section 3 in \cite{amini1998preconditioned}. Using these spaces will simplify calculations.
+We define Fourier spaces  $\mathcal{H}^s_{\tilde \kappa}(\Gamma)$ to the spaces ${H}^s(\Gamma)$ similar to section 3 in \cite{amini1998preconditioned}. Using these spaces will simplify calculations.
 \begin{definition} 
     \label{def:fouier_sobolev}
-    For \(0 \leq s<\infty\) and $\tilde \kappa> 0$ the space \(\mathcal{H}^{s}_{\tilde \kappa}(X)\) is defined as the subspace of all functions $\varphi \in L^{2}(X)$
+    For \(0 \leq s<\infty\) and $\tilde \kappa> 0$ the space \(\mathcal{H}^{s}_{\tilde \kappa}(\Gamma)\) is defined as the subspace of all functions $\varphi \in L^{2}(\Gamma)$
     such that
     $$
     \sum\limits_{n \in \mathbb{Z}}\left(\tilde \kappa^2+n^{2}\right)^{s}\left|\varphi_{n}\right|^{2}<\infty. 
     $$
-    for the Fourier coefficients \(\varphi_{n}\) of \(\varphi\). We define an inner product in this space by
+    for the Fourier coefficients \(\varphi_{n}\) of \(\varphi\). We define an inner product on this space:
     $$
-    (\varphi, \psi)_{\mathcal{H}^{s}(\mathbb{S})}:=\sum_{n \in \mathbb{Z}}\left(\tilde \kappa^2+n^{2}\right)^{s} \varphi_{n} \overline{\psi_{n}}.
+    (\varphi, \psi)_{\mathcal{H}^{s}(\Gamma)}:=\sum_{n \in \mathbb{Z}}\left(\tilde \kappa^2+n^{2}\right)^{s} \overline{\varphi}_{n} {\psi_{n}}.
     $$
 \end{definition}  \noindent
 We used the $\tilde \kappa$-weighted norm that were also used in \cite{hiptmair2021spurious} for dimensional reasons.\footnote{Note that $n$ implicitly has a dimension $[\frac{1}{r}]$ here. Since we did not write down dimensions for it ($r = 1$), we do not make this dependency explicit in our calculations.} 
 The following lemma justifies the use of this space.
 \begin{lemma}
-Let \(s \in \mathbb{R}\). Then the space \(\mathcal{H}^{s}(\Gamma)_{\tilde \kappa}\) is a Hilbert space. Moreover, \(\mathcal{H}^{s}_{\tilde \kappa}(\Gamma) = H^{s}(\Gamma)\) and the norms generated from their respective inner products are equivalent. 
+Let \(s \in \mathbb{R}\). Then the space \(\mathcal{H}^{s}_{\tilde \kappa}(\Gamma)\) is a Hilbert space. Moreover, \(\mathcal{H}^{s}_{\tilde \kappa}(\Gamma) = H^{s}(\Gamma)\) and the norms generated from their respective inner products are equivalent. 
 \end{lemma}
 \begin{proof}
     The case $\tilde \kappa = 1$ is proven in Theorem 2 of \cite{amini1998preconditioned}. Now consider a general $\tilde \kappa$. We have to show that $\mathcal{H}^{s}_{\tilde \kappa}(\Gamma)= \mathcal{H}^{s}_{1}(\Gamma)$, equivalence of their norms and completeness of $\mathcal{H}^{s}_{\tilde \kappa}(\Gamma)$. \\
@@ -281,98 +340,94 @@ Let \(s \in \mathbb{R}\). Then the space \(\mathcal{H}^{s}(\Gamma)_{\tilde \kapp
     and $c_1 =1, c_2 =\tilde \kappa^s$ for $\tilde\kappa < 1, s < 0$. \\
     Completeness of $\mathcal{H}^{s}_{\tilde \kappa}(\Gamma)$ is implied by completeness of $\mathcal{H}^{s}_{1}(\Gamma)$:   $\mathcal{H}^{s}_{1}(\Gamma)$ and $\mathcal{H}^{s}_{\tilde \kappa}(\Gamma)$ have the same Cauchy sequences because of equivalence of their norms. Since the spaces are equal, if the Cauchy sequence converges in one it does in the other. $\mathcal{H}^{s}_{1}(\Gamma)$ is complete, so  $\mathcal{H}^{s}_{\tilde \kappa}(\Gamma)$ is also as their norms are equivalent and they contain the same vectors.
 \end{proof}  \noindent
-This isomorphism between the Hilbert spaces $\mathcal{H}_{\tilde \kappa}^{s}$ and ${H}^{s}$ justifies the use of the lemmata \ref{lem:reduced_q} and \ref{lem:b_simplify} for the spaces $\mathcal{H}_\kappa^{s}$.
-Using these results, we can rewrite the formulation in eq. \ref{eq:variational_formulation} in an operational formulation:  Define the operator 
-\begin{align*}
-A: \mathcal{H}_{\tilde \kappa}^1(\Omega) \times \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}}(\Gamma) \times \mathcal{H}_{\tilde \kappa}^{1}(\Gamma) \rightarrow \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}}(\Gamma) \times \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}}(\Gamma) \times \mathcal{H}^{-\frac{1}{2}}(\Gamma) \\
-    A = \begin{pmatrix}
-            (\mathrm{DtN}_{\tilde \kappa}^{-} + W_{\tilde \kappa}) \gamma_D^- & - (\frac{1}{2} - K^\prime_{\tilde \kappa}) & 0 \\
-            (\frac{1}{2} - K_{\tilde \kappa})\gamma_D^- & V_{\tilde \kappa} & i \overline{\eta} \\
-            - W_{\tilde \kappa}\gamma_D^- & - (K^\prime_{\tilde \kappa} + \frac{1}{2}) & 1 + \operatorname{grad}_{\Gamma}^\prime \hat{\phi}\operatorname{grad}_{\Gamma} 
-    \end{pmatrix}
-\end{align*}
-Moreover, define  $$\mathcal{B}:
-\mathcal{H}^{-\frac{1}{2}}_{\tilde\kappa} \times \mathcal{H}^{\frac{1}{2}}_{\tilde\kappa} \rightarrow
-\mathcal{H}^{-\frac{1}{2}}_{\tilde\kappa} \times \mathcal{H}^{\frac{1}{2}}_{\tilde\kappa} \times \mathcal{H}^{-\frac{1}{2}}_{\tilde\kappa}, \mathcal{B} = 
-\begin{pmatrix}
-    -1 & -W_{\kappa}  \\
-    0 & ( K_{\kappa} - \frac{1}{2}) \\
-    0 & W_{\kappa}
-\end{pmatrix}.
+This isomorphism between the Hilbert spaces $\mathcal{H}_{\tilde \kappa}^{s}(\Gamma)$ and ${H}^{s}(\Gamma)$ justifies the use of the lemmata \ref{lem:reduced_q} and \ref{lem:b_simplify} for the spaces $\mathcal{H}_\kappa^{s}$.
+Using these results, we can rewrite the formulation in eq. \ref{eq:variational_formulation} in an operator formulation. \\
+In lemma \ref{lem:reduced_q}, we have found an expression for $q_\kappa$   that only evaluates $U$ with  $\gamma_D^-U$ at its boundary. As this is also the case for all other expressions involving $U$ in eq. \ref{eq:variational_formulation}, we consider $ U\in \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}}(\Gamma)$ instead. \footnote{As shown in the chapter \ref{section:appendix} the solution in all of $\Omega^-$ the Helmholtz PDE allows reconstruction of the solution in all of $\Omega^-$ from the Fourier coefficients on $\Gamma$.} \\
+To derive the desired operator $A: H \rightarrow H$ such that $(Au, v) = a(u,v)$, the following lemma / definition will be helpful.
+\begin{lemma}
+    For $f \in \mathcal{H}_{\tilde \kappa}^t$, define the operator $P_s: \mathcal{H}^t_{\tilde \kappa}(\Gamma) \rightarrow \mathcal{H}^{t-s}_{\tilde \kappa}(\Gamma)$ with $(P_sf)_n = ( \tilde\kappa^2 + n^2)^{\frac{s}{2}} f_n$. Then $(f, g)_\Gamma = 2 \pi (P_{-2s}f, g)_{\mathcal{H}_{\tilde\kappa}^s(\Gamma)}^s$ for all $f \in \mathcal{H}_{\tilde \kappa}^{-s}, g \in \mathcal{H}_{\tilde \kappa}^{s}$. 
+\end{lemma}
+\begin{proof}
+Let $f \in \mathcal{H}_{\tilde \kappa}^t$.
+We have $P_sf \in \mathcal{H}^{t-s}_{\tilde \kappa}(\Gamma)$ as 
 $$
-
-\begin{proposition}
-\label{prop:operator_formulation}
-If \(U \in \mathcal{H}^{1}(\Omega), \theta \in \mathcal{H}^{-1 / 2}(\Gamma)\) and \(p \in \mathcal{H}^{1}(\Gamma)\) solve the following problem 
-    \begin{equation}
+\sum_{n \in \mathbb{Z}}\left(\tilde{\kappa}^{2}+n^{2}\right)^{t-s}\left|(P_sf)_{n}\right|^{2} = \sum_{n \in \mathbb{Z}}\left(\tilde{\kappa}^{2}+n^{2}\right)^{t}\left|(f)_{n}\right|^{2} < \infty.
+$$
+Moreover, 
+$$
+2 \pi (P_{-2s}f, g)_{\mathcal{H}_{\tilde\kappa}^s(\Gamma)} = \sum_{n \in \mathbb{Z}}\left(\tilde{\kappa}^{2}+n^{2}\right)^{s}  \overline{(P_{-2s}f)_{n}} {g_n} =
+\sum_{n \in \mathbb{Z}} \overline{f_n} {g_n} = (f, g)_\Gamma.
+$$
+\end{proof}
+\noindent We  use this lemma to rewrite the inner products in eq. \ref{eq:variational_formulation}. After dividing all equations by $2\pi$ and plugging in the lemmata \ref{lem:reduced_q} and \ref{lem:b_simplify}, it becomes: 
+\begin{align}
+    \left(P_{-1}\left(\mathrm{DtN}^-_{ \kappa}U + \mathrm{W}_{\kappa}U - \left(\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa}^{\prime}\right)\left(\theta\right)\right), V\right)_{{\mathcal{H}_{\tilde\kappa}^\frac{1}{2}(\Gamma)}} &=\frac{g_1(V)}{2\pi} \nonumber\\
+    \left(P_1 \left(\left(\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa}\right)\left(\gamma_{D}^{-} U\right)  + \mathrm{V}_{\kappa}\left(\theta\right) + i \overline{\eta} q \right), \varphi \right)_{{\mathcal{H}_{\tilde\kappa}^{-\frac{1}{2}}(\Gamma)}}
+    &=\frac{g_2(\varphi)}{2\pi}  \nonumber\\
+    \left(P_{-2} \left( -\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right) - \left(\mathrm{K}_{\kappa}^{\prime}+\frac{1}{2} \mathrm{Id}\right)(\theta)+ \left(1+\operatorname{grad}_{\Gamma}^{\prime} \hat{\phi} \operatorname{grad}_{\Gamma}\right)(p) \right), q \right)_{{\mathcal{H}_{\tilde\kappa}^{1}(\Gamma)}}
+    &=\frac{g_3(q)}{2\pi}. \nonumber
+\end{align}
+\noindent Let $H = \mathcal{H}_{\tilde \kappa}^1(\Omega) \times \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}}(\Gamma) \times \mathcal{H}_{\tilde \kappa}^{1}(\Gamma)$ from here on.  We can directly read off the operator  $A: H \rightarrow H$. 
+\begin{align*}
+ A = \begin{pmatrix}
+     P_{-1} & & \\ & P_{1}& \\ & & P_{-2}
+ \end{pmatrix}
+ \begin{pmatrix}
+            (\mathrm{DtN}_{ \kappa}^{-} + \mathrm{W}_{ \kappa})  & - (\frac{1}{2} - \mathrm{K}^\prime_{ \kappa}) & 0 \\
+            (\frac{1}{2} - \mathrm{K}_{ \kappa}) & \mathrm{V}_{ \kappa} & i \overline{\eta} \\
+            - \mathrm{W}_{ \kappa} & - (\mathrm{K}^\prime_{ \kappa} + \frac{1}{2}) & \left(1 + \operatorname{grad}_{\Gamma}^\prime \hat{\phi}\operatorname{grad}_{\Gamma} \right)
+\end{pmatrix}.
+\end{align*}
+\noindent
+For the right side of eq. \ref{eq:variational_formulation} we can read off the right side $w \in H$ similarly
+$$
+w = \begin{pmatrix}
+     P_{-1} & & \\ & P_{1}& \\ & & P_{-2}
+ \end{pmatrix}
+ \begin{pmatrix}
+ -f^2 -\mathrm{W}_\kappa (f^1) \\ 
+ (\mathrm{K}_\kappa - \frac{1}{2})(f^1) \\ 
+ \mathrm{W}_\kappa(f_1)
+ \end{pmatrix}.
+$$
+This concludes the derivation of the operator formulation 
+\begin{equation}
     \label{eq:operator_formulation}
-        \begin{pmatrix}
-            (\mathrm{DtN}_{ \kappa}^{-} + W_{ \kappa}) \gamma_D^- & - (\frac{1}{2} - K^\prime_{ \kappa}) & 0 \\
-            (\frac{1}{2} - K_{ \kappa})\gamma_D^- & V_{ \kappa} & i \overline{\eta} \\
-            - W_{ \kappa}\gamma_D^- & - (K^\prime_{ \kappa} + \frac{1}{2}) & 1 + \operatorname{grad}_{\Gamma}^\prime \hat{\phi}\operatorname{grad}_{\Gamma} 
-        \end{pmatrix}
-        \begin{pmatrix}
-            U \\ \theta\\ p 
-        \end{pmatrix}
-        = \mathcal{B}\begin{pmatrix}
-            f_2 \\ f_1
-        \end{pmatrix}
-    \end{equation}
-    they also solve the problem in eq. \ref{eq:variational_formulation}.
-\end{proposition}
-\begin{proof}
-    We start our proof from the equations presented in eq. \ref{eq:variational_formulation}. After plugging in the results presented in lemma \ref{lem:reduced_q} and \ref{lem:b_simplify} for $q_\kappa$ and $b$, we have to show that for arbitrary $V \in \mathcal{H}^1(\Gamma)$, $\varphi \in \mathcal{H}^{-\frac{1}{2}}(\Gamma)_{\tilde \kappa}, p \in H^{1}_{\tilde \kappa}(\Gamma)$ eq. \ref{eq:operator_formulation} implies 
-    \begin{align}
-        (\mathrm{DtN}_{ \kappa}^{-}U, V)_\Gamma +\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), \gamma_{D}^{-} V\right)_{\Gamma}-\left((\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa}^{\prime})(\theta), \gamma_{D}^{-} V\right)_{\Gamma} &=g_1(V) \nonumber \\
-        \left((\frac{1}{2} \mathrm{ld}-\mathrm{K}_{\kappa})\left(\gamma_{D}^{-} U\right), \varphi\right)_{\Gamma}+\left(\mathrm{V}_{\kappa}(\theta), \varphi\right)_{\Gamma}+i \overline{\eta}(p, \varphi)_{\Gamma} &={g_2}(\varphi) \nonumber  \\
-        -\left(\mathrm{W}_{\kappa}\left(\gamma_{D}^{-} U\right), q\right)_{\Gamma}-\left((\mathrm{K}_{\kappa}^{\prime}+\frac{1}{2} \mathrm{Id})(\theta), q\right)_{\Gamma} + (\operatorname{grad}_{\Gamma}^{\prime} \hat{\phi} \operatorname{grad}_{\Gamma}p, q)_\Gamma +(p, q)_{\Gamma} &=g_3(q). \nonumber
-    \end{align}
-    This follows directly from eq. \ref{eq:operator_formulation} by taking the inner product with $V$ for the first row, with $\varphi$ for the second row, and with $q$ for the third row of $A$.
-\end{proof}  \noindent
-
-Proposition \ref{prop:operator_formulation} allows us to restrict our search of the solution from $U\in H^{1}(\Gamma)$ to $\gamma_D^- U \in H^{\frac{1}{2}}(\Gamma)$, as all entries in the first column of the operator matrix include a factor $\gamma_D^-$. Therefore, we will consider the problem with $ U \in H^{\frac{1}{2}}(\Gamma)$ in all following sections.\footnote{As in the chapter \ref{section:appendix} the solution in all of $\Omega^-$ the Helmholtz PDE allows reconstruction of the solution in all of $\Omega^-$ from the Fourier coefficients on $\Gamma$.}
-Moreover, we will also consider $p \in \mathcal{H}^{\frac{1}{2}}$ since this simplifies the problem by reducing the number of different vector spaces  and makes it more consistent with general theoretical results in \cite{meury2007stable}. The following lemma shows that a solution of this augmentation  remains a solution of eq. \ref{eq:operator_formulation}.
-\begin{lemma}
-    Let $s \leq t$. Then $\mathcal{H}_{\tilde\kappa}^{t} \subset \mathcal{H}_{\tilde\kappa}^{s}$.
-\end{lemma}
-\begin{proof}
-    This follows directly by applying the majorant criterion to definition \ref{def:fouier_sobolev}. 
-\end{proof}  \noindent
-Considering these augmentations, we consider the problem $A \begin{pmatrix}
-U \\ \theta \\ p
-\end{pmatrix} = \mathcal{B}\begin{pmatrix}f_{2} \\ f_{1} \end{pmatrix}$ with operators $A: \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}} \rightarrow 
-\mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}}$, $\mathcal{B}: \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}}  \times \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}}  \rightarrow \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}}  \times \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}}$
+    Au = w.
+\end{equation}
 
 
-\section{Spectral Discretisation}
+\section{Spectral Analysis}
 \label{section:spectral_discretisation}
-Similar to Hiptmair et al. in \cite{hiptmair2021spurious}, we want to investigate the operator norm of the inverse operator $A^{-1}$.  
-This norm indicates the invertibility of the operator $A$. We will investigate whether the stabilized BIE-volume formulation regularises any spurious quasi-resonances in the operator norm that might appear as a spectral phenomenon. 
-For the following computations, we will restrict our solution space to a finite subspace $\mathcal{S}_N^{\frac{1}{2}} 
+To investigate the condition of the regular variational problem, we study the inf-sup constant $\gamma$ as motivated in theorem \ref{thm:variational_perspective}. As we saw in proposition \ref{prop:inf-sup-operator}, we can compute $\gamma = \frac{1}{\|A^{-1}\|}$.\footnote{Another perspective is that this norm indicates the invertibility of the operator $A$.} We will investigate whether the stabilized BIE-volume formulation regularises any spurious quasi-resonances in the operator norm that might appear as a spectral phenomenon. 
+For the following computations, we will consider restricted finite subspace $\mathcal{S} = \mathcal{S}_N^{\frac{1}{2}} 
 \times \mathcal{S}_N^{-\frac{1}{2}} \times \mathcal{S}_N^{1}$ where $N \in \mathbb{N}$ 
-and $\mathcal{S}_N^s$ is the restriction to $\mathrm{span}(y_{-N}, y_{-N+1}, ..., y_N)$ where $y_n = e^{in\phi}$.\\
-As the following Lemma shows, we can calculate calculate the norm of the component-wise restricted operator $A_{\mathcal{S}}$ from the smallest singular value of the matrix representation of $A_{\mathcal{S}}$, if we choose an orthonormal basis.
+and $\mathcal{S}_N^s$ is the restriction of $\mathcal{H}_{\tilde\kappa}^S(\Gamma)$ to $$\mathcal{S}_N^s = \mathrm{span}(y_{-N}, y_{-N+1}, ..., y_N)$$ where $y_n = e^{in\phi}$.\\
+As the following Lemma shows, we can calculate calculate the norm of the component-wise restricted operator $A_{|\mathcal{S}}$ from the smallest singular value of the matrix representation of $A_{|\mathcal{S}}$, if we choose an orthonormal basis.\footnote{Note that at this point it is not clear that the restriction $A_{|\mathcal{S}}: \mathcal{S} \rightarrow \mathcal{S}, A_{|\mathcal{S}}u = Au$ is  well-defined. However, we will see that $A$ is a blockdiagonal matrix in the Fourier basis, proving this is well-defined ($Au \in \mathcal{S}$ for $u \in \mathcal{S}$).}
 
 \begin{lemma}
-    Let $F: V \rightarrow W$ be a linear operator between normed vector spaces $V$, $W$ of finite dimension with norms $\| \cdot \|_V$, $\| \cdot \|_W$. Let $\mathcal{B}_V$, $\mathcal{B}_W$ be orthonormal bases of these spaces and $C := M_{\mathcal{B}_V}^{\mathcal{B}_W}(F)$ the representation matrix of $F$ with respect to these bases. Then $$\|F\|_{op} := \sup\limits_{\|v\|_{V}=1}\|F(v)\|_{W} = \|M\|_{op} :=  \sup\limits_{|x|=1}|Cx|$$ where $|\cdot|$ is the euclidian norm.
+    Let $F: V \rightarrow W$ be a linear operator between Hilbert spaces $V$, $W$ with norms $\| \cdot \|_V$, $\| \cdot \|_W$. Let $\{v_i\}_{i\in I_{{V}}}= \mathcal{B}_V$, $\{w_i\}_{i\in I_{W}}=\mathcal{B}_W$ be ordered orthonormal bases of these spaces with index sets $I_{{V}}, I_{{W}}$. Let $C_{ij} = F(v_i, w_j)$ be the operator matrix. Then $$\|F\|_{op} := \sup\limits_{\|v\|_{V}=1}\|F(v)\|_{W} = \|M\|_{op} :=  \sup\limits_{|x|=1}|Cx|$$ where $|\cdot|$ is the euclidian norm.
 \end{lemma}
 \begin{proof}
-    Let $(v_i)_{i=1}^N = \mathcal{B}_V$, $(w_i)_{i=1}^M=\mathcal{B}_W$. Then by definition $F v_i = \sum\limits_{j=0}^M C_{ij} w_j$.
+    We have $F x = \sum\limits_{i\in I_W} \sum\limits_{j \in I_V} x_{j}C_{ij} w_{i}$. Therefore,
     \begin{align}
-        \|F\|_{op} := &\sup\limits_{\|v\|_{V}=1}\|F(v)\|_{W} = \sup\limits_{\|v\|_{V}=1}\|F(v)\|_{W} = \sup\limits_{\|v\|_{V}=1}\|\sum\limits_{i = 0}^N\sum\limits_{j = 0}^M C_{ij} x_i w_j\|_{W} \nonumber\\
-        =& \sup\limits_{|x|=1}|\sum\limits_{i = 0}^N\sum\limits_{j = 0}^M C_{ij} x_i | = \sup\limits_{|x|=1}|Cx|
+        \|F\|_{op} := &\sup\limits_{\|x\|_{V}=1}\|F(x)\|_{W} = \sup\limits_{\|x\|_{V}=1}\|\sum\limits_{i\in I_V}\sum\limits_{j\in I_W} C_{ij} x_i w_j\|_{W} \nonumber\\
+        =& \sup\limits_{|x|=1}|Cx| \nonumber
     \end{align}
-    where we used orthogonality $\|v\|_{V} = \|\sum\limits_{i=0}^N x_i v_i\|_{V} = | x|$ (and similar for $w_j$) in the fourth equation. 
-\end{proof}  \noindent
-Together with the results from linear algebra, that the biggest singular value of a matrix corresponds to its operator norm and that inverting a matrix yields to inversion of its singular values we obtain that the operator norm of $A_{\mathcal{S}}^{-1}$ is $$\|A_{\mathcal{S}}^{-1}\|_{op} = \frac{1}{\sigma_{min}(A^{num})}$$ where $A^{num}$ is a representation of $A_{\mathcal{S}}$ with respect to an orthonormal basis and  $\sigma_{min}(A_{\mathcal{S}})$ its smallest singular value. \\
+    where we used orthonormality $\|v\|_{V} = \|\sum\limits_{i\in I_V}^N x_i v_i\|_{V} = |x|$ (and similar for $w_j$) in the last equation. 
+    \\
+    \textit{Note}: All sums are to be considered in the order of the basis ordering. Also, they can be replaced by integrals if the bases should not be countable. 
+\end{proof}
+\noindent
+Together with the results from linear algebra, that for a finite matrix the biggest singular value of a matrix corresponds to its operator norm and that inverting a finite matrix yields to inversion of its singular values we obtain that the operator norm of $A_{|\mathcal{S}}^{-1}$ is $$\|A_{\mathcal{S}}^{-1}\|_{op} = \frac{1}{\sigma_{min}(A^{num})}$$ where $A^{num}$ is a representation of $A_{\mathcal{S}}$ with respect to an orthonormal basis and  $\sigma_{min}(A_{\mathcal{S}})$ its smallest singular value. \\
 An orthonormal basis of $\mathcal{S}^s_N$ is given by 
 \begin{equation}
     \label{eq:basis}
-    \left(d_n^se^{in\phi}\right)_{n = - N}^N \text{ where } d_n^s := \frac{1}{(\tilde\kappa^2 + n^2)^{\frac{s}{2}}}
+    \left(d_n^se^{in\phi}\right)_{n = - N}^N \text{ where } d_n^s := \frac{1}{(\tilde\kappa^2 + n^2)^{\frac{s}{2}}}.
 \end{equation}
     We will use the following variables as coefficients.
 \begin{equation}
-    v_{n} = d_n^{\frac{1}{2}}, w_{n} = d_n^{-\frac{1}{2}}, l_n = d_n^{\frac{1}{2}}.
+    v_{n} = d_n^{\frac{1}{2}}, w_{n} = d_n^{-\frac{1}{2}}, l_n = d_n^{1}.
 \end{equation}
 Moreover, define $c_n = \sqrt{\tilde \kappa^2 + n^2}$.\\
 Now we can construct the Fourier Galerkin matrix. 
@@ -391,7 +446,7 @@ The following lemma from Theorem 2 of \cite{amini1998preconditioned} establishes
 \noindent
 Furthermore, we have to find explicit expressions for \(\mathrm{DtN}_{ \kappa}^{-}\) and \(\operatorname{grad}_{\Gamma}^{\prime} \hat{\phi} \operatorname{grad}_{\Gamma}\). 
 \begin{lemma}
-    We have \(\mathrm{DtN}_{ \kappa}^{-} v_l e^{il\phi} = \alpha_l v_l e^{il\phi}\) and \(\operatorname{grad}_{\Gamma}^{\prime} \hat{\phi} \operatorname{grad}_{\Gamma} v_l e^{il\phi}= \beta_l v_l e^{il\phi}\) where 
+    We have \(\mathrm{DtN}_{ \kappa}^{-}  e^{il\phi} = \alpha_l  e^{il\phi}\) and \(\operatorname{grad}_{\Gamma}^{\prime} \hat{\phi} \operatorname{grad}_{\Gamma}  e^{il\phi}= \beta_l  e^{il\phi}\) where 
     \begin{align}
         \alpha_l = \sqrt{\tilde c}\kappa \frac{J_l^\prime(\sqrt{\tilde c}\kappa )}{J_l(\sqrt{\tilde c}\kappa)}, \quad \beta_l = l^2
     \end{align}
@@ -403,55 +458,57 @@ we have
 $$
 r^2 \partial_r^2V_l^r + r \partial_r V_l^r + (r^2  \tilde c \kappa^2 - l^2)V^r_l = 0.
 $$
-This is Bessel's differential equation. Since we require convergence at the origin this implies $V^r_l(r) = J_l(\sqrt{\tilde c}\kappa r)$. Converting this to the same scaling as $v_le^{il\phi}$ on the boundary, we get $n\cdot \operatorname{grad} \left(\frac{J_l(\sqrt{\tilde c}\kappa r) v_l e^{i l \phi}}{J_l(\sqrt{\tilde c}\kappa)}\right) = \sqrt{\tilde c}\kappa \frac{J_l^\prime(\sqrt{\tilde c}\kappa r) v_l e^{i l \phi}}{J_l(\sqrt{\tilde c}\kappa)}$  where $n$ is the normal vector and we used $n\cdot \operatorname{grad} = \frac{\partial}{\partial r}$. \\
+This is Bessel's differential equation. Since we require convergence at the origin this implies $V^r_l(r) = J_l(\sqrt{\tilde c}\kappa r)$. Converting this to the same scaling as $e^{il\phi}$ on the boundary, we get $n\cdot \operatorname{grad} \left(\frac{J_l(\sqrt{\tilde c}\kappa r)  e^{i l \phi}}{J_l(\sqrt{\tilde c}\kappa)}\right) = \sqrt{\tilde c}\kappa \frac{J_l^\prime(\sqrt{\tilde c}\kappa r)  e^{i l \phi}}{J_l(\sqrt{\tilde c}\kappa)}$  where $n$ is the normal vector and we used $n\cdot \operatorname{grad} = \frac{\partial}{\partial r}$. \\
 To derive the expression for the composite gradient, consider the inner product of the expression with $e^{im\phi}$: 
 \begin{align}
-    (\operatorname{grad}_{\Gamma}^{\prime} \hat{\phi} \operatorname{grad}_{\Gamma} v_l e^{il\phi}, e^{im\phi})_\Gamma =&  (  \operatorname{grad}_{\Gamma} v_l e^{il\phi}, \operatorname{grad}_{\Gamma}e^{im\phi})_\Gamma \nonumber \\ =& v_l lm (2\pi \delta_{lm}) \nonumber
+    (\operatorname{grad}_{\Gamma}^{\prime} \hat{\phi} \operatorname{grad}_{\Gamma}  e^{il\phi}, e^{im\phi})_\Gamma =&  (  \operatorname{grad}_{\Gamma}  e^{il\phi}, \operatorname{grad}_{\Gamma}e^{im\phi})_\Gamma \nonumber \\ =&  lm (2\pi \delta_{lm}) \nonumber
 \end{align}
 This implies $\beta_n = l^2$.
 \end{proof}  \noindent
 Using these insights, we can find the Fourier Galerkin matrix. 
-Since the Fourier modes are eigenvectors of each of the entries in the operator $A$ we obtain diagonal blocks of the form in the representation with respect to the basis $e^{i n \phi}$ for each $\mathcal{S}_N^{s}$ component
+Since the Fourier modes are eigenvectors of each of the entries in the operator $A$, we obtain diagonal blocks of the form in the representation with respect to the basis $e^{i n \phi}$ for each $\mathcal{S}_N^{s}$ component
 $$
-A^{num, 0}_n
+A^{num, 0}_n =
 \begin{pmatrix}
+    (c_n)^{-1} & & \\ & c_n & \\  & & (c_n)^{-2}
+\end{pmatrix}\begin{pmatrix}
     (\alpha_n + \lambda^{(W)}) & - (\frac{1}{2} - \lambda^{(K^\prime)}) & 0 \\
     (\frac{1}{2} -  \lambda^{(K)}) &  \lambda^{(V)} & i \overline{\eta} \\ 
     -  \lambda^{(W)} & - ( \lambda^{(K^\prime)} + \frac{1}{2}) & (1 + \beta_n)
 \end{pmatrix}.
 $$
-Then we obtain the Galerkin matrix scaled to the selected bases of $\mathcal{S}_N^{\frac{1}{2}}\times \mathcal{S}_N^{-\frac{1}{2}}\times \mathcal{S}_N^{\frac{1}{2}}$ and $\mathcal{S}_N^{-\frac{1}{2}}\times \mathcal{S}_N^{\frac{1}{2}}\times \mathcal{S}_N^{-\frac{1}{2}}$ defined in eq. \ref{eq:basis}: 
+
+Rescaled to the selected bases of $\mathcal{S}_N^{\frac{1}{2}}\times \mathcal{S}_N^{-\frac{1}{2}}\times \mathcal{S}_N^{1}$ as defined in eq. \ref{eq:basis} we have: 
 \begin{align}
     \label{eq:galerkin_matrix}
-    {A}^{num}_n := T_1 A^{num, 0}_N T_2 = 
-    \begin{pmatrix}
-    (\alpha_n + \lambda^{(W)})(c_n)^{-1} & - (\frac{1}{2} - \lambda^{(K^\prime)}) & 0 \\
-    (\frac{1}{2} -  \lambda^{(K)}) &  \lambda^{(V)}c_n & i \overline{\eta} \\ 
-    -  \lambda^{(W)}(c_n)^{-1} & - ( \lambda^{(K^\prime)} + \frac{1}{2}) & (1 + \beta_n)(c_n)^{-1}
-\end{pmatrix}.
+    {A}^{num}_n := T_1 A^{num, 0}_N T_2
 \end{align}
 with the basis scaling blocks \begin{align}
     T_1 = 
     \begin{pmatrix}
-    (c_n)^{-\frac{1}{2}} & & \\
-    &  (c_n)^{\frac{1}{2}} & \\
-    & &  (c_n)^{-\frac{1}{2}}
+    (c_n)^{\frac{1}{2}} & & \\
+    &  (c_n)^{-\frac{1}{2}} & \\
+    & &  c_n
     \end{pmatrix}, \quad
     T_2 = 
     \begin{pmatrix}
     (c_n)^{-\frac{1}{2}} & & \\
     &  (c_n)^{\frac{1}{2}} & \\
-    & &  (c_n)^{-\frac{1}{2}}
-    \end{pmatrix}. 
+    & &  (c_n)^{-1}
+    \end{pmatrix}.
     \nonumber
 \end{align}
 For the overall matrix we write $A^{num} = \mathrm{diag}(A_{-N}^{num}, A_{-N + 1}^{num}, ... A_{N}^{num})$.
+
+
+ 
+
 \section{Validation}
 \subsection{Operator solution}
 To validate the correctness of our derived matrix in eq. \ref{eq:galerkin_matrix} we demonstrate that it yields the correct numerical solution for a simple example. 
 Consider the special case
 $$
-\vec{f} = 
+{f} = 
 \begin{pmatrix}
     H_n^{(1)}(\kappa) -  J_n(\sqrt{\tilde c} \kappa ) \\
     \kappa H_n^{\prime (1)}(\kappa) - \sqrt{\tilde c} \kappa J_n^{\prime}(\sqrt{\tilde c} \kappa )\\
@@ -467,53 +524,59 @@ If eq. \ref{eq:galerkin_matrix} is correct, it should yield the complete analyti
 As pointed out on p. 33 of \cite{meury2007stable}, if \(U\) is a solution we have \(\vartheta=\gamma_{N}^{+} U\). Moreover, on page 38 of \cite{meury2007stable} it is explained that in the solution vector we must have $p =0$. Therefore, it follows that the boundary-restricted interior analytical solution can be written as 
 $(U, \theta, p) =
  \left({J_n(\sqrt{\tilde c}\kappa)e^{in\phi}} , {\kappa H_n^{\prime(1)}(\kappa)} e^{in\phi}, 0\right)$. \\
-So overall, the components solution vector should be
+So overall, extending 
+\begin{align*}
+U = \sum\limits_{n = -\infty}^\infty (C_j^{ana})^U d_n^{\frac{1}{2}} e^{in\phi}, \quad
+\theta = \sum\limits_{n = -\infty}^\infty (C_j^{ana})^\theta d_n^{-\frac{1}{2}} e^{in\phi}, \quad
+p = \sum\limits_{n = -\infty}^\infty (C_j^{ana})^p d_n^{1} e^{in\phi}
+\end{align*}the components solution vector should be
 $$
     (C_j^{ana})^U = \delta_{nj}  \frac{J_n(\sqrt{\tilde c}\kappa)}{v_n}, \quad
     (C_j^{ana})^\theta = \delta_{nj} \frac{\kappa H_n^{\prime(1)}(\kappa)}{w_n}, \quad 
     (C_j^{ana})^p = 0, \quad
     \forall j.
 $$
-We can now validate whether we get the same numerical solution using our matrix ${A}^{num}$. To do this, also extend the right hand side of eq. \ref{eq:operator_formulation}, namely $\mathcal{B}\begin{pmatrix} f_2 \\ f_1 \end{pmatrix}$ into the Fourier coefficients of $f^1, f^2$. We obtain blocks of the form 
+We can now validate whether we get the same numerical solution using our matrix ${A}^{num}$. To do this, extend the $w$ on the right hand side of eq. \ref{eq:operator_formulation}  into the Fourier coefficients  
+$$f^1 = \sum\limits_{n = -\infty}^\infty f^1_n e^{in\phi}, \quad  f^2=\sum\limits_{n = -\infty}^\infty f^2_n  e^{in\phi}.$$ We obtain the extended form
 \begin{align}
-f^1_n e^{in\phi} 
+w = \sum\limits_{n=-\infty}^\infty f^1_n e^{in\phi} 
 \begin{pmatrix}
-- \lambda_n^{(W)} \\
-(\lambda_n^{(K)} - 0.5)  \\
-\lambda_n^{(W)} 
+- (c_n)^{-1}\lambda_n^{(W)} \\
+c_n(\lambda_n^{(K)} - 0.5)  \\
+(c_n)^{-2}\lambda_n^{(W)} 
 \end{pmatrix}
 + f_2^n e^{in\phi} 
 \begin{pmatrix}
-    -1 \\
+    -(c_n)^{-1} \\
     0 \\
     0
 \end{pmatrix}.
 \end{align}
-In this particular case, the boundary conditions translate to $$f^1_j =  \delta_{nj} \left(H_n^{(1)}(\kappa) -  J_n(\sqrt{\tilde c} \kappa)  \right),
-f^2_j = \delta_{nj} \left(\kappa H_n^{\prime(1)}(\kappa)
-- \sqrt{\tilde c} \kappa J_n^{\prime}(\sqrt{\tilde c}\kappa) \right).$$
-So, writing our right hand side in the $\mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}}$ basis: 
+The components in the considered $\mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}}$ basis are scaled  
 $$
-g^{num}_n
+w^{num}_n
 :=  f^1_n 
 \underbrace{
 \begin{pmatrix}
 - (c_n)^{-\frac{1}{2}} \lambda_n^{(W)} \\
 (c_n)^{\frac{1}{2}} (\lambda_n^{(K)} - 0.5)  \\
 (c_n)^{-\frac{1}{2}} \lambda_n^{(W)} 
-\end{pmatrix}}_{\vec{x_1}}
+\end{pmatrix}}_{{=:x_1}}
 + f_2^n 
 \underbrace{\begin{pmatrix}
     -(c_n)^{-\frac{1}{2}}  \\
     0 \\
     0
-\end{pmatrix}}_{\vec{x_2}}.
+\end{pmatrix}}_{{=:x_2}}.
 $$
-We call the overall vector $g^{num} = (g^{num}_{-N}, g^{num}_{-N + 1}, ..., g^{num}_{N})$.
+In this particular case, the boundary conditions translate to $$f^1_j =  \delta_{nj} \left(H_n^{(1)}(\kappa) -  J_n(\sqrt{\tilde c} \kappa)  \right),
+f^2_j = \delta_{nj} \left(\kappa H_n^{\prime(1)}(\kappa)
+- \sqrt{\tilde c} \kappa J_n^{\prime}(\sqrt{\tilde c}\kappa) \right).$$
+We call the overall vector $w^{num} = (w^{num}_{-N}, w^{num}_{-N + 1}, ..., w^{num}_{N})$.
 To measure how good the solution is, we introduce the $\zeta$-number: 
 \begin{definition}[ $\zeta$-number]
-    For a fixed $n$ and a fixed $\kappa$, let $\vec{C}^{num}_n(\kappa)$ be the numerical solution vector to the problem 
-    $A^{num} {C}^{num}_n(\kappa) = g^{num}$. 
+    For a fixed $n$ and a fixed $\kappa$, let ${C}^{num}_n(\kappa)$ be the numerical solution vector to the problem 
+    $A^{num} {C}^{num}_n(\kappa) = w^{num}$. 
     Let ${C}^{ana}_n(\kappa)$ be the analytical solution vector for the same problem.
     The $\zeta$-number is defined as 
     $$
@@ -521,69 +584,79 @@ To measure how good the solution is, we introduce the $\zeta$-number:
     $$ 
 \end{definition}  \noindent
 \begin{figure}
-    \includegraphics[width=0.5\textwidth]{validate_sol_c_i1,0c_o3,0N_30plotRangeStart_0,5plotRangeEnd_15,0.pdf}
-    \includegraphics[width=0.5\textwidth]{validate_sol_c_i3,0c_o1,0N_30plotRangeStart_0,5plotRangeEnd_15,0.pdf}
+    \includegraphics[width=0.5\textwidth]{validate_sol_c_i1.0c_o3.0N_30plotRangeStart_0.5plotRangeEnd_15.0.pdf}
+    \includegraphics[width=0.5\textwidth]{validate_p_c_i3.0c_o1.0N_100plotRangeStart_0.5plotRangeEnd_15.0.pdf}
     \caption{Maximum relative residuum of the numerical solution $\zeta$ by wave number. 
     On the left plot we have $c_i = 1, c_o = 3$
-    and on the right plot we have $c_i = 3, c_o = 1$. The number of considered Fourier modes was $N = 30$.}
+    and on the right plot we have $c_i = 3, c_o = 1$. The number of considered Fourier modes is $N = 30$.}
     \label{fig:sol_validation}
 \end{figure}
 \noindent
-As seen in fig. \ref{fig:sol_validation}, the $\zeta$-number is negligible across all values of $\kappa$ and $n$ as deviations from $0$ are in the magnitude of computer precision. This validates our derivation of $A_n^{num}$ and $g_n^{num}$.
+As seen in fig. \ref{fig:sol_validation}, the $\zeta$-number is negligible across all values of $\kappa$ and $n$ as deviations from $0$ are in the magnitude of computer precision. This validates our derivation of $A_n^{num}$ and $w_n^{num}$.
 \subsection{Projector Properties}
 \label{subsection:projector_properties}
-We validate our matrix $A$ with another method. As mentioned earlier, we must have \(p=0\), if \((U, \theta)\) solves the problem according to \cite{meury2007stable}. 
-Assuming $A^{num}_n$ is invertible\footnote{This is fair to assume for most frequencies since the variational problem has a unique solution.}, we can use the remark to validate that our derived matrix $A^{num}_n$ is correct.  We can formulate the property $p = 0$ with regards to $A^{num}_n$. 
-Let $V_{\vec{b}} := span( \vec{x}_1, \vec{x}_2)$. 
-Then $p = 0$ means that for $\vec{b} \in V_{\vec{b}}$, every solution of  $A_n^{num} \vec{x} = \vec{b}_n$ satisfies $x_3 = 0$. Now let
-$P_{V_{\vec{b}}}$ be the projector onto $V_{\vec{b}}$ and $P_3$ be the projector onto $(0, 0, 1)$.
-Then $P_3A_n^{-1}P_{V_{\vec{b}}} = 0$. \\
-We calculate the euclidian norm of $P_3 (A^{num}_n)^{-1}P_{V_{\vec{b}}}$ for a range of $\kappa$ values to validate this.
+We validate our matrix $A$ with another method. We must have \(p=0\), if \((U, \theta)\) solves the problem according to P. Meury \cite{meury2007stable}. 
+We can use the remark to validate that our derived matrix $A^{num}_n$ is correct.  We can formulate the property $p = 0$ with regards to $A^{num}_n$. 
+Let $V_{{b}} := span( {x}_1, {x}_2)$. 
+Then $p = 0$ means that for ${b} \in V_{{b}}$, every solution of  $A_n^{num} {x} = {b}_n$ satisfies $x_3 = 0$. Now let
+$P_{V_{{b}}}$ be the projector onto $V_{{b}}$ and $P_3$ be the projector onto $(0, 0, 1)$.
+Then $$P_3A_n^{-1}P_{V_{{b}}} = 0$$. \\
+We calculate the euclidian norm of $P_3 (A^{num}_n)^{-1}P_{V_{{b}}}$ for a range of $\kappa$ values to validate this.
 \begin{figure}
-    \includegraphics[width=0.5\textwidth]{validate_p_c_i1,0c_o3,0N_100plotRangeStart_0,5plotRangeEnd_15,0.pdf}
-    \includegraphics[width=0.5\textwidth]{validate_p_c_i3,0c_o1,0N_100plotRangeStart_0,5plotRangeEnd_15,0.pdf}
-    \caption{Euclidian matrix norm of composed matrix  $P_3 (A^{num}_n)^{-1}P_{V_{\vec{b}}}$. 
+    \includegraphics[width=0.5\textwidth]{validate_p_c_i1.0c_o3.0N_100plotRangeStart_0.5plotRangeEnd_15.0.pdf}
+    \includegraphics[width=0.5\textwidth]{validate_p_c_i3.0c_o1.0N_100plotRangeStart_0.5plotRangeEnd_15.0.pdf}
+    \caption{Euclidian matrix norm of composed matrix  $P_3 (A^{num}_n)^{-1}P_{V_{{b}}}$. 
     On the left plot we have $c_i = 1, c_o = 3$
     and on the right plot we have $c_i = 3, c_o = 1$. The number of considered Fourier modes was $N = 100$.
     }
    \label{fig:p_validation}
 \end{figure}
 \noindent
-Again, as shown in fig. \ref{fig:p_validation}, this is satisfied. This is another validation of our matrix $A_n^{num}$. 
+As shown in fig. \ref{fig:p_validation}, $p = 0$ is satisfied by our operator matrix. This is another validation of our matrix $A_n^{num}$. 
 
 
 
 \section{Numerical Results} 
 \label{section:numerical_results}
-Now, we numerically investigate the operator norm of the inverse operator $A^{-1}$. As established in section \ref{section:spectral_discretisation}, we can compute the inverse of the smallest singular value of $\mathrm{diag}((A_n^{num})_{n = -N}^N)$ for this.
+Now, we numerically investigate the operator norm of the inverse operator $A^{-1}$. As established in section \ref{section:spectral_discretisation}, we can compute the inverse of the smallest singular value of $\mathrm{diag}((A_n^{num})_{n = -N}^N)$ for this operator.
 \begin{figure}
-    \includegraphics[width=0.5\textwidth]{InvertedMinimumSingularValuec_i1,0c_o3,0N_30eta1,0plotRangeStart_0,5plotRangeEnd_15indexrange_-20,0-0,0_y_0_0,7115197817684848.pdf}
-    \includegraphics[width=0.5\textwidth]{InvertedMinimumSingularValuec_i3,0c_o1,0N_30eta1,0plotRangeStart_0,5plotRangeEnd_15indexrange_-21,0-0,0_y_0_0,4499662913189779.pdf}
-    \caption{Inverted minimum singular value $\left\|A_{\mathcal{S}}^{-1}\right\|_{o p} =\frac{1}{\sigma_{\min }(M)}$of the matrix $M = \mathrm{diag}((A_n^{num})_{n = -N}^N)$ by wave number $\kappa$. Only the first 30 Fourier blocks were considered, as the operator norms were not affected by higher modes. In fact, the highest selected mode was $n = 20$ for the left and $n =21$ for the right plot.
+    \includegraphics[width=0.5\textwidth]{simulation_scenario_1indexrange_-18.0-0.0_y_0_0.6300477177912973.pdf}
+    \includegraphics[width=0.5\textwidth]{simulation_scenario_2indexrange_-21.0-0.0_y_0_0.36642407845221814.pdf}
+    \caption{Inverted minimum singular value $\left\|A_{\mathcal{S}}^{-1}\right\|_{o p} =\frac{1}{\sigma_{\min }(M)}$of the matrix $M = \mathrm{diag}((A_n^{num})_{n = -N}^N)$ by wave number $\kappa$. Only the first 30 Fourier blocks were considered, as the operator norms were not affected by higher modes. In fact, the highest selected mode was $n = 18$ for the left and $n =21$ for the right plot.
     When plotting the operator norm against $N$ for a fixed $\kappa$, we see that it approaches a constant value for big $N$, justifying the cutoff of $N = 30$. A more detailed explanation is given in the section \nameref{section:appendix}.
     Each of plots is shifted by an absolute value $y_0$ to allow for better comparison with the solution operator.
-    In the left plot we have $c_i = 1, c_o = 3$, and $y_0 = 0.712$
-    and on the right plot we have $c_i = 3, c_o = 1$, and $y_0 = 0.450$. }
+    In the left plot we have $c_i = 1, c_o = 3$, and $y_0 = 0.630$
+    and on the right plot we have $c_i = 3, c_o = 1$, and $y_0 = 0.366$. }
    \label{fig:simulation_results}
 \end{figure}
 \noindent
-The results of the simulation are presented in fig. \ref{fig:simulation_results}  alongside the results for the maximum euclidean norm of the solution operator.\footnote{We picked particular representative cases. More cases are shown in section \ref{section:appendix}.} A derivation of the solution operator is provided in the \nameref{section:appendix}. \\
-The solution operator exposes resonance frequencies for the case $c_i = 3, c_o =1$, called  quasi-resonances  in \cite{hiptmair2021spurious}. This resonance behavior is expected physically: If $c_i > c_o$, total internal reflection can undergo. For certain angles of internal reflection, the solution becomes very localised around the boundary $\Gamma$, meaning that the solution operator norm peaks. As we see, peaks in the solution operators coincide with the peaks of the considered inverse boundary integral operator. 
-However, in the case $c_i = 1, c_o = 3$ the operator $A^{-1}$ exposes bad condition for some frequencies while the solution operator is regular for all frequencies. This shows that spurious quasi-resonances also occur for the regularised variational formulation. However, it does affect the condition much less than other examples: the STF BIO considered by Hiptmair et al. exposed resonance peaks that were three orders of our magnitude  higher than our considered case \cite{hiptmair2021spurious}. The following proposition helps explain this irregular behavior.
+The results of the simulation are presented in fig. \ref{fig:simulation_results}  alongside the results for the maximum euclidean norm of the solution operator.\footnote{We picked particular representative cases. More cases are shown in the \nameref{section:appendix}.} A derivation of the solution operator is provided in the \nameref{section:appendix}. \\
+The solution operator exposes resonance frequencies for the case $c_i = 3, c_o =1$, called  quasi-resonances  in \cite{hiptmair2021spurious}. This resonance behavior is expected physically: If $c_i > c_o$, total internal reflection can undergo. For certain angles of internal reflection, the solution becomes very localised around the boundary $\Gamma$, meaning that the solution operator norm peaks. As we see, peaks in the solution operators coincide with the peaks of the considered inverse boundary integral operator. As we see in the right plot of fig. \ref{fig:simulation_results}, however, there are also nonphysical secondary resonances of lower frequency in $\|A^{-1}\|_{op}$. As their peaks are of similar or smaller magnitude than the primary high-frequency oscillations, the effect on the condition of the variational problem is unproblematic. Curiously, if we modify the operator $A$ such that its last row is scaled by a factor $M \gg 1$, these secondary resonances disappear.\footnote{This modification is allowed as this modified operator formulation is equivalent to the former one if we scale the last component of $w$ by $M$ too.} An example of this with $M = 30$ is shown in fig.  \ref{fig:scaled_third_equation}. At this point, a rigorous explanation of this phenomenon was not found. 
 
+\begin{figure}
+    \includegraphics[width=0.5\textwidth]{simulation_scenario_13indexrange_-30.0-0.0_y_0_0.5643627199145966.pdf}
+    \includegraphics[width=0.5\textwidth]{simulation_scenario_12indexrange_-22.0-0.0_y_0_0.28667109315776407.pdf} 
+    \caption{Inverted minimum singular value $\left\|A_{\mathcal{S}}^{-1}\right\|$ by wave number $\kappa$. In both plots, the operator $A$ is considered with the modification that its last row is scaled by a factor of $M = 30$.
+    In the left plot, we have $c_i = 1.0$ and $c_o = 3.0$. In the right plot, we have $c_i = 3.0$ and $c_o = 1.0$.}
+    
+   \label{fig:scaled_third_equation}
+\end{figure}
+
+\noindent In the case $c_i = 1, c_o = 3$ (left plot in fig. \ref{fig:simulation_results}) the operator $A^{-1}$ exposes bad condition for some frequencies while the solution operator is regular for all frequencies. This shows that spurious quasi-resonances also occur for the regularised variational formulation. The following proposition helps explain this irregular behavior.
+\newpage
 \begin{proposition}
 Define
-    $\mathcal{L}: \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}} \rightarrow \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}}$ as the map that maps the boundary conditions of eq. \ref{eq:helmholtz} to the right hand side of eq. \ref{eq:operator_formulation}
+    $\mathcal{L}: \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}} \rightarrow \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{1}$ as the map that maps the boundary conditions of eq. \ref{eq:helmholtz} to the right hand side of eq. \ref{eq:operator_formulation}
     $$
         \mathcal{L} = 
         \begin{pmatrix}
-            -W_{\kappa} & -id \\
-            (K_{\kappa} - \frac{1}{2}) & 0 \\
-            W_{\kappa} & 0 \\
+            -P_{-1}W_{\kappa} & -P_{-1} \\
+            P_{1}(K_{\kappa} - \frac{1}{2}) & 0 \\
+            P_{-2}W_{\kappa} & 0 \\
         \end{pmatrix}
     $$
 and let
- ${E}: \mathcal{H}_{\tilde{\kappa}}^{\frac{1}{2}} \times \mathcal{H}_{\tilde{\kappa}}^{-\frac{1}{2}} \times \mathcal{H}_{\tilde{\kappa}}^{\frac{1}{2}} \rightarrow \mathcal{H}_{\tilde{\kappa}}^{\frac{1}{2}} \times \mathcal{H}_{\tilde{\kappa}}^{-\frac{1}{2}}, {E} = \begin{pmatrix}
+ ${E}: \mathcal{H}_{\tilde{\kappa}}^{\frac{1}{2}} \times \mathcal{H}_{\tilde{\kappa}}^{-\frac{1}{2}} \times \mathcal{H}_{\tilde{\kappa}}^{1} \rightarrow \mathcal{H}_{\tilde{\kappa}}^{\frac{1}{2}} \times \mathcal{H}_{\tilde{\kappa}}^{-\frac{1}{2}}, {E} = \begin{pmatrix}
     1 & 0 & 0 \\
     0 & 1 & 0 
 \end{pmatrix}$.
@@ -594,78 +667,78 @@ and let
     $.
 \end{proposition}
 \begin{proof}
-    Consider the boundary data $f \in \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}}$. Then by construction we have that the right hand side of eq. \ref{eq:operator_formulation} is $g = \mathcal{L} f$. Applying $A^{-1}$ to the same equation and projecting onto the first two components yields $\begin{pmatrix} U \\ \theta  \end{pmatrix} = {E}A^{-1} \mathcal{L}$. This concludes the proof.
+    Consider the boundary data $f \in \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}}$. Then by construction we have that the right hand side of eq. \ref{eq:operator_formulation} is $w = \mathcal{L} f$. Applying $A^{-1}$ to the same equation and projecting onto the first two components yields $\begin{pmatrix} U \\ \theta  \end{pmatrix} = {E}A^{-1} \mathcal{L}$. This concludes the proof.
 \end{proof}  \noindent
-This relationship between $A$ and $S$ implies that the lack of either $E$ or $L$ causes the different resonance behavior between $A$ and $S$. However, it cannot be $E$: analytically, the third solution component $p = 0$ vanishes as mentioned and numerically validated in section \ref{subsection:projector_properties}. Therefore, $L$ must be the origin of the irregularity. To show this, we lift the irregularity by introducing the operator $L_\varepsilon$ for $\varepsilon > 0$: 
+This relationship between $A$ and $S$ implies that the lack of  $\mathcal{L}$ causes the different resonance behavior between $A$ and $S$. To show this, we lift the irregularity by introducing the operator $\mathcal{L}_\varepsilon$ for $\varepsilon > 0$: 
 \begin{equation} 
 \label{eq:L_operator}
-L_\varepsilon: \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}} \rightarrow \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}}, 
-L_\varepsilon = 
+\mathcal{L}_\varepsilon: \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{1} \rightarrow \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{1}, \quad
+\mathcal{L}_\varepsilon = 
         \begin{pmatrix}
-            -id & -W_{\kappa} &  0\\
-            0 & (K_{\kappa} - \frac{1}{2}) & 0 \\
-            0 & W_{\kappa} & \varepsilon id \\
+             -P_{-1}W_{\kappa}& -P_{-1} &  0\\
+             P_{1}(K_{\kappa} - \frac{1}{2}) & 0 & 0 \\
+             P_{-2}W_{\kappa} & 0& \varepsilon P_{-2}  \\
         \end{pmatrix}.
 \end{equation}
-Here we introduced the parameter $\varepsilon$ to formally introduce a new boundary condition parameter, allowing us to invert the operator formally. As this new component is strongly suppressed by $\varepsilon$, it will not impact the outcome. We will use $\varepsilon = 0.01$ in the following calculations. 
-Assume that $L_\varepsilon$ is invertible and consider the operator $L_\varepsilon^{-1}A:  \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}} \rightarrow  \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}}$. Note that while we introduced an additional boundary condition parameter in the third argument, it is strongly suppressed by $\varepsilon$. Invertibility is satisfied for the considered case of $\Gamma$, as $L_\varepsilon$ becomes a blockdiagonal operator in the Fourier basis with non-vanishing determinant in each block. 
+Here we introduced the parameter $\varepsilon$ as a new formal boundary condition parameter, allowing us to invert the operator.
+Assume that $\mathcal{L}_\varepsilon$ is invertible and consider the operator $$\mathcal{L}_\varepsilon^{-1}A:  \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{1} \rightarrow  \mathcal{H}_{\tilde \kappa}^{\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{-\frac{1}{2}} \times \mathcal{H}_{\tilde \kappa}^{1}.$$ Note that while we introduced an additional boundary condition parameter in the third argument, it is strongly suppressed by $\varepsilon$. We will use $\varepsilon = 0.01$ in the following calculations. 
+Invertibility is satisfied for the considered case of $\Gamma$, as $\mathcal{L}_\varepsilon$ becomes a blockdiagonal operator in the Fourier basis with non-vanishing determinant in each block. 
 \begin{figure}
-    \includegraphics[width=0.5\textwidth]{InvertedMinimumSingularValuec_i1.0c_o3.0N_30eta1.0plotRangeStart_0,5plotRangeEnd_15shiftFirstValue_FalseremoveResonances_Trueindexrange_-15,0-0,0.pdf}
-    \includegraphics[width=0.5\textwidth]{InvertedMinimumSingularValuec_i3,0c_o1,0N_30eta1,0plotRangeStart_0,5plotRangeEnd_15shiftFirstValue_FalseremoveResonances_Trueindexrange_-22,0-0,0.pdf}
-    \caption{Inverted minimum singular value $\left\|A_{\mathcal{S}}^{-1}L_\varepsilon\right\|_{o p} =\frac{1}{\sigma_{\min }(M)}$ by wave number $\kappa$. The highest selected mode out of the considered first $N = 30$ modes was $n = 15$ for the left and $n =22$ for the right plot.
+    \includegraphics[width=0.5\textwidth]{simulation_scenario_10indexrange_-15.0-0.0_y_0_0.pdf}
+    \includegraphics[width=0.5\textwidth]{simulation_scenario_11indexrange_-22.0-0.0_y_0_0.pdf}
+    \caption{Inverted minimum singular value $\left\|A_{\mathcal{S}}^{-1}\mathcal{L}_\varepsilon\right\|_{o p} =\frac{1}{\sigma_{\min }(M)}$ by wave number $\kappa$. The highest selected mode out of the considered first $N = 30$ modes was $n = 15$ for the left and $n =22$ for the right plot.
     In the left plot we have $c_i = 1$ and $c_o = 3$
     and on the right plot we have $c_i = 3$ and $c_o = 1$. }
    \label{fig:regularised_results}
 \end{figure}
 \noindent
-As fig. \ref{fig:regularised_results} shows, the irregular resonance  behavior is indeed removed in the case $c_i = 1$, $c_o = 3$ while in the case $c_i = 3$, $c_o = 1$ the resonance behavior still agrees. This implies that the spurious quasi-resonances of the considered regularised formulation operator in eq. \ref{eq:operator_formulation} were indeed caused by the operator applied to the boundary data on the right hand side of the problem. \\
-However, we did not prove the invertibility of $L_\varepsilon$ for general $\Omega^-$. In particular, we did not provide an explicit expression for this inverse.\footnote{While a formal inverse (treating the entries of $L_\varepsilon$ as matrix entries) can be computed symbolically, expressions in the symbolic results may not be well-defined.} Future investigations into this area could include other augmentations of the considered operator that remove these spurious quasi-resonances while also being explicitly expressed for general bounded Lipschitz domains $\Omega^- \subset \mathbb{R}^d$. 
+As the left plot of fig. \ref{fig:regularised_results} shows, the irregular resonance  behavior is indeed removed in the case $c_i < c_o$. Moreover, the right plot shows that in the case $c_i> c_o$ the secondary resonances are also removed. This implies that the spurious quasi-resonances of the considered regularised formulation operator in eq. \ref{eq:operator_formulation} were caused by the operator applied to the boundary data on the right hand side of the problem. \\
+However, we did not prove the invertibility of $\mathcal{L}_\varepsilon$ for general $\Omega^-$. In particular, we did not provide an explicit expression for this inverse.\footnote{While a formal inverse (treating the entries of $\mathcal{L}_\varepsilon$ as matrix entries) can be computed symbolically, expressions in the symbolic results may not be well-defined.} Future investigations into this area could include other augmentations of the considered operator that remove these spurious quasi-resonances while also being explicitly expressed for general bounded Lipschitz domains $\Omega^- \subset \mathbb{R}^d$. 
 
 
 \section{Conclusion}
-This report considers a regularised variational formulation of the Helmholtz transmission problem on a two-dimensional disk (eq. \ref{eq:helmholtz}). We converted this variational formulation to an operator formulation (eq. \ref{eq:operator_formulation}) to simplify the  calculations and theoretical results following. After discretizing this formulation (eq. \ref{eq:galerkin_matrix}), we calculated the inverse operator norm of the considered operator $A$ (left side operator of eq. \ref{eq:operator_formulation}) numerically. We found, that for $c_i < c_o$ the operator exposed unphysical spurious quasi-resonances and growth that the solution operator did not (fig. \ref{fig:simulation_results}). However, the occurring resonances, were smaller than for other operator formulations (\cite{hiptmair2021spurious}). By composing with another operator $\mathcal{L}_\varepsilon^{-1}$ (eq. \ref{eq:L_operator}), we were able to remove these spurious quasi-resonances and explain their origin by relating the domain of $A^{-1}$ and the solution operator $S$. However, more general augmentation techniques are required as the considered operator $\mathcal{L}_\varepsilon$ was not proven to be invertible generally, and no explicit inverse was derived for it. 
+This report considers a regularised variational formulation of the Helmholtz transmission problem on a two-dimensional disk (eq. \ref{eq:helmholtz}). We converted this variational formulation to an operator formulation (eq. \ref{eq:operator_formulation}). After discretizing this formulation (eq. \ref{eq:galerkin_matrix}), we calculated the inverse operator norm of the considered operator $A$ (left side operator of eq. \ref{eq:operator_formulation}) numerically. As this value is equal to the inf-sup constant of the variational problem (see section \ref{section:solvability}), this estimates the well-posedness of the variational formulation. We found, that for optical indices $c_i > c_o$ the operator introduced non-physical secondary low-frequency oscillations with small amplitude which could be surpressed by scaling up the third equation of the variational problem (fig. \ref{fig:scaled_third_equation}). A rigorous explanation for this observation was not given and may be investigated in the future.  
+In the case, $c_i < c_o$ the operator exposed unphysical spurious quasi-resonances and growth behavior that the solution operator did not (fig. \ref{fig:simulation_results}). By composing with another operator $\mathcal{L}_\varepsilon^{-1}$ (eq. \ref{eq:L_operator}), we were able to remove these spurious quasi-resonances for $c_i < c_o$ and the secondary oscillations for $c_i > c_o$. Moreover, this explained the origin of spurious quasi-resonances by relating the domain of $A^{-1}$ and the solution operator $S$. However, augmentation techniques for more general geometries are required as the considered operator $\mathcal{L}_\varepsilon$ was not proven to be invertible generally, and no explicit inverse was derived for it. 
 
 \section{Appendix}
 \label{section:appendix}
 \subsection{Numerical Results for other examples}
 \begin{figure}
-    \includegraphics[width=0.5\textwidth]{InvertedMinimumSingularValuec_i1,0c_o10,0N_30eta1,0start_0,5end_15shiftFirstValue_Trueremove_Falseindexrange_-30,0-0,0_y_0_1,3358484167389728.pdf}
-    \includegraphics[width=0.5\textwidth]{InvertedMinimumSingularValuec_i10,0c_o1,0N_30eta1,0start_0,5end_15shiftFirstValue_Trueremove_Falseindexrange_-30,0-0,0_y_0_-0,15938792417683234.pdf} 
+    \includegraphics[width=0.5\textwidth]{simulation_scenario_3indexrange_-30.0-0.0_y_0_1.1849871455878584.pdf}
+    \includegraphics[width=0.5\textwidth]{simulation_scenario_4indexrange_-30.0-0.0_y_0_-0.2657606786884559.pdf} 
     \caption{Inverted minimum singular value $\left\|A_{\mathcal{S}}^{-1}\right\|$ by wave number $\kappa$. 
-    In the upper left plot we have $c_i = 1$, $c_o = 10$ and $y_0 = 1.336$
-    and on the upper right plot we have $c_i = 10$, $c_o = 1$ and $y_0 = -0.159$.}
+    In the upper left plot we have $c_i = 1$ and $c_o = 10$
+    and on the upper right plot we have $c_i = 10$ and $c_o = 1$. In both plots we have $\eta = 1$.}
    \label{fig:c_other_results}
 \end{figure}
 \noindent
 We considered the example $c_i = 1$, $c_o = 3$ and vice versa in section \ref{section:numerical_results}. In fig. \ref{fig:c_other_results} we present other examples for the refractive indices, showing that the overall trends and occurrence of spurious quasi-resonances is very similar to the considered example. \\
 \begin{figure}
-    \includegraphics[width=0.5\textwidth]{InvertedMinimumSingularValuec_i1,0c_o3,0N_30eta0start_0,5end_15shiftFirstValue_Trueremove_Falseindexrange_-18,0-0,0_y_0_0,6748762480507995.pdf}
-    \includegraphics[width=0.5\textwidth]{InvertedMinimumSingularValuec_i1,0c_o3,0N_30eta0,5start_0,5end_15shiftFirstValue_Trueremove_Falseindexrange_-20,0-0,0_y_0_0,6853549487874291.pdf}  \\
-    \includegraphics[width=0.5\textwidth]
-    {InvertedMinimumSingularValuec_i1,0c_o3,0N_30eta1,0plotRangeStart_0,5plotRangeEnd_15indexrange_-20,0-0,0_y_0_0,7115197817684848.pdf} 
-    \includegraphics[width=0.5\textwidth]{InvertedMinimumSingularValuec_i1,0c_o3,0N_30eta5,0sart_0,5end_15shiftFirstValue_Trueremove_Falseindexrange_-19,0-0,0_y_0_0,8594171126139554.pdf}  \\
-     \includegraphics[width=0.5\textwidth]{InvertedMinimumSingularValuec_i1,0c_o3,0N_30eta10start_0,5end_15shiftFirstValue_Trueremove_Falseindexrange_-10,0-0,0_y_0_0,8864570097015256.pdf} 
-    \includegraphics[width=0.5\textwidth]{InvertedMinimumSingularValuec_i1,0c_o3,0N_30eta100,0start_0,5end_15shiftFirstValue_Trueremove_Falseindexrange_-18,0-0,0_y_0_0,8972397818023745.pdf} 
+    \includegraphics[width=0.5\textwidth]{simulation_scenario_8indexrange_-15.0-0.0_y_0_0.657269862562512.pdf}
+    \includegraphics[width=0.5\textwidth]{simulation_scenario_9indexrange_-18.0-0.0_y_0_0.6496359740372837.pdf}  \\
+    \includegraphics[width=0.5\textwidth]{simulation_scenario_1indexrange_-18.0-0.0_y_0_0.6300477177912973.pdf} 
+    \includegraphics[width=0.5\textwidth]{simulation_scenario_7indexrange_-7.0-0.0_y_0_1.6318610980121495.pdf}  \\
+     \includegraphics[width=0.5\textwidth]{simulation_scenario_6indexrange_-12.0-0.0_y_0_2.579539681123669.pdf} 
+    \includegraphics[width=0.5\textwidth]{simulation_scenario_5indexrange_-30.0-0.0_y_0_7.117865219377693.pdf} 
     \caption{Inverted minimum singular value $\left\|A_{\mathcal{S}}^{-1}\right\|$ by wave number $\kappa$. In all six scenarios we have $c_i = 1.0, c_o = 3.0$ and we vary $\eta$. The values of $\eta$ are as follows. Top left: $\eta = 0$, top right: $\eta = 0.5$, middle left: $\eta = 1.0$, middle right: $\eta = 5.0$,  lower left: $\eta = 10.0$, and lower right: $\eta = 100.0$.}
-   \label{fig:eta_other_results}
+     \label{fig:eta_other_results}
 \end{figure}
-\noindent
-Moreover, we only studied $\eta = 1.0$ in section \ref{section:numerical_results}. As shown in fig. \ref{fig:eta_other_results}, the operator growth is smallest around $\eta = 1.0$ out of the selected values. This is in agreement with the results of P. Meury's doctoral thesis, where he achieved optimal stability around $\eta = 1.0$ \cite{meury2007stable}.
+\noindent Moreover, we only studied $\eta = 1.0$ in section \ref{section:numerical_results}. As shown in fig. \ref{fig:eta_other_results}, the operator growth is smallest in the range from $\eta = 0.5$ to $\eta = 1.0$ out of the selected values. This is in agreement with the results of P. Meury's doctoral thesis, where he achieved optimal stability around $\eta = 1.0$ \cite{meury2007stable}.
 \\
-Lastly, we will justify the introduction of a cutoff $N$ for the Fourier modes. In fig. \ref{fig:eta_other_results} the singular value of the operator block $A^{num}_n$ inverse are plotted as a function of the mode $n$. We clearly see, that for $n$ big enough the singular value converges. 
+Lastly, we will justify the introduction of a cutoff $N$ for the Fourier modes. In fig. \ref{fig:convergence_test} the singular value of the operator block $A^{num}_n$ inverse are plotted as a function of the mode $n$. We clearly see, that for $n$ big enough the singular value converges. 
 \begin{figure}
 \center{
-    \includegraphics[width=0.5\textwidth]{convergenceTest_c_i1,0c_o_1,0kappa_5,0.pdf}}
-    \caption{Inverted singular value $\left\|A^{num}_n\right\|$ for fixed $\kappa$ as a function of the Fourier mode $n$. }
-   \label{fig:eta_other_results}
+    \includegraphics[width=0.5\textwidth]{convergenceTest_c_i1.0c_o_1.0kappa_1.0.pdf}
+    \caption{Inverted singular value $\left\|A^{num}_n\right\|$ for fixed $\kappa$ as a function of the Fourier mode $n$. }}
 \end{figure}
+\label{fig:convergence_test}
 \noindent
-There is also a simple theoretical explanation to justify the cutoff in $n$: consider the matrix $A^{num}_n$ as defined in eq. \ref{eq:galerkin_matrix}. We have the approximate form \(J_{n}(x) \sim \frac{1}{\Gamma(n+1)}\left(\frac{x}{2}\right)^{n}\) for \(x \ll \sqrt{n+1}\) \cite{abramowitz1972abramowitz}. This implies that $\lim\limits_{n \rightarrow \infty}\frac{\alpha_n}{n} = 1$
+There is also a simple theoretical explanation to justify the cutoff in $n$: consider the matrix $A^{num}_n$ as defined in eq. \ref{eq:galerkin_matrix}. We have the approximate form \(J_{n}(x) \sim \frac{1}{\Gamma(n+1)}\left(\frac{x}{2}\right)^{n}\) for \(x \ll \sqrt{n+1}\) \cite{abramowitz1972abramowitz}. This implies that $\lim\limits_{n \rightarrow \infty}\frac{\alpha_n}{n} = 1$.
 Moreover, we know that $\beta_n = O(n^2)$. The following limits can be validated numerically or symbolically:\footnote{Note that the $n$-dependence is not written out explicitly.}
 \begin{align}
-    \lim\limits_{n \rightarrow \infty} \lambda_n^{(V)} = \frac{1}{2} \nonumber \\
-    \lim\limits_{n \rightarrow \infty} \lambda_n^{(K)} = 0 \nonumber \\
-    \lim\limits_{n \rightarrow \infty} \frac{\lambda_n^{(W)}}{n} = \frac{1}{2}. \nonumber
+    \lim\limits_{n \rightarrow \infty} \lambda^{(V)} = \frac{1}{2} \nonumber \\
+    \lim\limits_{n \rightarrow \infty} \lambda^{(K)} = 0 \nonumber \\
+    \lim\limits_{n \rightarrow \infty} \frac{\lambda^{(W)}}{n} = \frac{1}{2}. \nonumber
 \end{align} Therefore, the matrix $A^{num}_n$ behaves the following for big $n$:
 $$
     A^{num}_n {\sim} 
@@ -726,6 +799,46 @@ we obtain the solution operator matrix:
 \noindent
 that maps the Fourier coefficients of $f$ in the complete orthonormal system for $\mathcal{H}^{\frac{1}{2}}\times \mathcal{H}^{-\frac{1}{2}}$
  to the Fouier coefficients of $\gamma_C^-u$ in the same basis.
+
+\subsection{Proof of Theorem \ref{thm:variational_perspective}}
+\begin{proof}[Proof of Theorem \ref{thm:variational_perspective}]
+    Consider the operator problem $Au = w$ with linear operator $A$ as defined in Lemma \ref{lem:operator_formulation}.
+    $A$ is bounded as continuity of the sesquilinear form implies that there is a constant $M>0$ such that
+    $$
+        \|A u\|_{H}^{2}=(A u, A u)_{H}=|{a(u, A u)}| \leq M\|u\|_{H}\|A u\|_{H}
+    $$
+    Moreover $A$ is injective: assume $Au = 0$ for some $u \in H \backslash \{0\}$. Then $|(Au, v)_H| =0 \text{ } \forall v \in H$. In particular, $\sup\limits_{v\in H} |(Au, v)_H| = 0$. However,
+    $$
+        0 = \sup\limits_{v\in H \backslash \{0\}} \frac{|(Au, v)_H|}{\|u\|_H \|v\|_H} \geq \inf\limits_{t \in H \backslash \{0\}}\sup\limits_{v\in H \backslash \{0\}} \frac{|(At, v)_H|}{\|u\|_H \|v\|_H} = \inf\limits_{t \in H \backslash \{0\}}\sup\limits_{v\in H \backslash \{0\}} \frac{|{a(t, v)}|}{\|u\|_H \|v\|_H}= \gamma
+    $$
+    is a contradiction as $\gamma > 0$ by assumption. Thus $u = 0$ and $A$ is injective. \\
+    Now we show surjectivity of $A$. $A$ is surjective if every $v \in H$ is contained in its image.
+    First, note that $\mathrm{Im}(A)$ is closed. Assume we have a Cauchy sequence $w_n$ in $\mathrm{Im}(A)$. Then there are $u_n \in H$ such that $Au_n = w_n$. We have
+    $$
+     \left\|u_{l}-u_{m}\right\|_{H} \leq \frac{1}{\gamma} \sup _{v \in H \backslash\{0\}} \frac{|a(u_l - u_m,v)|}{\|v\|_H} = 
+    \frac{1}{\gamma} \sup_{v \in H \backslash\{0\}} \frac{|(w_l - w_m, v)_H|}{\|v\|_H} =  \frac{1}{\gamma}\|w_l - w_m\|_{H}.
+    $$
+    In the first equation we used the definition of $\gamma$, in the second we used that $a(u_n,v) = (Au_n, v)_H = (w_n, v)_H$  and in the third we used the Cauchy-Schwarz inequality. We showed that $u_n$ is Cauchy. $H$ is complete, so $u_n$ converges in $H$. Because of continuity of $A$, this implies that $$\lim\limits_{n\rightarrow \infty} Au_n = \lim\limits_{n\rightarrow \infty} w_n = A \lim\limits_{n \rightarrow \infty} u_n.$$ Therefore $\mathrm{Im}(A)$  is closed. 
+    Since $\mathrm{Im}(A)$ is closed, we have $H = \mathrm{Im}(A) \oplus \mathrm{Im}(A)^\perp$ according to \cite{rudin1991functional}. Therefore, we just have to show that the orthogonal complement of $A$ is empty. This is the case if the map $u \mapsto (Au, v)$ is nontrivial for all $v \in H$. We prove this by contradiction. Assume there is a $v \in H$ such that $u \mapsto (Au, v)$ is the zero map. Then   $a(u, v) = 0  \text{ }\forall u \in H$, violating the C2 condition $\sup\limits_{u \in H \backslash\{0\}} \frac{|a(u, v)|}{\|u\|_{H}}>0 \text{ } \forall v \in H \backslash\{0\}$. Thus, $\mathrm{Im}(A)^\perp$ is empty and $A$ is surjective.
+    \\
+    % Now assume $Y$ is a proper subset of $H^*$. According to Corollary 5.4 in \cite{ovchinnikov2018functional} this implies that there is a $v \in (H^*)^*$ such that $v_{|Y} = 0$. However, this is a contradiction to C2. Since $(Au)^* \in Y$ for every $u \in H$ by definition, we have 
+    % $$0 = |v((Au)^*)| = |(Au)^*(v)| = |(Au, v)_H| = |a(u, v)|.$$ In particular, then 
+    % $$
+    % \sup_{u \in H\backslash \{0\}}a(u, v) = 0,
+    % $$
+    % contradicting C2.
+    % \\
+    % Therefore, we must have $Y = H^*$, proving surjectivty of $A$. 
+    This concludes the proof of solvability and bijectivity as $A^{-1} \tau$ is the solution operator where $\tau$ is the bijective antilinear map $\tau: H^* \rightarrow H$ from the Riesz representation theorem. \\
+    The last claim about the norm of the solution operator follows directly: 
+    \begin{align*}
+    \|S_{var}\|_{H^* \rightarrow H} & = \sup\limits_{b \in H^*\backslash \{0\}}\frac{\|Sb\|_{H}}{\|b\|_{H^*}} = 
+    \sup\limits_{b \in H\backslash \{0\}}\frac{\|Sb\|_{H}}{\sup\limits_{v\in H\backslash \{0\}} \frac{|b(v)|}{\|v\|_H}} = 
+    \sup\limits_{b \in H^*\backslash \{0\}}\frac{\|u(b)\|_{H}}{\sup\limits_{v\in H\backslash \{0\}} \frac{|a(u, v)|}{\|v\|_H}} \\
+    & = \sup\limits_{u \in H\backslash \{0\}}\frac{\|u\|_{H}}{\sup\limits_{v\in H\backslash \{0\}} \frac{|a(u,v)|}{\|v\|_H}} = \frac{1}{\inf\limits_{v\in H\backslash \{0\}}\sup\limits_{u \in H\backslash \{0\}}{ \frac{|a(u,v)|}{\|v\|_H\|u\|_{H}} }} = \frac{1}{\gamma}.
+    \end{align*}
+    Note that we used bijectivity in the fourth equation, allowing us to write $v(u)$ instead of $u(v)$ and taking the supremum over $u$. Moreover we used $b(v) = a(u,v)$ from LVP.
+\end{proof}
 
 \newpage
 \section*{Symbols}
